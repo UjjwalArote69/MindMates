@@ -1,12 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-
-interface AuthenticatedRequest extends Request {
-  user?: any; // You can later type it better
-}
+// import { CustomRequest } from "../types/custom"; // adjust the path accordingly
 
 export const authenticateUser = (
-  req: AuthenticatedRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
@@ -23,8 +20,8 @@ export const authenticateUser = (
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
-    req.user = decoded;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { id: string };
+    (req as any).user = { id: decoded.id }; // ensures type consistency
     next();
   } catch (err) {
     return res.status(401).json({ message: "Unauthorized - Invalid or expired token" });
