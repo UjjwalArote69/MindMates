@@ -1,6 +1,7 @@
 import {Router} from 'express';
 import passport from 'passport';
-import generateJwt from '../utils/generateJwt';
+import { generateToken } from '../utils/generateToken';
+import { loginUser, registerUser } from '../controllers/auth.controller';
 
 const router = Router();
 
@@ -11,9 +12,12 @@ router.get(
     passport.authenticate("google", {session: false, failureRedirect: "/"}),
     (req, res) => {
         const user = req.user as any;
-        const token = generateJwt(user);
+        const token = generateToken(user);
         res.redirect(`http://localhost:5173?token=${token}`);
     }
 );
+
+router.post("/register", registerUser);
+router.post("/login", loginUser);
 
 export default router;
