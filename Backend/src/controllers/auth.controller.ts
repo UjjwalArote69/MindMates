@@ -28,6 +28,8 @@ export const registerUser = async (req: Request, res: Response) => {
     const token = generateToken({ id: newUser._id as string });
 
     res.status(201).json({
+      newUser,
+      token,
       message: `User created - ${newUser.name} at ${newUser.createdAt} && Token - ${token}`,
     });
   } catch (error) {
@@ -52,10 +54,15 @@ export const loginUser = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Invalid credentials" });
 
     const token = generateToken({ id: user._id as string });
+
+    const { password: _, ...userWithoutPassword } = user.toObject();
+
+    res.cookie("token", token)
+
     res.status(200).json({
-      message: `Logged in User - ${
-        user.name
-      } at ${Date.now.toString()} && ${token}`,
+      user: userWithoutPassword,
+      token,
+      message: `Logged in User - ${user.name} at ${new Date().toISOString()}`,
     });
   } catch (error) {
     console.error("Auth Controller : loginUser, ", error);

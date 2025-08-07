@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { login } from "../services/auth.service";
 
 const Login = () => {
+  // console.log("🔥 Login Component Rendered");
+  
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -29,10 +31,9 @@ const Login = () => {
     setFormError("");
     setLoading(true);
 
+
     try {
       const res = await login(form);
-      console.log("✅ LOGIN SUCCESS:", res);
-      // localStorage.setItem("token", ); // Store JWT
       navigate("/home");
     } catch (error: any) {
       console.error("❌ LOGIN ERROR:", error);
@@ -43,6 +44,7 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
+    
     window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/google`;
   };
 
@@ -64,7 +66,9 @@ const Login = () => {
 
         {/* Email */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#4E342E]">Email Address</label>
+          <label className="text-sm font-medium text-[#4E342E]">
+            Email Address
+          </label>
           <div
             className={`flex items-center gap-2 rounded-full px-4 py-3 bg-white border ${
               emailError ? "border-[#F4A261]" : "border-gray-300"

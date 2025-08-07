@@ -33,6 +33,7 @@ const Register = () => {
     try {
       const res = await register(form);
       console.log("✅ REGISTER SUCCESS:", res);
+      localStorage.setItem("token", res.token )
       navigate("/home");
     } catch (error: any) {
       console.error("❌ REGISTER ERROR:", error);
