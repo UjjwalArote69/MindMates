@@ -1,4 +1,4 @@
-import {User} from "../model/user.model";
+import { User } from "../model/user.model";
 import { Response, Request } from "express";
 // import { Request } from "../types/custom";
 
@@ -12,7 +12,7 @@ export const getMe = async (req: Request, res: Response) => {
     res.status(200).json(user);
   } catch (error) {
     console.error("User Controller : getMe, ", error);
-    res.status(500).json({ message: "Internal Server Error"});
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -37,7 +37,7 @@ export const updateUser = async (req: Request, res: Response) => {
     res.status(200).json(updated);
   } catch (error) {
     console.error("User Controller : updateUser, ", error);
-    
+
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -54,6 +54,6 @@ export const deleteUser = async (req: Request, res: Response) => {
     res.status(200).json({ message: "User deleted" });
   } catch (error) {
     console.error("User Controller : deleteUser, ", error);
-    res.status(500).json({ message: "Internal Server Error"})
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };

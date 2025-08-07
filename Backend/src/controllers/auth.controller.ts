@@ -27,9 +27,9 @@ export const registerUser = async (req: Request, res: Response) => {
 
     const token = generateToken({ id: newUser._id as string });
 
-    res
-      .status(201)
-      .json({ message: `User created - ${newUser} && Token - ${token}` });
+    res.status(201).json({
+      message: `User created - ${newUser.name} at ${newUser.createdAt} && Token - ${token}`,
+    });
   } catch (error) {
     console.error("Auth Controller : registerUser, ", error);
     res.status(500).json({ message: "Internal Server Error" });
@@ -38,16 +38,11 @@ export const registerUser = async (req: Request, res: Response) => {
 
 export const loginUser = async (req: Request, res: Response) => {
   try {
-    const { emailOrUsername, password } = req.body;
-    if (!emailOrUsername || !password)
+    const { email, password } = req.body;
+    if (!email || !password)
       return res.status(400).json({ message: "All fields are required" });
 
-    const user = await User.findOne({
-      $or: [
-        { email: new RegExp(`^${emailOrUsername}$`, "i") },
-        { displayName: new RegExp(`^${emailOrUsername}$`, "i") },
-      ],
-    }).select("+password");
+    const user = await User.findOne({ email });
 
     if (!user || !user.password)
       return res.status(400).json({ message: "Invalid credentials" });
@@ -57,9 +52,11 @@ export const loginUser = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Invalid credentials" });
 
     const token = generateToken({ id: user._id as string });
-    res
-      .status(200)
-      .json({ message: `Logged in User - ${user.name} && ${token}` });
+    res.status(200).json({
+      message: `Logged in User - ${
+        user.name
+      } at ${Date.now.toString()} && ${token}`,
+    });
   } catch (error) {
     console.error("Auth Controller : loginUser, ", error);
     res.status(500).json({ message: "Internal Server Error" });
