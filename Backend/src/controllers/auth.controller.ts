@@ -27,6 +27,13 @@ export const registerUser = async (req: Request, res: Response) => {
 
     const token = generateToken({ id: newUser._id as string });
 
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax", // or "None" if using cross-origin cookies with HTTPS
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
     res.status(201).json({
       newUser,
       token,
@@ -57,7 +64,12 @@ export const loginUser = async (req: Request, res: Response) => {
 
     const { password: _, ...userWithoutPassword } = user.toObject();
 
-    res.cookie("token", token)
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax", // or "None" if using cross-origin cookies with HTTPS
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
 
     res.status(200).json({
       user: userWithoutPassword,

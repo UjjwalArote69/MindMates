@@ -18,20 +18,24 @@ passport.use(
       try {
         // console.log("GOOGLE PROFILE:", profile);
 
-        const existingUser = await User.findOne({ googleId: profile.id });
+        const user = await User.findOne({ googleId: profile.id });
+        let isNewUser = false;
 
-        if (existingUser) return done(null, existingUser);
+        let finalUser = user;
 
-        const newUser = await User.create({
-          googleId: profile.id,
-          name: `${profile.name?.givenName || ""} ${
-            profile.name?.familyName || ""
-          }`.trim(),
-          email: profile.emails?.[0]?.value || "",
-          photo: profile.photos?.[0]?.value || "",
-        });
+        if (!user) {
+          finalUser = await User.create({
+            googleId: profile.id,
+            name: `${profile.name?.givenName || ""} ${
+              profile.name?.familyName || ""
+            }`.trim(),
+            email: profile.emails?.[0]?.value || "",
+            photo: profile.photos?.[0]?.value || "",
+          });
+          isNewUser = true;
+        }
 
-        return done(null, newUser);
+        return done(null, { ...finalUser!.toObject(), isNewUser });
       } catch (error) {
         return done(error, undefined);
       }

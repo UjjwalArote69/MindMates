@@ -1,5 +1,5 @@
-import { User } from "../model/user.model";
 import { Response, Request } from "express";
+import { User } from "../model/user.model";
 // import { Request } from "../types/custom";
 
 export const getMe = async (req: Request, res: Response) => {
@@ -20,24 +20,23 @@ export const getMe = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
   try {
     const userId = (req as any).user.id;
-    const { displayName, photo } = req.body;
-
-    const user = await User.findById(userId).select("-__v").lean();
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+    const { newName, photo } = req.body;
 
     const updated = await User.findByIdAndUpdate(
       userId,
-      { displayName, photo },
-      { new: true }
-    );
+      { name: newName, avatar: photo },
+      { new: true, runValidators: true }
+    ).select("-__v");
 
-    res.status(200).json(updated);
+    if (!updated) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res
+      .status(200)
+      .json({ message: "Profile updated succesfully", user: updated });
   } catch (error) {
     console.error("User Controller : updateUser, ", error);
-
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
