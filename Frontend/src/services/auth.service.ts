@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
 
-export const register = async (data: {
+export const registerUserService = async (data: {
   name: string;
   email: string;
   password: string;
@@ -21,7 +21,7 @@ export const register = async (data: {
   }
 };
 
-export const login = async (data: { email: string; password: string }) => {
+export const loginUserService = async (data: { email: string; password: string }) => {
   try {
     const res = await axios.post(`${API}/auth/login`, data, {
       headers: {

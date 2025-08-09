@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../services/auth.service";
+import { loginUserService } from "../services/auth.service";
+// import { AuthContext, useAuth,  } from "../context/AuthContext";
 
 const Login = () => {
-  // console.log("🔥 Login Component Rendered");
-  
   const navigate = useNavigate();
+  // const { refreshUser } = useAuth();
 
   const [form, setForm] = useState({
     email: "",
@@ -31,10 +31,12 @@ const Login = () => {
     setFormError("");
     setLoading(true);
 
-
     try {
-      const res = await login(form);
-      navigate("/home");
+      const response = await loginUserService(form);
+      setTimeout(async () => {
+        // await refreshUser();
+        navigate("/home", { replace: true });
+      }, 100);
     } catch (error: any) {
       console.error("❌ LOGIN ERROR:", error);
       setFormError(error.response?.data?.message || "Something went wrong");
@@ -44,7 +46,6 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    
     window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/google`;
   };
 

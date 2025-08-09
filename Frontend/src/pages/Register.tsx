@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { register } from "../services/auth.service";
+import { registerUserService } from "../services/auth.service";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -31,10 +31,8 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const res = await register(form);
-      console.log("✅ REGISTER SUCCESS:", res);
-      localStorage.setItem("token", res.token )
-      navigate("/home");
+      await registerUserService(form);
+      navigate("/onboarding");
     } catch (error: any) {
       console.error("❌ REGISTER ERROR:", error);
       setFormError(error.response?.data?.message || "Something went wrong");
@@ -65,7 +63,9 @@ const Register = () => {
 
         {/* Full Name */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#4E342E]">Full Name</label>
+          <label className="text-sm font-medium text-[#4E342E]">
+            Full Name
+          </label>
           <div className="flex items-center gap-2 rounded-full px-4 py-3 bg-white border border-gray-300">
             <span>👤</span>
             <input
@@ -82,7 +82,9 @@ const Register = () => {
 
         {/* Email */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#4E342E]">Email Address</label>
+          <label className="text-sm font-medium text-[#4E342E]">
+            Email Address
+          </label>
           <div
             className={`flex items-center gap-2 rounded-full px-4 py-3 bg-white border ${
               emailError ? "border-[#F4A261]" : "border-gray-300"
