@@ -1,52 +1,37 @@
 // src/context/AuthContext.tsx
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { getMe } from "../services/user.service";
+import { createContext, useState, useEffect, useContext } from "react";
+import axios from "axios";
 
-interface AuthContextType {
+type AuthContextType = {
   user: any;
   loading: boolean;
-  refreshUser: () => Promise<void>;
-  logout: () => void;
-}
+};
 
-export const AuthContext = createContext<AuthContextType | null>(null);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<any>(null);
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const refreshUser = async () => {
-    try {
-      const res = await getMe();
-      setUser(res.data);
-    } catch (err) {
-      setUser(null);
-    }
-  };
-
-  const logout = () => {
-    setUser(null);
-    // optionally: clear cookies with a logout API
-  };
-
   useEffect(() => {
-    const init = async () => {
-      await refreshUser();
-      setLoading(false);
-    };
-    init();
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/api/user/me`, { withCredentials: true })
+      .then(res => setUser(res.data))
+      .catch(() => setUser(null))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, refreshUser, logout }}>
+    <AuthContext.Provider value={{ user, loading }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-// custom hook to use auth
 export const useAuth = () => {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuth must be used within AuthProvider");
-  return ctx;
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
 };

@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
 import { User } from "../model/user.model";
-// import { Request } from "../types/custom";
+
 
 export const getMe = async (req: Request, res: Response) => {
   try {
@@ -56,3 +56,18 @@ export const deleteUser = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const logoutUser = async (req: Request, res: Response) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict"
+    });
+
+    res.status(200).json({ message: "Logged out successfully" });
+  } catch (error) {
+    console.error("User Controller : logoutUser", error);
+    res.status(500).json({message: "Internal Server Error" });
+  }
+}

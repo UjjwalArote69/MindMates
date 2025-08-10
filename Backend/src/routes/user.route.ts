@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { protect } from "../middleware/auth.middleware";
-import { deleteUser, getMe, updateUser } from "../controllers/user.controller";
+import { deleteUser, getMe, logoutUser, updateUser } from "../controllers/user.controller";
 // import { getMe, updateUser, deleteUser } from "../controllers/user.controller";
 
 const router = Router();
@@ -10,5 +10,6 @@ const router = Router();
 router.get("/me", protect, getMe);
 router.put("/me", protect, updateUser);
 router.delete("/me", protect, deleteUser);
+router.post("/logout", protect, logoutUser)
 
 export default router;
