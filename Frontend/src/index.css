@@ -1,10 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "swiper/css";
 @import "swiper/css/pagination";
 @import "swiper/css/navigation";
 
+
 @custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-Lato: "Lato", san-serif;
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -144,4 +150,9 @@
 }
 .swiper-pagination-bullet-active {
   background: #4E342E;
+}
+
+.hero::-webkit-scrollbar {
+  display: none;
+  /* stroke-width: 10; */
 }

@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { getMe } from '../services/user.service';
 
 const Home = () => {
+
+  const [user, setUser] = useState();
+  
+  
+
   return (
-    <div>Home</div>
+    <div className='text-5xl '>Home</div>
   )
 }
 

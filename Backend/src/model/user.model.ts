@@ -1,48 +1,46 @@
-// src/models/user.model.ts
-
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document } from "mongoose";
 
 export interface UserDocument extends Document {
-  // Basic Info
   email: string;
   password?: string;
   name?: string;
   googleId?: string;
   avatar?: string;
 
-  //Personal Info
+  // Personal Info
   age?: number;
   weight?: number;
   height?: number;
   gender?: "male" | "female" | "other";
 
-  //Mental Health & Wellness
-  sleepQuality?: number;
-  averageSleepTime?: number;
-  stressLevel: number;
-  moodTracker?: {
-    date: Date;
-    mood: string;
-  }[];
+  // Logs
+  moodTracker?: { date: Date; mood: string }[];
+  sleepLogs?: { date: Date; quality: number; hours: number }[];
+  stressLogs?: { date: Date; level: number }[];
+  hydrationLogs?: { date: Date; liters: number }[];
+  activityLogs?: { date: Date; steps: number; minutes: number }[];
+  meditationLogs?: { date: Date; minutes: number }[];
+
+  // Calculated/Latest Metrics
   mentalHealthScore?: number;
-
-  //Activity Goals
-  hydrationLevel?: number;
-  meditationMinutes?: number;
-  dailySteps?: number;
-  exerciseMinutes?: number;
-  goals?: [];
-
-  //Meta
+  goals?: string[];
 
   createdAt: Date;
   updatedAt: Date;
 }
 
+const logSchema = new mongoose.Schema(
+  {
+    date: { type: Date, default: Date.now },
+    value: mongoose.Schema.Types.Mixed
+  },
+  { _id: false }
+);
+
 const userSchema = new mongoose.Schema<UserDocument>(
   {
     email: { type: String, required: true, unique: true },
-    password: { type: String }, // Optional for Google users
+    password: { type: String },
     name: { type: String, required: true },
     googleId: { type: String },
     avatar: { type: String },
@@ -50,21 +48,36 @@ const userSchema = new mongoose.Schema<UserDocument>(
     weight: { type: Number },
     height: { type: Number },
     gender: { type: String, enum: ["male", "female", "other"] },
-    sleepQuality: { type: Number, min: 1, max: 10 },
-    averageSleepTime: { type: Number, min: 0, max: 24 },
-    stressLevel: { type: Number },
-    hydrationLevel: {type: Number, min: 0, },
-    meditationMinutes: { type: Number, min: 0 },
+
     moodTracker: [
+      { date: { type: Date, default: Date.now }, mood: { type: String } }
+    ],
+    sleepLogs: [
       {
         date: { type: Date, default: Date.now },
-        moof: { type: String },
-      },
+        quality: { type: Number, min: 1, max: 10 },
+        hours: { type: Number, min: 0, max: 24 }
+      }
     ],
+    stressLogs: [
+      { date: { type: Date, default: Date.now }, level: { type: Number, min: 0, max: 10 } }
+    ],
+    hydrationLogs: [
+      { date: { type: Date, default: Date.now }, liters: { type: Number, min: 0 } }
+    ],
+    activityLogs: [
+      {
+        date: { type: Date, default: Date.now },
+        steps: { type: Number, min: 0 },
+        minutes: { type: Number, min: 0 }
+      }
+    ],
+    meditationLogs: [
+      { date: { type: Date, default: Date.now }, minutes: { type: Number, min: 0 } }
+    ],
+
     mentalHealthScore: { type: Number, min: 0, max: 100 },
-    dailySteps: { type: Number, min: 0 },
-    exerciseMinutes: { type: Number },
-    goals: [{ type: String }],
+    goals: [{ type: String }]
   },
   { timestamps: true }
 );

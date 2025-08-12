@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import { User } from "../model/user.model";
 
-
+// Get user or me
 export const getMe = async (req: Request, res: Response) => {
   try {
     const userId = (req as any).user.id;
@@ -41,6 +41,7 @@ export const updateUser = async (req: Request, res: Response) => {
   }
 };
 
+// Delete user
 export const deleteUser = async (req: Request, res: Response) => {
   try {
     const userId = (req as any).user.id;
@@ -57,6 +58,7 @@ export const deleteUser = async (req: Request, res: Response) => {
   }
 };
 
+// Logout User
 export const logoutUser = async (req: Request, res: Response) => {
   try {
     res.clearCookie("token", {
@@ -70,4 +72,32 @@ export const logoutUser = async (req: Request, res: Response) => {
     console.error("User Controller : logoutUser", error);
     res.status(500).json({message: "Internal Server Error" });
   }
+}
+
+// Get user data on first time login or onboarding data
+export const updateOnboardingData = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user?.id;
+    const {age, gender, } = (req as any).body;
+
+    if(!age || !gender) return res.status(400).json({ message: "Age is required"});
+
+    if(!userId) return res.status(404).json({ message: "Unauthorized"});
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId, 
+      { age: age, gender: gender },
+      {runValidators: true, new: true}
+    ).select("-password");
+
+    res.status(200).json({message: "New user data updated", updatedUser});
+  } catch (error) {
+    console.error("User Controller : getUserData", error);
+    res.status(500).json({message: "Internal Server Error"});
+  }
+}
+
+// Get daily user data e.g. mood, stress, weight
+export const getDailyData = (req: Request, res: Response) => {
+
 }
