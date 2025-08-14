@@ -94,7 +94,7 @@ function AnimatedBlurTestimonials({
             "relative z-10 overflow-hidden rounded-xl",
           )}
         >
-          <div ref={ref} className="h-75 p-4">
+          <div ref={ref} className="h-75 md:h-40 p-4">
             <AnimatePresence mode="popLayout" custom={dir} initial={false}>
               <motion.p
                 {...ani}

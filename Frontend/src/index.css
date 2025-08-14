@@ -152,7 +152,8 @@
   background: #4E342E;
 }
 
-.hero::-webkit-scrollbar {
+body::-webkit-scrollbar {
   display: none;
   /* stroke-width: 10; */
 }
+
