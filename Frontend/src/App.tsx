@@ -1,6 +1,6 @@
 // src/App.tsx
 import { Routes, Route } from "react-router-dom";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/shared/ProtectedRoute";
 import Login from "./pages/Login";
 import Onboarding from "./pages/Onboarding";
 import Home from "./pages/Home";
@@ -19,9 +19,9 @@ function App() {
       <Route
         path="/onboarding"
         element={
-          // <ProtectedRoute>
+          <ProtectedRoute>
           <Onboarding />
-          //  </ProtectedRoute>
+           </ProtectedRoute>
         }
       />
 
@@ -29,9 +29,9 @@ function App() {
       <Route
         path="/home"
         element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
           <Home />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         }
       />
     </Routes>

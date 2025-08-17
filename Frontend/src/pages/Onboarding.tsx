@@ -17,7 +17,6 @@ const Onboarding = () => {
   const [age, setAge] = useState<number>(18);
   // const [ageChecked, setAgeChecked] = useState<boolean>(false);
   const navigate = useNavigate();
-  const data = { age, gender: gender ?? "" };
 
   const handleGenderSelect = (selected: "male" | "female") => {
     setGender(selected);
