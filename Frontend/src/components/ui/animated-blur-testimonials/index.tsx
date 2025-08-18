@@ -94,13 +94,13 @@ function AnimatedBlurTestimonials({
             "relative z-10 overflow-hidden rounded-xl",
           )}
         >
-          <div ref={ref} className="h-75 md:h-40 p-4">
+          <div ref={ref} className="h-fit p-4">
             <AnimatePresence mode="popLayout" custom={dir} initial={false}>
               <motion.p
                 {...ani}
                 custom={dir}
                 key={count}
-                className="text-d-fg/60 font-medium  font-Lato"
+                className="text-d-fg/60 font-medium"
                 aria-live="polite"
               >
                 {data[count].message}
@@ -109,8 +109,8 @@ function AnimatedBlurTestimonials({
           </div>
         </motion.div>
 
-        <div className="grid  grid-cols-[60%_1fr] px-2">
-          <div className="flex   items-center gap-1">
+        <div className="grid grid-cols-[60%_1fr] px-2">
+          <div className="flex items-center gap-1">
             {Array.from({ length: data.length }).map((_, i) => (
               <motion.button
                 key={`progress-${i}`}
@@ -119,12 +119,12 @@ function AnimatedBlurTestimonials({
                 initial={{ width: i === count ? 64 : 18 }}
                 animate={{ width: i === count ? 64 : 18 }}
                 className={cn(
-                  " h-[6px] bg-[#e0cdc9] cursor-pointer overflow-hidden rounded-xl",
+                  "bg-amber-100 h-[6px] cursor-pointer overflow-hidden rounded-xl",
                 )}
               >
                 {count === i && (
                   <motion.div
-                    className="bg-d-fg/40 text-[#e0cdc9] float-right h-full rounded-xl"
+                    className="bg-d-fg/50 float-right h-full rounded-xl"
                     transition={{ duration: delayDuration }}
                     initial={{ width: "100%" }}
                     animate={{ width: ["100%", "0%"] }}
@@ -133,13 +133,13 @@ function AnimatedBlurTestimonials({
               </motion.button>
             ))}
           </div>
-          <div className="text-d-fg/60 flex justify-end gap-2">
+          <div className="text-amber-100 flex justify-end gap-2">
             <button
               onClick={() => {
                 setCount((count) => (count - 1 + data.length) % data.length);
                 setDir(-1);
               }}
-              className="hover:bg-d-fg/5 text-[#e0cdc9] flex size-8 cursor-pointer items-center justify-center rounded-md transition-colors active:scale-[0.95]"
+              className="hover:bg-d-fg/5 flex size-8 cursor-pointer items-center justify-center rounded-md transition-colors active:scale-[0.95]"
               aria-label="Previous testimonial"
             >
               <TbArrowNarrowLeft size={24} />
@@ -149,7 +149,7 @@ function AnimatedBlurTestimonials({
                 setCount((count) => (count + 1) % data.length);
                 setDir(1);
               }}
-              className="hover:bg-d-fg/5 text-[#e0cdc9] flex size-8 cursor-pointer items-center justify-center rounded-md transition-colors active:scale-[0.95]"
+              className="hover:bg-d-fg/5 flex size-8 cursor-pointer items-center justify-center rounded-md transition-colors active:scale-[0.95]"
               aria-label="Next testimonial"
             >
               <TbArrowNarrowRight size={24} />

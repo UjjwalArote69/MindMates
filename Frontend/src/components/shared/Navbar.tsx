@@ -13,7 +13,7 @@ const Navbar = () => {
   const [active, setActive] = useState("home");
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 px-2 py-3 bg-amber-30">
+    <div className="fixed bottom-0 left-0 right-0 z-50 px-3 py-3 bg-amber-30">
       {/* SVG Background Curve */}
       {/* <svg
         className="absolute bottom-0 w-full h-20"

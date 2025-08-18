@@ -7,6 +7,8 @@ import SearchIcon from "../assets/Icons/Search Icon.svg";
 import Navbar from "../components/shared/Navbar";
 import AiReccomendation from "../components/shared/AiReccomendation";
 import SwipableCards from "../components/shared/SwipableCards";
+import MindfullTracker from "../components/shared/MindfullTracker";
+import NotificationsIcon from "../assets/Icons/Notifications.svg";
 
 const Home = () => {
   return (
@@ -18,11 +20,11 @@ const Home = () => {
           <p className="text-xs text-gray-500 font-medium">{`${new Date()}`}</p>
           <div className="relative">
             {/* Notification Icon Circle */}
-            <div className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-200">
-              <span className="text-lg">🔔</span>
+            <div className="w-10 h-10 flex items-center justify-center rounded-full border border-black">
+              <img src={NotificationsIcon} alt="" />
             </div>
             {/* Small dot indicator */}
-            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            {/* <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span> */}
           </div>
         </div>
 
@@ -70,9 +72,10 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center bg-amber-20 px-3">
         <AiReccomendation />
         <SwipableCards/>
+        <MindfullTracker/>
       </div>
 
       <Navbar />

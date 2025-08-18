@@ -6,11 +6,12 @@ import RoboIcon from "../assets/Icons/Benefits-1 Robo icon.svg";
 import TickMark from "../assets/Icons/Benefits-1 Tick make Icon.svg";
 import Metrics from "../assets/Icons/Metrics Icon.svg";
 import Therapist from "../assets/Icons/Therapist icon.svg";
-import AnimatedBlurTestimonialsDemo from "../components/ui/animated-blur-testimonials/demo";
+// import AnimatedBlurTestimonialsDemo from "../components/ui/animated-blur-testimonials.tsx/demo";
 import LastMockup from "../assets/Images/Hero/Last Mockup.svg";
 import { useState } from "react";
 import { FiX, FiMenu } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import AnimatedBlurTestimonialsDemo from "../components/ui/animated-blur-testimonials/demo";
 
 const Hero = () => {
   const [menuOpen, setMenuOpen] = useState(false);
