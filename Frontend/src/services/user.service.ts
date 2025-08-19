@@ -15,7 +15,12 @@ export const getMe = async () => {
   }
 };
 
-export const onboardingData = async (data: { age: number; gender: string }) => {
+export const onboardingData = async (data: {
+  age: number;
+  gender: string;
+  weight?: number;
+  subscriptionType?: string;
+}) => {
   try {
     const res = await axios.put(`${API}/users/onboarding`, data, {
       withCredentials: true,

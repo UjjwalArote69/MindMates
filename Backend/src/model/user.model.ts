@@ -14,6 +14,9 @@ export interface UserDocument extends Document {
   gender?: "male" | "female" | "other";
 
   // Logs
+  currentMood?: string | "happy" | "neutral" | "sad" | "very sad";
+  sleepQuality?: string;
+  currentStress?: number;
   moodTracker?: { date: Date; mood: string }[];
   sleepLogs?: { date: Date; quality: number; hours: number }[];
   stressLogs?: { date: Date; level: number }[];
@@ -24,6 +27,12 @@ export interface UserDocument extends Document {
   // Calculated/Latest Metrics
   mentalHealthScore?: number;
   goals?: string[];
+
+  // Subscription Model
+  isPro: boolean;
+  stripeCustomerId?: string;
+  stripeSubscriptionId?: string;
+  subscriptionStatus?: "active" | "cancelled" | "incomplete" | "past_due" | null;
 
   createdAt: Date;
   updatedAt: Date;
@@ -49,8 +58,11 @@ const userSchema = new mongoose.Schema<UserDocument>(
     height: { type: Number },
     gender: { type: String, enum: ["male", "female", "other"] },
 
+    currentMood: { type: String, default: "happy"},
+    sleepQuality: { type: String, default: "good"},
+    currentStress: { type: Number, default: 7},
     moodTracker: [
-      { date: { type: Date, default: Date.now }, mood: { type: String } }
+      { date: { type: Date, default: Date.now }, mood: { type: String, default: "Happy" } }
     ],
     sleepLogs: [
       {
@@ -76,8 +88,16 @@ const userSchema = new mongoose.Schema<UserDocument>(
       { date: { type: Date, default: Date.now }, minutes: { type: Number, min: 0 } }
     ],
 
-    mentalHealthScore: { type: Number, min: 0, max: 100 },
-    goals: [{ type: String }]
+    mentalHealthScore: { type: Number, min: 0, max: 100, default: 80 },
+    goals: [{ type: String }],
+    isPro: { type: Boolean, default: false},
+    stripeCustomerId: { type: String},
+    stripeSubscriptionId: { type: String},
+    subscriptionStatus: {
+      type: String,
+      enum: ["active", "cancelled", "incomplete", "past_due"],
+      default: null,
+    }
   },
   { timestamps: true }
 );

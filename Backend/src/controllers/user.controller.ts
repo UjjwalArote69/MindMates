@@ -78,24 +78,24 @@ export const logoutUser = async (req: Request, res: Response) => {
 export const updateOnboardingData = async (req: Request, res: Response) => {
   try {
     const userId = (req as any).user?.id;
-    const {age, gender, } = (req as any).body;
+    const { age, gender, weight, mentalHealthScore, sleepQuality, currentMood , stressQuality } = req.body;
 
-    if(!age || !gender) return res.status(400).json({ message: "Age is required"});
-
-    if(!userId) return res.status(404).json({ message: "Unauthorized"});
+    if (!age || !gender) return res.status(400).json({ message: "Age and gender are required" });
+    if (!userId) return res.status(404).json({ message: "Unauthorized" });
 
     const updatedUser = await User.findByIdAndUpdate(
-      userId, 
-      { age: age, gender: gender },
-      {runValidators: true, new: true}
+      userId,
+      { age, gender, weight, mentalHealthScore, sleepQuality, currentMood , stressQuality },
+      { runValidators: true, new: true }
     ).select("-password");
 
-    res.status(200).json({message: "New user data updated", updatedUser});
+    res.status(200).json({ message: "Onboarding data updated", updatedUser });
   } catch (error) {
-    console.error("User Controller : getUserData", error);
-    res.status(500).json({message: "Internal Server Error"});
+    console.error("User Controller : updateOnboardingData", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
-}
+};
+
 
 // Get daily user data e.g. mood, stress, weight
 export const getDailyData = (req: Request, res: Response) => {
