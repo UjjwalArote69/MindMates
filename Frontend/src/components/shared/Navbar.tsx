@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import HomeNotActiveIcon from "../../assets/Icons/Home Icon Not Active.svg";
 import HomeActiveIcon from "../../assets/Icons/Home Icon Active.svg";
 import MessageNotActiveIcon from "../../assets/Icons/Message Icon Not Active.svg";
@@ -10,39 +12,27 @@ import MetricsActiveIcon from "../../assets/Icons/Metrics Icon Active.svg";
 import PlusIcon from "../../assets/Icons/Plus Icon.svg";
 
 const Navbar = () => {
-  const [active, setActive] = useState("home");
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Derive active tab from current route
+  const currentPath = location.pathname;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 px-3 py-3 bg-amber-30">
-      {/* SVG Background Curve */}
-      {/* <svg
-        className="absolute bottom-0 w-full h-20"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
-      >
-        <path
-          d="M0,0 L0,100 L100,100 L100,0 Q75,40 50,0 Q25,40 0,0 Z"
-          fill="white"
-        />
-      </svg> */}
-
-      {/* Main Navbar Container */}
+    <div className="fixed bottom-0 left-0 right-0 z-50 px-3 py-3">
       <div className="relative flex justify-between items-center py-2 bg-white rounded-full shadow-lg px-6">
+        
         {/* Left Icons */}
         <div className="flex space-x-8">
           {/* Home */}
-          <button
-            onClick={() => setActive("home")}
-            className="flex flex-col items-center"
-          >
+          <button onClick={() => navigate("/home")} className="flex flex-col items-center">
             <div
               className={`w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200 ${
-                active === "home" ? "bg-gray-200" : "text-gray-500"
+                currentPath === "/home" ? "bg-gray-200" : "text-gray-500"
               }`}
             >
               <img
-                src={active === "home" ? HomeActiveIcon : HomeNotActiveIcon}
+                src={currentPath === "/home" ? HomeActiveIcon : HomeNotActiveIcon}
                 alt="Home"
                 className="w-6 h-6"
               />
@@ -50,17 +40,14 @@ const Navbar = () => {
           </button>
 
           {/* Chat */}
-          <button
-            onClick={() => setActive("chat")}
-            className="flex flex-col items-center"
-          >
+          <button onClick={() => navigate("/chat")} className="flex flex-col items-center">
             <div
               className={`w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200 ${
-                active === "chat" ? "bg-gray-200" : "text-gray-500"
+                currentPath.startsWith("/chat") ? "bg-gray-200" : "text-gray-500"
               }`}
             >
               <img
-                src={active === "chat" ? MessageActiveIcon : MessageNotActiveIcon}
+                src={currentPath.startsWith("/chat") ? MessageActiveIcon : MessageNotActiveIcon}
                 alt="Chat"
                 className="w-6 h-6"
               />
@@ -69,7 +56,7 @@ const Navbar = () => {
         </div>
 
         {/* Floating Add Button */}
-        <div className="absolute -top-7 left-1/2 transform -translate-x-1/2 z-10 ">
+        <div className="absolute -top-7 left-1/2 transform -translate-x-1/2 z-10">
           <button className="w-14 h-14 flex items-center justify-center rounded-full bg-[#9AAA6D] shadow-lg transition-transform hover:scale-105">
             <img src={PlusIcon} alt="Add" className="w-7 h-7 text-white" />
           </button>
@@ -78,17 +65,14 @@ const Navbar = () => {
         {/* Right Icons */}
         <div className="flex space-x-8">
           {/* Stats */}
-          <button
-            onClick={() => setActive("stats")}
-            className="flex flex-col items-center"
-          >
+          <button onClick={() => navigate("/stats")} className="flex flex-col items-center">
             <div
               className={`w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200 ${
-                active === "stats" ? "bg-gray-200" : "text-gray-500"
+                currentPath === "/stats" ? "bg-gray-200" : "text-gray-500"
               }`}
             >
               <img
-                src={active === "stats" ? MetricsActiveIcon : MetricsNotActiveIcon}
+                src={currentPath === "/stats" ? MetricsActiveIcon : MetricsNotActiveIcon}
                 alt="Stats"
                 className="w-6 h-6"
               />
@@ -96,17 +80,14 @@ const Navbar = () => {
           </button>
 
           {/* Profile */}
-          <button
-            onClick={() => setActive("profile")}
-            className="flex flex-col items-center"
-          >
+          <button onClick={() => navigate("/profile")} className="flex flex-col items-center">
             <div
               className={`w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200 ${
-                active === "profile" ? "bg-gray-200" : "text-gray-500"
+                currentPath.startsWith("/profile") ? "bg-gray-200" : "text-gray-500"
               }`}
             >
               <img
-                src={active === "profile" ? ProfileActiveIcon : ProfileNotActiveIcon}
+                src={currentPath.startsWith("/profile") ? ProfileActiveIcon : ProfileNotActiveIcon}
                 alt="Profile"
                 className="w-6 h-6"
               />

@@ -1,14 +1,14 @@
-import StarIcon from "../assets/Icons/Star Icon.svg";
-import FourCirclesIcon from "../assets/Icons/Four Circles Icon.svg";
-import HappyIcon from "../assets/Icons/Happy Icon.svg";
-import SearchIcon from "../assets/Icons/Search Icon.svg";
-import Navbar from "../components/shared/Navbar";
-import AiReccomendation from "../components/shared/AiReccomendation";
-import SwipableCards from "../components/shared/SwipableCards";
-import MindfullTracker from "../components/shared/MindfullTracker";
-import NotificationsIcon from "../assets/Icons/Notifications.svg";
+import StarIcon from "../../assets/Icons/Star Icon.svg";
+import FourCirclesIcon from "../../assets/Icons/Four Circles Icon.svg";
+import HappyIcon from "../../assets/Icons/Happy Icon.svg";
+import SearchIcon from "../../assets/Icons/Search Icon.svg";
+import Navbar from "../../components/shared/Navbar";
+import AiReccomendation from "./components/AiReccomendation";
+import SwipableCards from "./components/SwipableCards";
+import MindfullTracker from "./components/MindfullTracker";
+import NotificationsIcon from "../../assets/Icons/Notifications.svg";
 import { useEffect, useState } from "react";
-import { getMe } from "../services/user.service";
+import { getMe } from "../../services/user.service";
 
 interface Mood {
   date: string;
@@ -26,6 +26,10 @@ interface User {
   height?: number;
   gender?: string;
   isPro?: boolean;
+  sleepQuality?: number;
+  currentMood?: string;
+  currentStress?: number;
+  subscriptionType?: string;
 }
 
 const Home = () => {
@@ -114,11 +118,42 @@ const Home = () => {
       </div>
 
       <div className="flex flex-col items-center bg-amber-20 px-3">
-        <AiReccomendation />
-        <SwipableCards />
-        <MindfullTracker />
+        <AiReccomendation user={user} />
+        <SwipableCards user={user} />
+        <MindfullTracker user={user} />
       </div>
 
+      {/* Quick Stats */}
+      {/* <div className="grid grid-cols-2 gap-4 mt-4">
+        <div className="p-4 bg-white rounded-2xl shadow-sm flex flex-col">
+          <span className="text-sm text-gray-500">Sleep Quality</span>
+          <span className="text-lg font-bold text-[#3f2c22]">
+            {user?.sleepQuality ? `${user.sleepQuality}/10` : "Not set"}
+          </span>
+        </div>
+
+        <div className="p-4 bg-white rounded-2xl shadow-sm flex flex-col">
+          <span className="text-sm text-gray-500">Stress Level</span>
+          <span className="text-lg font-bold text-[#3f2c22]">
+            {user?.currentStress ? `${user.currentStress}/10` : "Not set"}
+          </span>
+        </div>
+
+        <div className="p-4 bg-white rounded-2xl shadow-sm flex flex-col">
+          <span className="text-sm text-gray-500">Current Mood</span>
+          <span className="text-lg font-bold text-[#3f2c22]">
+            {user?.currentMood ?? "Not set"}
+          </span>
+        </div>
+
+        <div className="p-4 bg-white rounded-2xl shadow-sm flex flex-col">
+          <span className="text-sm text-gray-500">Weight</span>
+          <span className="text-lg font-bold text-[#3f2c22]">
+            {user?.weight ? `${user.weight} kg` : "Not set"}
+          </span>
+        </div>
+      </div> */}
+      
       <Navbar />
     </div>
   );

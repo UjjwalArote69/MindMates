@@ -20,6 +20,10 @@ export const onboardingData = async (data: {
   gender: string;
   weight?: number;
   subscriptionType?: string;
+  sleepQuality?: number;
+  currentMood?: string;
+  currentStress?: number;
+  mentalHealthScore?: number;
 }) => {
   try {
     const res = await axios.put(`${API}/users/onboarding`, data, {
@@ -31,3 +35,4 @@ export const onboardingData = async (data: {
     throw error;
   }
 };
+

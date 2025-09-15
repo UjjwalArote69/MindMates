@@ -1,12 +1,15 @@
 // import React from "react";
-import GreenClock from "../../assets/Icons/Green Clock Icon.svg";
-import MindfullClockIcon from "../../assets/Icons/MindFull Hours Icon.svg";
-import SleepBedIcon from "../../assets/Icons/Sleep bed Icon.svg";
-import DocumentHealthIcon from "../../assets/Icons/Document Health Icon.svg";
-import MindfullJournalIcon from "../../assets/Icons/Mindfull Journal Icon.svg";
-import StressLevelIcon from "../../assets/Icons/Stress Level Heart Icon.svg";
+import GreenClock from "../../../assets/Icons/Green Clock Icon.svg";
+import MindfullClockIcon from "../../../assets/Icons/MindFull Hours Icon.svg";
+import SleepBedIcon from "../../../assets/Icons/Sleep bed Icon.svg";
+import DocumentHealthIcon from "../../../assets/Icons/Document Health Icon.svg";
+import MindfullJournalIcon from "../../../assets/Icons/Mindfull Journal Icon.svg";
+import StressLevelIcon from "../../../assets/Icons/Stress Level Heart Icon.svg";
 
-const MindfullTracker = () => {
+const MindfullTracker = ({user}: {user: any}) => {
+
+  // if (user?.sleepQuality == )
+
   return (
     <>
       <div className="w-full px-4 py-8 space-y-2 -mt-4 flex flex-col justify-start gap-2 bg-amber-80 font-Lato bg-amber-20">
@@ -36,7 +39,7 @@ const MindfullTracker = () => {
               </div>
               <div>
                 <p className="font-bold text-gray-700">
-                  Sleep Quality
+                  {user?.sleepQuality ? `${user.sleepQuality}/10` : "Not tracked"}
                 </p>
                 <p className="text-sm text-gray-500">Insomniac (~2h Avg)</p>
               </div>
@@ -70,7 +73,7 @@ const MindfullTracker = () => {
               </div>
               <div>
                 <p className="font-bold text-gray-700">
-                  Stress Level
+                  {user?.currentStress ? `Level ${user.currentStress}` : "Not tracked"}
                 </p>
                 <p className="text-sm text-gray-500">Level 3 (Normal)</p>
               </div>

@@ -15,7 +15,7 @@ export interface UserDocument extends Document {
 
   // Logs
   currentMood?: string | "happy" | "neutral" | "sad" | "very sad";
-  sleepQuality?: string;
+  sleepQuality?: string | "excellent" | "good" | "neutral" | "bad" | "very bad";
   currentStress?: number;
   moodTracker?: { date: Date; mood: string }[];
   sleepLogs?: { date: Date; quality: number; hours: number }[];

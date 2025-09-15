@@ -1,5 +1,6 @@
 import { Response, Request } from "express";
 import { User } from "../model/user.model";
+import { calculateMetrics } from "../utils/calculateMetrics";
 
 // Get user or me
 export const getMe = async (req: Request, res: Response) => {
@@ -64,40 +65,58 @@ export const logoutUser = async (req: Request, res: Response) => {
     res.clearCookie("token", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict"
+      sameSite: "strict",
     });
 
     res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
     console.error("User Controller : logoutUser", error);
-    res.status(500).json({message: "Internal Server Error" });
-  }
-}
-
-// Get user data on first time login or onboarding data
-export const updateOnboardingData = async (req: Request, res: Response) => {
-  try {
-    const userId = (req as any).user?.id;
-    const { age, gender, weight, mentalHealthScore, sleepQuality, currentMood , stressQuality } = req.body;
-
-    if (!age || !gender) return res.status(400).json({ message: "Age and gender are required" });
-    if (!userId) return res.status(404).json({ message: "Unauthorized" });
-
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { age, gender, weight, mentalHealthScore, sleepQuality, currentMood , stressQuality },
-      { runValidators: true, new: true }
-    ).select("-password");
-
-    res.status(200).json({ message: "Onboarding data updated", updatedUser });
-  } catch (error) {
-    console.error("User Controller : updateOnboardingData", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
+// Get user data on first time login or onboarding data
+
+export const updateOnboardingData = async (req: Request, res: Response) => {
+  try {
+    const { age, gender, weight, sleepQuality, currentMood, currentStress } =
+      req.body;
+
+    // Calculate score
+    const { mentalHealthScore } = calculateMetrics({
+      age,
+      weight,
+      sleepQuality,
+      currentMood,
+      currentStress,
+    });
+
+    const userId = (req as any).user.id;
+    if (!userId) {
+      return res
+        .status(400)
+        .json({ message: "User information is missing in request." });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        age,
+        gender,
+        weight,
+        sleepQuality,
+        currentMood,
+        currentStress,
+        mentalHealthScore, // save calculated value
+      },
+      { new: true }
+    );
+
+    res.json(updatedUser);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating onboarding data", error });
+  }
+};
 
 // Get daily user data e.g. mood, stress, weight
-export const getDailyData = (req: Request, res: Response) => {
-
-}
+export const getDailyData = (req: Request, res: Response) => {};
