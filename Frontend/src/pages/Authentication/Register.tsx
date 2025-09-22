@@ -151,7 +151,7 @@ const Register = () => {
         {/* Footer Link */}
         <p className="text-center text-sm text-[#4E342E]">
           Already have an account?{" "}
-          <Link to="/login" className="text-[#E76F51] font-semibold">
+          <Link to="/auth/login" className="text-[#E76F51] font-semibold">
             Login.
           </Link>
         </p>

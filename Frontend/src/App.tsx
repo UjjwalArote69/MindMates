@@ -18,14 +18,29 @@ import ChatSingle from "./pages/Chat/ChatSingle";
 import ChatIntro from "./pages/Chat/ChatIntro";
 import ChatLimit from "./pages/Chat/ChatLimit";
 import UpgradePlan from "./pages/Chat/UpgradePlan";
+import ProfileHome from "./pages/Profile/ProfileHome";
+import Auth from "./pages/Authentication/Auth";
+import Stats from "./pages/Stats/Stats";
+import StatsHome from "./pages/Stats/StatsHome";
+// import StressLevel from "./pages/Stats/StressLevel";
+import MindScore from "./pages/Stats/MindScore";
+import MindfulExercise from "./pages/Stats/MindfulExercise";
+import SleepAnalysis from "./pages/Stats/SleepAnalysis";
+// import MoodStats from "./pages/Stats/Mood_n_Stress";
+// import Mood_n_Stress from "./pages/Stats/Mood_n_Stress";
+import Mood from "./pages/Stats/Mood";
 
 function App() {
   return (
     <Routes>
       {/* Public routes */}
       <Route path="/" element={<Hero />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login />} />
+
+      <Route path="/auth" element={<Auth />}>
+        <Route index element={<Register />} />
+        <Route path="register" element={<Register />} />
+        <Route path="login" element={<Login />} />
+      </Route>
 
       {/* Onboarding route - logged in */}
       <Route
@@ -46,63 +61,16 @@ function App() {
           // </ProtectedRoute>
         }
       />
-      {/* <Route
-        path="/chat-intro"
-        element={
-          // <ProtectedRoute>
-          <ChatIntroduction />
-          // </ProtectedRoute>
-        }
-      /> */}
 
-      <Route
-        path="/profile"
-        element={
-          // <ProtectedRoute>
-          <Profile />
-          // </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/profile/personal-info"
-        element={
-          // <ProtectedRoute>
-          <PersonalInfo />
-          // </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/profile/emergency"
-        element={
-          // <ProtectedRoute>
-          <Emergency />
-          // </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/profile/feedback"
-        element={
-          // <ProtectedRoute>
-          <Feedback />
-          // </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/profile/language"
-        element={
-          // <ProtectedRoute>
-          <Language />
-          // </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/profile/help"
-        element={
-          // <ProtectedRoute>
-          <HelpCenter />
-          // </ProtectedRoute>
-        }
-      />
+      <Route path="/profile" element={<Profile />}>
+        <Route index element={<ProfileHome />} /> {/* /profile */}
+        <Route path="personal-info" element={<PersonalInfo />} />
+        <Route path="emergency" element={<Emergency />} />
+        <Route path="feedback" element={<Feedback />} />
+        <Route path="language" element={<Language />} />
+        <Route path="help" element={<HelpCenter />} />
+      </Route>
+
       <Route path="/chat" element={<Chat />}>
         <Route index element={<ChatList />} /> {/* /chat */}
         <Route path=":id" element={<ChatSingle />} /> {/* /chat/123 */}
@@ -110,6 +78,16 @@ function App() {
         <Route path="limit" element={<ChatLimit />} /> {/* /chat/limit */}
         <Route path="upgrade" element={<UpgradePlan />} /> {/* /chat/upgrade */}
       </Route>
+
+      <Route path="/stats" element={<Stats/>}>
+        <Route index element={<StatsHome/>}/>
+        <Route path="mood" element={<Mood/>}/>
+        {/* <Route path="stres" element={<StressLevel/>}/> */}
+        <Route path="mindscore" element={<MindScore/>}/>
+        <Route path="exercise" element={<MindfulExercise/>}/>
+        <Route path="sleep" element={<SleepAnalysis/>}/>
+      </Route>
+
     </Routes>
   );
 }

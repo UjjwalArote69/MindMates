@@ -1,15 +1,12 @@
 // src/pages/Profile/Profile.tsx
 import { Outlet } from "react-router-dom";
-import Navbar from "../../components/shared/Navbar";
 
-const Profile = () => {
+const Stats = () => {
   return (
     <div className="w-full min-h-screen bg-[#fdfcfb] text-[#4B2E2B] flex flex-col">
-      {/* Common profile layout (background, navbar, etc.) */}
       <Outlet /> {/* Nested routes will render here */}
-      <Navbar />
     </div>
   );
 };
 
-export default Profile;
+export default Stats;

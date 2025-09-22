@@ -136,7 +136,7 @@ const Login = () => {
         {/* Footer Link */}
         <p className="text-center text-sm text-[#4E342E]">
           Don’t have an account?{" "}
-          <Link to="/register" className="text-[#E76F51] font-semibold">
+          <Link to="/auth/register" className="text-[#E76F51] font-semibold">
             Register.
           </Link>
         </p>
