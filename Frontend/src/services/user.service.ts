@@ -36,3 +36,19 @@ export const onboardingData = async (data: {
   }
 };
 
+export const logoutUser = async () => {
+  try {
+    const res = await axios.post(
+      `${API}/users/logout`,
+      {}, // empty body
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true, // ensures cookie (token) is sent
+      }
+    );
+    return res.data;
+  } catch (error) {
+    console.error("User service : logoutUser ", error);
+    throw error;
+  }
+};

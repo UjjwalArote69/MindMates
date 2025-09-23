@@ -36,13 +36,13 @@ const Hero = () => {
         {/* Desktop Menu */}
         <div className="hidden md:flex flex-row items-center gap-4">
           <button
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/auth/register")}
             className="py-2 px-4 border-2 border-[#926247] text-xl text-[#926247] rounded-full"
           >
             Sign up
           </button>
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/auth/login")}
             className="py-2 px-4 border-2 bg-[#926247] text-xl text-white rounded-full"
           >
             Sign in
@@ -61,12 +61,12 @@ const Hero = () => {
         {menuOpen && (
           <div className="absolute top-20 right-4 bg-white shadow-lg rounded-lg p-4 flex flex-col gap-3 md:hidden z-50 w-40">
             <button 
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/auth/register")}
             className="py-2 px-4 border-2 border-[#926247] text-sm text-[#926247] rounded-full">
               Sign up
             </button>
             <button 
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/auth/login")}
             className="py-2 px-4 border-2 bg-[#926247] text-sm text-white rounded-full">
               Sign in
             </button>

@@ -9,6 +9,7 @@ import MindfullTracker from "./components/MindfullTracker";
 import NotificationsIcon from "../../assets/Icons/Notifications.svg";
 import { useEffect, useState } from "react";
 import { getMe } from "../../services/user.service";
+import DefaultAvatar from "../../assets/Icons/User Pfp Avatar.png";
 
 interface Mood {
   date: string;
@@ -50,13 +51,26 @@ const Home = () => {
     fetchUser();
   }, []);
 
+  const getProfileImage = () => {
+    if (user?.avatar) return user.avatar;
+    return DefaultAvatar;
+  };
+
   return (
     <div id="main" className="min-h-screen pb-20 w-full font-Lato bg-[#f6f5f2]">
       {/* Header */}
       <div className="p-4 pb-5 bg-white w-full flex flex-col gap-3 shadow-xl rounded-b-4xl">
         {/* Top Bar */}
         <div className="flex justify-between items-center">
-          <p className="text-xs text-gray-500 font-medium">{`${new Date()}`}</p>
+          <p className=" text-gray-500 font-medium">
+            {new Date().toLocaleDateString("en-IN", {
+              weekday: "short",
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            })}
+          </p>
+
           <div className="relative">
             {/* Notification Icon Circle */}
             <div className="w-10 h-10 flex items-center justify-center rounded-full border border-black">
@@ -70,7 +84,7 @@ const Home = () => {
         {/* Profile + Greeting */}
         <div className="flex items-center gap-4">
           <img
-            src={user?.avatar}
+            src={getProfileImage()}
             className="h-14 w-14 rounded-full border-2 border-gray-200 object-cover"
             alt="profile"
           />
@@ -96,11 +110,11 @@ const Home = () => {
               {/* Mood */}
               <div className="flex items-center gap-1">
                 <img src={HappyIcon} alt="happy" className="w-4 h-4" />
-                {/* <span>
+                <span>
                   {user?.moodTracker && user.moodTracker.length > 0
                     ? user.moodTracker[user.moodTracker.length - 1].mood
-                    : "No mood yet"}
-                </span> */}
+                    : "Good"}
+                </span>
               </div>
             </div>
           </div>
@@ -153,7 +167,7 @@ const Home = () => {
           </span>
         </div>
       </div> */}
-      
+
       <Navbar />
     </div>
   );

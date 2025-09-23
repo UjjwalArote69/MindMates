@@ -6,9 +6,16 @@ import DocumentHealthIcon from "../../../assets/Icons/Document Health Icon.svg";
 import MindfullJournalIcon from "../../../assets/Icons/Mindfull Journal Icon.svg";
 import StressLevelIcon from "../../../assets/Icons/Stress Level Heart Icon.svg";
 
-const MindfullTracker = ({user}: {user: any}) => {
-
+const MindfullTracker = ({ user }: { user: any }) => {
   // if (user?.sleepQuality == )
+
+  const getStressLabel = (stress?: number): string => {
+    if (stress === undefined || stress === null) return "Not tracked";
+    if (stress <= 3) return "Normal";
+    if (stress <= 6) return "Moderate";
+    if (stress <= 8) return "High";
+    return "Very High";
+  };
 
   return (
     <>
@@ -18,7 +25,7 @@ const MindfullTracker = ({user}: {user: any}) => {
         </h2>
         <div className="space-y-3">
           {/* Mindful Hours */}
-          <div className="w-80 h-20 flex items-center justify-between bg-white rounded-3xl p-4 shadow-lg">
+          {/* <div className="w-80 h-20 flex items-center justify-between bg-white rounded-3xl p-4 shadow-lg">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-2xl bg-green-100 flex items-center justify-center">
                 <img src={GreenClock} alt="" />
@@ -29,7 +36,7 @@ const MindfullTracker = ({user}: {user: any}) => {
               </div>
             </div>
             <img src={MindfullClockIcon} className="h-10" alt="" />
-          </div>
+          </div> */}
 
           {/* Sleep Quality */}
           <div className="w-80 h-20 flex items-center justify-between bg-white rounded-3xl p-4 shadow-lg">
@@ -39,7 +46,9 @@ const MindfullTracker = ({user}: {user: any}) => {
               </div>
               <div>
                 <p className="font-bold text-gray-700">
-                  {user?.sleepQuality ? `${user.sleepQuality}/10` : "Not tracked"}
+                  {user?.sleepQuality
+                    ? `${user.sleepQuality}/10`
+                    : "Not tracked"}
                 </p>
                 <p className="text-sm text-gray-500">Insomniac (~2h Avg)</p>
               </div>
@@ -56,9 +65,7 @@ const MindfullTracker = ({user}: {user: any}) => {
                 <img src={DocumentHealthIcon} alt="" />
               </div>
               <div>
-                <p className="font-bold text-gray-700">
-                  Mindful Journal
-                </p>
+                <p className="font-bold text-gray-700">Mindful Journal</p>
                 <p className="text-sm text-gray-500">64 Day Streak</p>
               </div>
             </div>
@@ -73,9 +80,13 @@ const MindfullTracker = ({user}: {user: any}) => {
               </div>
               <div>
                 <p className="font-bold text-gray-700">
-                  {user?.currentStress ? `Level ${user.currentStress}` : "Not tracked"}
+                  {user?.currentStress
+                    ? `Level ${user?.currentStress}`
+                    : "Not tracked"}
                 </p>
-                <p className="text-sm text-gray-500">Level 3 (Normal)</p>
+                <p className="text-sm text-gray-500">
+                  {getStressLabel(user?.currentStress)}
+                </p>
               </div>
             </div>
             <div className="flex gap-1">
@@ -104,8 +115,6 @@ const MindfullTracker = ({user}: {user: any}) => {
               </div>
             </div>
           </div> */}
-
-
         </div>
       </div>
     </>

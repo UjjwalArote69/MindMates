@@ -1,21 +1,62 @@
 // import React from "react";
 import Navbar from "../../components/shared/Navbar";
 import BgImage from "../../assets/Images/Profile/Profile Background Image.png";
-import Notifications from "../../assets/Icons/Notifications.svg";
+// import Notifications from "../../assets/Icons/Notifications.svg";
 import PersonalInfo from "../../assets/Icons/Profile Page Personal Info Icon.svg";
 import EmergencyIcon from "../../assets/Icons/Emergency Contact Icon.svg";
-import LanguageIcon from "../../assets/Icons/Language Flag Icon.svg";
+// import LanguageIcon from "../../assets/Icons/Language Flag Icon.svg";
 import MoonIcon from "../../assets/Icons/Moon Icon.svg";
 import InviteIcon from "../../assets/Icons/Share Invite Friends.svg";
 import FeedbackIcon from "../../assets/Icons/Submit Feedback Icon.svg";
-import SecurityIcon from "../../assets/Icons/Security Lock Icon.svg";
+// import SecurityIcon from "../../assets/Icons/Security Lock Icon.svg";
 import Help from "../../assets/Icons/Help Center Icon.svg";
 import GarbageIcon from "../../assets/Icons/Close Account Garbage Icon.svg";
 import LogoutIcon from "../../assets/Icons/Log Out Icon.svg";
 import ForwardIcon from "../../assets/Icons/Forward Icon.svg";
 import { useNavigate } from "react-router-dom";
+import DefaultAvatar from "../../assets/Icons/User Pfp Avatar.png";
+import { useEffect, useState } from "react";
+import { getMe, logoutUser } from "../../services/user.service";
+interface User {
+  email: string;
+  password?: string;
+  name?: string;
+  avatar?: string;
+  age?: number;
+  weight?: number;
+  height?: number;
+  gender?: "male" | "female" | "other";
+  goals?: string[];
+  subscriptionType?: string;
+}
 
 const ProfileHome = () => {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const data = await getMe();
+        setUser(data);
+      } catch (error) {
+        console.error("Failed to fetch user: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  const getProfileImage = () => {
+    if (user?.avatar) return user.avatar;
+    return DefaultAvatar;
+  };
+
+  const logoutButton = async () => {
+    await logoutUser();
+  }
+
   return (
     <div className="w-full min-h-screen bg-[#fdfcfb] text-[#4B2E2B] flex flex-col items-center">
       {/* Header with background image */}
@@ -29,38 +70,39 @@ const ProfileHome = () => {
         <div className="absolute bottom-[-40px] left-1/2 transform -translate-x-1/2">
           <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-white">
             <img
-              src="/your-profile.jpg"
+              src={getProfileImage()}
               alt="User"
               className="w-full h-full object-cover"
             />
-            <button className="absolute bottom-0 right-0 bg-[#4B2E2B] text-white p-1 rounded-full">
-              ✏️
-            </button>
           </div>
         </div>
       </div>
 
       <div className="flex flex-col w-full px-5">
         {/* User Info */}
-        <div className="mt-16 flex flex-col items-center">
-          <h1 className="text-xl font-bold">Shinomiya Kaguya</h1>
+        <div className="mt-12 flex flex-col items-center">
+          <h1 className="pb-3 text-xl font-bold">{user?.name}</h1>
           <span className="text-sm bg-[#e4f0e2] text-[#3c5136] rounded-full px-3 py-1 mt-1">
-            BASIC MEMBER
+            {user?.subscriptionType || "BASIC MEMBERSHIP"}
           </span>
         </div>
 
         {/* Age / Weight / Height */}
         <div className="mt-6 flex justify-around w-full max-w-md border-t border-b py-4">
           <div className="flex flex-col items-center">
-            <span className="font-semibold text-lg">17y</span>
+            <span className="font-semibold text-lg">{user?.age}</span>
             <span className="text-sm">Age</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="font-semibold text-lg">48kg</span>
+            <span className="font-semibold text-lg">
+              {user?.weight || "N/A"}
+            </span>
             <span className="text-sm">Weight</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="font-semibold text-lg">162cm</span>
+            <span className="font-semibold text-lg">
+              {user?.height || "N/A"}
+            </span>
             <span className="text-sm">Height</span>
           </div>
         </div>
@@ -119,10 +161,10 @@ const ProfileHome = () => {
           </div>
         </div>
 
-        
-
         {/* Logout */}
-        <div className="w-full max-w-md mt-6 mb-20">
+        <div 
+          onClick={logoutButton}
+        className="w-full max-w-md mt-6 mb-20">
           <h2 className="text-sm font-bold text-[#4B2E2B] mb-2 px-4">
             Log Out
           </h2>
