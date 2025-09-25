@@ -33,7 +33,7 @@ interface User {
 
 const ProfileHome = () => {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [_loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   const location = useLocation();
 

@@ -1,6 +1,5 @@
 // src/pages/Profile/Profile.tsx
 import { Outlet } from "react-router-dom";
-import Navbar from "../../components/shared/Navbar";
 
 const Profile = () => {
   return (

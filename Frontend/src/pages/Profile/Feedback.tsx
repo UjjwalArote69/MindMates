@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import BackIcon from "../../assets/Icons/Back Arrow.svg";
 import { useNavigate } from "react-router-dom";
 // import axios from "axios";

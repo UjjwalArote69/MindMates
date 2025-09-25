@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import BackIcon from "../../assets/Icons/Back Arrow.svg"; // replace with your own back icon
 import ChatIcon from "../../assets/Icons/Message Icon Active.svg"; // replace with your own message icon
 import HappyIcon from "../../assets/Icons/Happy Icon.svg"; // replace with emoji svgs

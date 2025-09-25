@@ -16,7 +16,7 @@ const PersonalInfo: React.FC = () => {
   const navigate = useNavigate();
 
   // User states
-  const [user, setUser] = useState<any>(null);
+  const [_user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");

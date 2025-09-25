@@ -1,6 +1,4 @@
 // import React from "react";
-import GreenClock from "../../../assets/Icons/Green Clock Icon.svg";
-import MindfullClockIcon from "../../../assets/Icons/MindFull Hours Icon.svg";
 import SleepBedIcon from "../../../assets/Icons/Sleep bed Icon.svg";
 import DocumentHealthIcon from "../../../assets/Icons/Document Health Icon.svg";
 import MindfullJournalIcon from "../../../assets/Icons/Mindfull Journal Icon.svg";
