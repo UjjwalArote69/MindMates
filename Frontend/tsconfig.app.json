@@ -12,8 +12,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "noEmit": true,
     "jsx": "react-jsx",
+
+    /* Project References */
+    "composite": true,
+    "declaration": true,
+    "outDir": "./dist",
 
     /* Linting */
     "strict": true,
@@ -26,5 +30,6 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["**/*.d.ts"]
 }
