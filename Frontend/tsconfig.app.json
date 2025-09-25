@@ -29,6 +29,6 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src", "src/types", "src/vite-env.d.ts"],
-  "exclude": ["**/*.d.ts"]
+  "include": ["src", "src/types"],
+  // "exclude": ["**/*.d.ts"]
 }
