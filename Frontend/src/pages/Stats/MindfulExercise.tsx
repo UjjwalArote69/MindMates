@@ -7,6 +7,9 @@ const MindfulExercise = () => {
   const [seconds, setSeconds] = useState(0);
   const navigate = useNavigate();
 
+  console.log(setMinutes, setSeconds);
+  
+
   const handleStart = () => {
     alert(`Starting exercise for ${minutes} minutes ${seconds} seconds`);
     // later navigate("/exercise/start") or trigger timer logic

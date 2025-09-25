@@ -17,6 +17,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import DefaultAvatar from "../../assets/Icons/User Pfp Avatar.png";
 import { useEffect, useState } from "react";
 import { getMe, logoutUser } from "../../services/user.service";
+// import { log } from "console";
 interface User {
   email: string;
   password?: string;
@@ -35,6 +36,9 @@ const ProfileHome = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
   const location = useLocation();
+
+  console.log();
+  
 
   useEffect(() => {
     const fetchUser = async () => {

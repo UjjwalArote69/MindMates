@@ -24,7 +24,7 @@ const Onboarding = () => {
   const [age, setAge] = useState<number>(18);
 
   // Additional answers
-  const [mentalHealthScore, setMentalHealthScore] = useState<string>("happy");
+  // const [mentalHealthScore, setMentalHealthScore] = useState<string>("happy");
   const [stressQuality, setStressQuality] = useState<string>("good");
   const [currentMood, setCurrentMood] = useState<string>("Happy");
   const [sleepQuality, setSleepQuality] = useState<number>(3);

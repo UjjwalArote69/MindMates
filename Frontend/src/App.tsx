@@ -32,6 +32,7 @@ import Mood from "./pages/Stats/Mood";
 import InviteFriends from "./pages/Profile/InviteFriends";
 import CloseAccount from "./pages/Profile/CloseAccount";
 import ChatTemp from "./pages/Chat/ChatTemp";
+import ProtectedRoute from "./components/shared/ProtectedRoute";
 
 function App() {
   return (
@@ -49,9 +50,9 @@ function App() {
       <Route
         path="/onboarding"
         element={
-          // <ProtectedRoute>
-          <Onboarding />
-          //  {/* </ProtectedRoute> */}
+          <ProtectedRoute>
+            <Onboarding />
+          </ProtectedRoute>
         }
       />
 
@@ -59,13 +60,20 @@ function App() {
       <Route
         path="/home"
         element={
-          // <ProtectedRoute>
-          <Home />
-          // </ProtectedRoute>
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
         }
       />
 
-      <Route path="/profile" element={<Profile />}>
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      >
         <Route index element={<ProfileHome />} /> {/* /profile */}
         <Route path="personal-info" element={<PersonalInfo />} />
         <Route path="emergency" element={<Emergency />} />
@@ -76,8 +84,8 @@ function App() {
         <Route path="delete" element={<CloseAccount />} />
       </Route>
 
-      <Route path="/chat" element={<Chat />}>
-        <Route index element={<ChatTemp/>}/>
+      <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>}>
+        <Route index element={<ChatTemp />} />
         <Route path="list" element={<ChatList />} /> {/* /chat */}
         <Route path=":id" element={<ChatSingle />} /> {/* /chat/123 */}
         <Route path="intro" element={<ChatIntro />} /> {/* /chat/intro */}
@@ -85,15 +93,14 @@ function App() {
         <Route path="upgrade" element={<UpgradePlan />} /> {/* /chat/upgrade */}
       </Route>
 
-      <Route path="/stats" element={<Stats/>}>
-        <Route index element={<StatsHome/>}/>
-        <Route path="mood" element={<Mood/>}/>
+      <Route path="/stats" element={<ProtectedRoute><Stats /></ProtectedRoute>}>
+        <Route index element={<StatsHome />} />
+        <Route path="mood" element={<Mood />} />
         {/* <Route path="stres" element={<StressLevel/>}/> */}
-        <Route path="mindscore" element={<MindScore/>}/>
-        <Route path="exercise" element={<MindfulExercise/>}/>
-        <Route path="sleep" element={<SleepAnalysis/>}/>
+        <Route path="mindscore" element={<MindScore />} />
+        <Route path="exercise" element={<MindfulExercise />} />
+        <Route path="sleep" element={<SleepAnalysis />} />
       </Route>
-
     </Routes>
   );
 }
