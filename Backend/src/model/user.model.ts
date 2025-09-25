@@ -12,6 +12,10 @@ export interface UserDocument extends Document {
   weight?: number;
   height?: number;
   gender?: "male" | "female" | "other";
+  birthDate?: Date;
+  
+  // Emergency Contacts
+  emergencyContacts: { name: string; phone: string }[];
 
   // Logs
   currentMood?: string | "happy" | "neutral" | "sad" | "very sad";
@@ -32,7 +36,12 @@ export interface UserDocument extends Document {
   isPro: boolean;
   stripeCustomerId?: string;
   stripeSubscriptionId?: string;
-  subscriptionStatus?: "active" | "cancelled" | "incomplete" | "past_due" | null;
+  subscriptionStatus?:
+    | "active"
+    | "cancelled"
+    | "incomplete"
+    | "past_due"
+    | null;
 
   createdAt: Date;
   updatedAt: Date;
@@ -41,7 +50,7 @@ export interface UserDocument extends Document {
 const logSchema = new mongoose.Schema(
   {
     date: { type: Date, default: Date.now },
-    value: mongoose.Schema.Types.Mixed
+    value: mongoose.Schema.Types.Mixed,
   },
   { _id: false }
 );
@@ -57,47 +66,69 @@ const userSchema = new mongoose.Schema<UserDocument>(
     weight: { type: Number },
     height: { type: Number },
     gender: { type: String, enum: ["male", "female", "other"] },
+    birthDate: { type: Date },
+    emergencyContacts: {
+      type: [
+        {
+          name: { type: String, required: true, trim: true },
+          phone: { type: String, required: true, match: /^\+?[0-9]{7,15}$/ }, // allows +91, +1, etc.
+        },
+      ],
+      default: [],
+    },
 
-    currentMood: { type: String, default: "happy"},
-    sleepQuality: { type: String, default: "good"},
-    currentStress: { type: Number, default: 7},
+    currentMood: { type: String, default: "happy" },
+    sleepQuality: { type: String, default: "good" },
+    currentStress: { type: Number, default: 7 },
     moodTracker: [
-      { date: { type: Date, default: Date.now }, mood: { type: String, default: "Happy" } }
+      {
+        date: { type: Date, default: Date.now },
+        mood: { type: String, default: "Happy" },
+      },
     ],
     sleepLogs: [
       {
         date: { type: Date, default: Date.now },
         quality: { type: Number, min: 1, max: 10 },
-        hours: { type: Number, min: 0, max: 24 }
-      }
+        hours: { type: Number, min: 0, max: 24 },
+      },
     ],
     stressLogs: [
-      { date: { type: Date, default: Date.now }, level: { type: Number, min: 0, max: 10 } }
+      {
+        date: { type: Date, default: Date.now },
+        level: { type: Number, min: 0, max: 10 },
+      },
     ],
     hydrationLogs: [
-      { date: { type: Date, default: Date.now }, liters: { type: Number, min: 0 } }
+      {
+        date: { type: Date, default: Date.now },
+        liters: { type: Number, min: 0 },
+      },
     ],
     activityLogs: [
       {
         date: { type: Date, default: Date.now },
         steps: { type: Number, min: 0 },
-        minutes: { type: Number, min: 0 }
-      }
+        minutes: { type: Number, min: 0 },
+      },
     ],
     meditationLogs: [
-      { date: { type: Date, default: Date.now }, minutes: { type: Number, min: 0 } }
+      {
+        date: { type: Date, default: Date.now },
+        minutes: { type: Number, min: 0 },
+      },
     ],
 
     mentalHealthScore: { type: Number, min: 0, max: 100, default: 80 },
     goals: [{ type: String }],
-    isPro: { type: Boolean, default: false},
-    stripeCustomerId: { type: String},
-    stripeSubscriptionId: { type: String},
+    isPro: { type: Boolean, default: false },
+    stripeCustomerId: { type: String },
+    stripeSubscriptionId: { type: String },
     subscriptionStatus: {
       type: String,
       enum: ["active", "cancelled", "incomplete", "past_due"],
       default: null,
-    }
+    },
   },
   { timestamps: true }
 );

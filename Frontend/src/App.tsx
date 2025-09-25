@@ -29,6 +29,9 @@ import SleepAnalysis from "./pages/Stats/SleepAnalysis";
 // import MoodStats from "./pages/Stats/Mood_n_Stress";
 // import Mood_n_Stress from "./pages/Stats/Mood_n_Stress";
 import Mood from "./pages/Stats/Mood";
+import InviteFriends from "./pages/Profile/InviteFriends";
+import CloseAccount from "./pages/Profile/CloseAccount";
+import ChatTemp from "./pages/Chat/ChatTemp";
 
 function App() {
   return (
@@ -69,10 +72,13 @@ function App() {
         <Route path="feedback" element={<Feedback />} />
         <Route path="language" element={<Language />} />
         <Route path="help" element={<HelpCenter />} />
+        <Route path="invite" element={<InviteFriends />} />
+        <Route path="delete" element={<CloseAccount />} />
       </Route>
 
       <Route path="/chat" element={<Chat />}>
-        <Route index element={<ChatList />} /> {/* /chat */}
+        <Route index element={<ChatTemp/>}/>
+        <Route path="list" element={<ChatList />} /> {/* /chat */}
         <Route path=":id" element={<ChatSingle />} /> {/* /chat/123 */}
         <Route path="intro" element={<ChatIntro />} /> {/* /chat/intro */}
         <Route path="limit" element={<ChatLimit />} /> {/* /chat/limit */}

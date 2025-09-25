@@ -1,6 +1,9 @@
 import { Response, Request } from "express";
 import { User } from "../model/user.model";
 import { calculateMetrics } from "../utils/calculateMetrics";
+import bcrypt from "bcryptjs";
+import { Feedback } from "../model/feedback.model";
+import { sendFeedbackToGoogleForm } from "../utils/sendFeedbackToGoogleForm";
 
 // Get user or me
 export const getMe = async (req: Request, res: Response) => {
@@ -21,13 +24,29 @@ export const getMe = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
   try {
     const userId = (req as any).user.id;
-    const { newName, photo } = req.body;
+    const {
+      updatedName,
+      updatedPassword,
+      updatedWeight,
+      updatedHeight,
+      updatedGender,
+      updatedBirthDate,
+    } = req.body;
 
-    const updated = await User.findByIdAndUpdate(
-      userId,
-      { name: newName, avatar: photo },
-      { new: true, runValidators: true }
-    ).select("-__v");
+    // Only update fields that exist
+    const updateFields: any = {};
+    if (updatedName !== undefined) updateFields.name = updatedName;
+    if (updatedPassword !== undefined) updateFields.password = updatedPassword;
+    if (updatedWeight !== undefined) updateFields.weight = updatedWeight;
+    if (updatedHeight !== undefined) updateFields.height = updatedHeight;
+    if (updatedGender !== undefined) updateFields.gender = updatedGender;
+    if (updatedBirthDate !== undefined)
+      updateFields.birthDate = updatedBirthDate;
+
+    const updated = await User.findByIdAndUpdate(userId, updateFields, {
+      new: true,
+      runValidators: true,
+    }).select("-__v");
 
     if (!updated) {
       return res.status(404).json({ message: "User not found" });
@@ -42,19 +61,33 @@ export const updateUser = async (req: Request, res: Response) => {
   }
 };
 
-// Delete user
+// Delete user with conditional password check
 export const deleteUser = async (req: Request, res: Response) => {
   try {
     const userId = (req as any).user.id;
+    const { password } = req.body || {}; // <- fallback to empty object
 
     const user = await User.findById(userId);
-
     if (!user) return res.status(404).json({ message: "User not found" });
 
+    // If user has no googleId → validate password
+    if (!user.googleId) {
+      if (!password) {
+        return res
+          .status(400)
+          .json({ message: "Password is required to delete account" });
+      }
+
+      const isMatch = await bcrypt.compare(password, user.password || "");
+      if (!isMatch) {
+        return res.status(401).json({ message: "Incorrect password" });
+      }
+    }
+
     await User.findByIdAndDelete(userId);
-    res.status(200).json({ message: "User deleted" });
+    res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
-    console.error("User Controller : deleteUser, ", error);
+    console.error("User Controller : deleteUser", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -120,3 +153,44 @@ export const updateOnboardingData = async (req: Request, res: Response) => {
 
 // Get daily user data e.g. mood, stress, weight
 export const getDailyData = (req: Request, res: Response) => {};
+
+export const submitFeedback = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user.id;
+    const { selectedAreas, feedback } = req.body || {};
+
+    if (!feedback || feedback.trim() === "") {
+      return res.status(400).json({ message: "Feedback text is required" });
+    }
+
+    // Fetch the user details
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Save feedback with username
+    const newFeedback = await Feedback.create({
+      user: userId,
+      name: user.name ?? "", 
+      selectedAreas,
+      feedback,
+    });
+
+    // Send to Google Form (pass name too)
+    await sendFeedbackToGoogleForm({
+      selectedAreas,
+      feedback,
+      userId,
+      name: user.name ?? "",
+    });
+
+    res.status(201).json({
+      message: "Feedback submitted successfully",
+      feedback: newFeedback,
+    });
+  } catch (error) {
+    console.error("User Controller : submitFeedback", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

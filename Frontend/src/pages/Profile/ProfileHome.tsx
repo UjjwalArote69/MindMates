@@ -13,7 +13,7 @@ import Help from "../../assets/Icons/Help Center Icon.svg";
 import GarbageIcon from "../../assets/Icons/Close Account Garbage Icon.svg";
 import LogoutIcon from "../../assets/Icons/Log Out Icon.svg";
 import ForwardIcon from "../../assets/Icons/Forward Icon.svg";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import DefaultAvatar from "../../assets/Icons/User Pfp Avatar.png";
 import { useEffect, useState } from "react";
 import { getMe, logoutUser } from "../../services/user.service";
@@ -33,6 +33,8 @@ interface User {
 const ProfileHome = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -46,7 +48,7 @@ const ProfileHome = () => {
       }
     };
     fetchUser();
-  }, []);
+  }, [location.state?.updated]);
 
   const getProfileImage = () => {
     if (user?.avatar) return user.avatar;
@@ -54,8 +56,15 @@ const ProfileHome = () => {
   };
 
   const logoutButton = async () => {
-    await logoutUser();
-  }
+    try {
+      await logoutUser(); // Call backend to clear session/cookies
+      setUser(null); // Clear frontend user state
+      navigate("/auth/login"); // Redirect to login page
+    } catch (error) {
+      console.error("Logout failed:", error);
+      alert("Failed to logout. Try again.");
+    }
+  };
 
   return (
     <div className="w-full min-h-screen bg-[#fdfcfb] text-[#4B2E2B] flex flex-col items-center">
@@ -121,7 +130,7 @@ const ProfileHome = () => {
             <SettingItem
               icon={EmergencyIcon}
               label="Emergency Contact"
-              value="15+"
+              value="3+"
               route="/profile/emergency"
             />
             <SettingItem
@@ -131,7 +140,11 @@ const ProfileHome = () => {
             />
 
             <SettingItem icon={MoonIcon} label="Dark Mode" toggle />
-            <SettingItem icon={InviteIcon} label="Invite Friends" />
+            <SettingItem
+              icon={InviteIcon}
+              route="/profile/invite"
+              label="Invite Friends"
+            />
             {/* <SettingItem icon={FeedbackIcon} label="Submit Feedback" /> */}
           </div>
         </div>
@@ -147,7 +160,12 @@ const ProfileHome = () => {
               route="/profile/help"
               label="Help Center"
             />
-            <div className="flex justify-between items-center px-4 py-3 rounded-xl bg-red-100 text-red-600 font-semibold">
+
+            {/* Close Account */}
+            <div
+              className="flex justify-between items-center px-4 py-3 rounded-xl bg-red-100 text-red-600 font-semibold cursor-pointer"
+              onClick={() => navigate("/profile/delete")}
+            >
               <div className="flex items-center gap-3">
                 <img
                   src={GarbageIcon}
@@ -162,14 +180,14 @@ const ProfileHome = () => {
         </div>
 
         {/* Logout */}
-        <div 
-          onClick={logoutButton}
-        className="w-full max-w-md mt-6 mb-20">
+        <div className="w-full max-w-md mt-6 mb-20">
           <h2 className="text-sm font-bold text-[#4B2E2B] mb-2 px-4">
             Log Out
           </h2>
           <div className="space-y-3">
-            <SettingItem icon={LogoutIcon} label="Log Out" />
+            <div onClick={logoutButton}>
+              <SettingItem icon={LogoutIcon} label="Log Out" />
+            </div>
           </div>
         </div>
 

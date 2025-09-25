@@ -116,7 +116,7 @@ const Onboarding = () => {
 
       {/* STEP 1: Gender */}
       {step === 1 && (
-        <div className="p-5 flex gap-4 flex-col bg-amber-300">
+        <div className="p-5 flex gap-4 flex-col bg-amber-30">
           <h1 className="text-4xl pb-5 font-bold text-center">
             What's your official gender?
           </h1>
@@ -168,7 +168,7 @@ const Onboarding = () => {
 
       {/* STEP 2: Age */}
       {step === 2 && (
-        <div className="relative w-full h-full overflow-hidden bg-amber-400">
+        <div className="relative w-full h-full overflow-hidden bg-amber-40">
           {/* Fullscreen Background (fixed to viewport height) */}
           <div
             className="absolute inset-0 w-full h-full bg-cover bg-center"
@@ -218,58 +218,57 @@ const Onboarding = () => {
 
       {/* STEP 3: Current Mood */}
       {step === 3 && (
-        <div className="flex flex-col items-center bg-amber-500 p-5">
-          <h1 className="text-4xl -mt-4 font-bold text-center text-balance">
-            How would you describe your current mood ?
+        <div className="flex flex-col items-center justify-between h-full px-6 -mt-5 ">
+          {/* Title */}
+          <h1 className="text-2xl font-bold text-center text-[#694a39] mb-8">
+            How would you describe your current mood?
           </h1>
 
-          <div className="mt-5 flex flex-col gap-3">
-            <div id="first" className="flex bg-amber-0 gap-3">
-              <button onClick={() => setCurrentMood("Happy")}>
-                <div
-                  id="happy"
-                  className="bg-[#9bb169] p-8  border-2 border-black rounded-2xl"
-                >
-                  <img src={HappyIcon} className="h-12" alt="" />
-                </div>
+          {/* Mood Selection */}
+          <div className="grid grid-cols-2 gap-6 mb-8 w-full max-w-md">
+            {[
+              { label: "Happy", icon: HappyIcon, color: "#9bb169" },
+              { label: "Neutral", icon: NeutralIcon, color: "#fece5d" },
+              { label: "Sad", icon: SadIcon, color: "#fe814b" },
+              { label: "Very Sad", icon: VerySadIcon, color: "#a08eff" },
+            ].map((mood) => (
+              <button
+                key={mood.label}
+                onClick={() => setCurrentMood(mood.label)}
+                className={`flex flex-col items-center justify-center p-6 rounded-3xl border-2 transition-all duration-300
+            ${
+              currentMood === mood.label
+                ? `scale-110 shadow-xl border-[#694a39] bg-[${mood.color}]`
+                : "border-gray-300 bg-white hover:scale-105 hover:shadow-md"
+            }
+          `}
+              >
+                <img src={mood.icon} className="h-12 mb-2" alt={mood.label} />
+                <span className="font-semibold text-lg text-[#694a39]">
+                  {mood.label}
+                </span>
               </button>
-              <button onClick={() => setCurrentMood("Neutral")}>
-                <div
-                  id="neutral"
-                  className="bg-[#fece5d] bg-amber-80 p-8  border-2 border-black rounded-2xl"
-                >
-                  <img src={NeutralIcon} className="h-12" alt="" />
-                </div>
-              </button>
-            </div>
-            <div id="second" className="flex bg-amber-60 gap-3">
-              <button onClick={() => setCurrentMood("Sad")}>
-                <div
-                  id="sad"
-                  className="bg-[#fe814b] bg-amber-20 p-8  border-2 border-black rounded-2xl"
-                >
-                  <img src={SadIcon} className="h-12" alt="" />
-                </div>
-              </button>
-              <button onClick={() => setCurrentMood("Very Sad")}>
-                <div
-                  id="very sad"
-                  className="bg-[#a08eff] p-8 border-2 border-black rounded-2xl"
-                >
-                  <img src={VerySadIcon} className="h-12" alt="" />
-                </div>
-              </button>
-            </div>
+            ))}
           </div>
 
-          <h1 className="pt-8 text-3xl">
-            I'm <span className="font-bold">{currentMood}</span>
-          </h1>
+          {/* Selected Mood Display */}
+          <div className="flex flex-col items-center justify-center mb-8">
+            <h2 className="text-3xl font-bold text-[#694a39]">
+              I'm <span className="text-[#ff875b]">{currentMood}</span>
+            </h2>
+            <p className="text-center text-[#694a39] mt-2 text-lg">
+              {currentMood === "Happy" && "Feeling joyful and positive! 😄"}
+              {currentMood === "Neutral" && "Feeling balanced and calm 😐"}
+              {currentMood === "Sad" && "Feeling a bit down 😕"}
+              {currentMood === "Very Sad" && "Feeling very low 😢"}
+            </p>
+          </div>
 
+          {/* Continue Button */}
           <button
             id="continue"
             onClick={nextStep}
-            className="flex py-3 mt-8 bg-[#694a39] justify-center gap-5 rounded-4xl px-28"
+            className="flex py-3 bg-[#694a39] justify-center gap-5 rounded-4xl px-28 shadow-lg hover:scale-105 transition-transform duration-300"
           >
             <h1 className="text-white text-xl">Continue</h1>
             <img src={RightArrow} alt="" />
@@ -279,77 +278,43 @@ const Onboarding = () => {
 
       {/* STEP 4: Sleep Quality */}
       {step === 4 && (
-        <div className="flex flex-col items-center px-6 py-8">
-          <h1 className="text-3xl font-bold text-center text-[#694a39] mt-10 mb-8">
+        <div className="flex flex-col items-center px-6 ">
+          <h1 className="text-3xl font-bold text-center text-[#694a39]  mb-8">
             How would you rate <br /> your sleep quality?
           </h1>
 
-          <div className="flex justify-center gap-6">
-            {/* Labels + Icons */}
-            <div className="flex flex-col justify-between h-[350px] py-2">
-              {sleepOptions.map((opt) => (
-                <div key={opt.value} className="flex items-center gap-2">
-                  <span
-                    className={`font-bold ${
-                      sleepQuality === opt.value
-                        ? "text-[#694a39]"
-                        : "text-gray-500"
-                    }`}
-                  >
-                    {opt.label}
-                  </span>
-                  <span className="text-sm text-gray-500">{opt.hours}</span>
-                  <img src={opt.icon} alt={opt.label} className="h-7 w-7" />
-                </div>
-              ))}
-            </div>
-
-            {/* Vertical Slider */}
-            <div className="relative h-[350px] flex items-center">
-              <input
-                type="range"
-                min="1"
-                max="5"
-                step="1"
-                value={sleepQuality}
-                onChange={(e) => setSleepQuality(parseInt(e.target.value))}
-                className="absolute left-1/2 -translate-x-1/2 h-[350px] w-2 appearance-none cursor-pointer bg-transparent"
-                style={{
-                  writingMode: "horizontal-tb",
-                  WebkitAppearance: "slider-vertical",
-                }}
-              />
-
-              {/* Track */}
-              <div className="absolute w-2 h-full bg-gray-200 rounded-full"></div>
-
-              {/* Progress */}
-              <div
-                className={`absolute bottom-0 w-2 rounded-full transition-all duration-300 ${
-                  sleepOptions.find((o) => o.value === sleepQuality)?.color
-                }`}
-                style={{ height: `${(sleepQuality / 5) * 100}%` }}
-              ></div>
-
-              {/* Thumb */}
-              <div
-                className={`absolute left-1/2 -translate-x-1/2 rounded-full border-4 border-white shadow-lg transition-all duration-300 ${
-                  sleepOptions.find((o) => o.value === sleepQuality)?.color
-                }`}
-                style={{
-                  bottom: `${((sleepQuality - 1) / 4) * 100}%`,
-                  width: "45px",
-                  height: "45px",
-                }}
-              ></div>
-            </div>
+          {/* Sleep Cards */}
+          <div className="flex flex-wrap justify-center gap-4">
+            {sleepOptions.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => setSleepQuality(opt.value)}
+                className={`
+            flex flex-col items-center justify-center gap-2 w-32 p-4 rounded-3xl border-2 transition-transform duration-300
+            ${
+              sleepQuality === opt.value
+                ? `border-[#694a39] scale-105 shadow-lg ${opt.color}`
+                : "border-gray-300 bg-white hover:scale-105"
+            }
+          `}
+              >
+                <img
+                  src={opt.icon}
+                  alt={opt.label}
+                  className="w-12 h-12 mb-2"
+                />
+                <span className="font-semibold text-center">{opt.label}</span>
+                <span className="text-sm text-gray-600">{opt.hours}</span>
+              </button>
+            ))}
           </div>
 
           {/* Continue Button */}
           <button
             id="continue"
             onClick={nextStep}
-            className="flex py-3 mt-12 bg-[#694a39] justify-center gap-5 rounded-4xl px-28"
+            disabled={!sleepQuality}
+            className="flex py-3 mt-12 mb-10 bg-[#694a39] justify-center gap-5 rounded-4xl px-28 disabled:opacity-50"
           >
             <h1 className="text-white text-xl">Continue</h1>
             <img src={RightArrow} alt="" />
@@ -359,48 +324,89 @@ const Onboarding = () => {
 
       {/* STEP 5: Stress Level */}
       {step === 5 && (
-        <div className="flex flex-col items-center px-6 py-10">
+        <div className="flex flex-col items-center justify-between h-full px-6 ">
           {/* Title */}
-          <h1 className="text-3xl font-bold text-center text-[#694a39] mb-10">
-            How would you rate <br /> your stress level?
+          <h1 className="text-3xl font-bold text-center text-[#694a39] mb-6">
+            How stressed are you feeling today?
           </h1>
 
-          {/* Stress Number */}
-          <div className="text-[100px] font-bold text-[#694a39]">
-            {stressQuality}
+          {/* Stress Buttons Row */}
+          <div className="flex justify-center gap-4 mb-8">
+            {[1, 2, 3, 4, 5].map((num) => {
+              const colors = [
+                "#6fcf97",
+                "#a0d468",
+                "#ffd966",
+                "#ffb74d",
+                "#ff6b6b",
+              ];
+              return (
+                <button
+                  key={num}
+                  onClick={() => setStressQuality(String(num))}
+                  style={{
+                    backgroundColor:
+                      stressQuality === String(num) ? colors[num - 1] : "#fff",
+                  }}
+                  className={`mt-5 w-12 h-12 flex items-center justify-center rounded-full font-bold border-2
+              transition-transform duration-300
+              ${
+                stressQuality === String(num)
+                  ? "scale-120 shadow-lg text-white border-[#694a39] animate-bounce"
+                  : "border-gray-300 text-[#694a39] hover:scale-110 hover:shadow-md"
+              }
+            `}
+                >
+                  {num}
+                </button>
+              );
+            })}
           </div>
 
-          {/* Circles 1–5 */}
-          <div className="flex gap-4 mt-6">
-            {[1, 2, 3, 4, 5].map((num) => (
-              <button
-                key={num}
-                onClick={() => setStressQuality(String(num))}
-                className={`w-12 h-12 flex items-center justify-center rounded-full border-2 font-bold transition ${
-                  stressQuality === String(num)
-                    ? "bg-[#ff875b] border-[#ff875b] text-white scale-110"
-                    : "bg-white border-gray-400 text-[#694a39]"
-                }`}
-              >
-                {num}
-              </button>
-            ))}
+          {/* Central Display */}
+          <div
+            className="flex flex-col items-center text-center justify-center w-56 h-36 rounded-4xl shadow-lg mb-6 transition-colors duration-500"
+            style={{
+              background:
+                stressQuality === "1"
+                  ? "linear-gradient(135deg, #a8e6cf, #6fcf97)"
+                  : stressQuality === "2"
+                  ? "linear-gradient(135deg, #d0f0c0, #a0d468)"
+                  : stressQuality === "3"
+                  ? "linear-gradient(135deg, #fff2b2, #ffd966)"
+                  : stressQuality === "4"
+                  ? "linear-gradient(135deg, #ffcb9a, #ffb74d)"
+                  : "linear-gradient(135deg, #ff9999, #ff6b6b)",
+            }}
+          >
+            <span className="text-6xl font-bold text-[#694a39]">
+              {stressQuality}
+            </span>
+            <span className="mt-1 text-lg text-[#694a39] font-bold ">
+              {stressQuality === "1" && "Calm 😌"}
+              {stressQuality === "2" && "Slightly Stressed 😐"}
+              {stressQuality === "3" && "Moderate 😕"}
+              {stressQuality === "4" && "Stressed 😟"}
+              {stressQuality === "5" && "Extremely 😫"}
+            </span>
           </div>
 
-          {/* Label */}
-          <p className="mt-6 text-lg text-[#694a39] font-medium">
-            {stressQuality === "1" && "You are very calm."}
-            {stressQuality === "2" && "You feel a bit stressed."}
-            {stressQuality === "3" && "You are moderately stressed."}
-            {stressQuality === "4" && "You are quite stressed."}
-            {stressQuality === "5" && "You are extremely stressed out."}
+          {/* Description */}
+          <p className="text-center text-[#694a39] font-medium mb-8 px-4">
+            {stressQuality === "1" && "You are very calm and relaxed."}
+            {stressQuality === "2" && "You feel a bit stressed, take it easy."}
+            {stressQuality === "3" &&
+              "You are moderately stressed, consider a break."}
+            {stressQuality === "4" && "You are quite stressed, breathe deeply."}
+            {stressQuality === "5" &&
+              "You are extremely stressed out! Time to relax."}
           </p>
 
-          {/* Continue */}
+          {/* Continue Button */}
           <button
             id="continue"
             onClick={handleData}
-            className="flex py-3 mt-12 bg-[#694a39] justify-center gap-5 rounded-4xl px-28"
+            className="flex py-3 bg-[#694a39] justify-center gap-5 rounded-4xl px-28 shadow-lg hover:scale-105 transition-transform duration-300"
           >
             <h1 className="text-white text-xl">Finish</h1>
             <img src={RightArrow} alt="" />

@@ -7,39 +7,67 @@ import { useNavigate } from "react-router-dom";
 const HelpCenter = () => {
   const [activeTab, setActiveTab] = useState<"faq" | "chat">("faq");
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [search, setSearch] = useState("");
 
   const faqs = [
     {
-      question: "What is Freud AI?",
+      question: "What is MindMates AI?",
       answer:
-        "Freud AI is an advanced mental health chatbot app that utilizes artificial intelligence to provide personalized support.",
+        "MindMates AI is an advanced mental health chatbot app that utilizes artificial intelligence to provide personalized support.",
     },
     {
-      question: "How does Freud AI work?",
+      question: "How does MindMates AI work?",
       answer:
-        "Freud AI analyzes your inputs, tracks your mood, and provides mindfulness recommendations tailored for you.",
+        "MindMates AI analyzes your inputs, tracks your mood, and provides mindfulness recommendations tailored for you.",
     },
     {
-      question: "Is Freud AI a replacement for professional therapy?",
+      question: "Is MindMates AI a replacement for professional therapy?",
       answer:
-        "No, Freud AI is designed to support mental well-being but it is not a substitute for licensed mental health professionals.",
+        "No, MindMates AI is designed to support mental well-being but it is not a substitute for licensed mental health professionals.",
     },
     {
-      question: "How do I access Freud AI?",
+      question: "How do I access MindMates AI?",
       answer:
-        "You can access Freud AI by signing up on our app and creating a personalized account.",
+        "You can access MindMates AI by signing up on our app and creating a personalized account.",
     },
     {
-      question: "Is Freud AI free to use?",
+      question: "Is MindMates AI free to use?",
       answer:
-        "Freud AI offers a free tier with limited features. Premium subscriptions unlock advanced analytics and insights.",
+        "MindMates AI offers a free tier with limited features. Premium subscriptions unlock advanced analytics and insights.",
     },
     {
       question: "Is my data secure?",
       answer:
         "Yes, we take privacy seriously. Your data is encrypted and never shared without your consent.",
     },
+    {
+      question: "Can MindMates AI help during anxiety or panic attacks?",
+      answer:
+        "Yes, MindMates AI provides calming techniques like guided breathing and grounding exercises to support you in those moments.",
+    },
+    {
+      question: "Does MindMates AI track my progress over time?",
+      answer:
+        "Absolutely! MindMates AI helps monitor your mental wellness trends and gives insights to improve your lifestyle.",
+    },
+    {
+      question: "Can I connect with a real therapist through the app?",
+      answer:
+        "Currently, MindMates AI offers AI-driven support only. Human therapist integration is being planned for future updates.",
+    },
+    {
+      question: "Can I add emergency contacts in MindMates AI?",
+      answer:
+        "Yes, you can add emergency contacts in the app. They can be quickly accessed during critical situations.",
+    },
   ];
+
+  // ✅ Filter FAQs based on search input
+  const filteredFaqs = faqs.filter(
+    (faq) =>
+      faq.question.toLowerCase().includes(search.toLowerCase()) ||
+      faq.answer.toLowerCase().includes(search.toLowerCase())
+  );
 
   const navigate = useNavigate();
 
@@ -59,9 +87,7 @@ const HelpCenter = () => {
           <button
             onClick={() => setActiveTab("faq")}
             className={`flex-1 text-sm font-medium py-2 rounded-full ${
-              activeTab === "faq"
-                ? "bg-white text-[#4B2E2B]"
-                : "text-white"
+              activeTab === "faq" ? "bg-white text-[#4B2E2B]" : "text-white"
             }`}
           >
             FAQ
@@ -69,9 +95,7 @@ const HelpCenter = () => {
           <button
             onClick={() => setActiveTab("chat")}
             className={`flex-1 text-sm font-medium py-2 rounded-full ${
-              activeTab === "chat"
-                ? "bg-white text-[#4B2E2B]"
-                : "text-white"
+              activeTab === "chat" ? "bg-white text-[#4B2E2B]" : "text-white"
             }`}
           >
             Live Chat
@@ -88,34 +112,42 @@ const HelpCenter = () => {
               <img src={SearchIcon} alt="Search" className="w-5 h-5 mr-2" />
               <input
                 type="text"
-                placeholder="Where can I find..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search FAQs..."
                 className="flex-1 text-sm focus:outline-none"
               />
             </div>
 
             {/* FAQ List */}
             <div className="mt-6 space-y-3">
-              {faqs.map((faq, index) => (
-                <div
-                  key={index}
-                  className={`rounded-xl px-4 py-3 shadow cursor-pointer ${
-                    openIndex === index
-                      ? "bg-[#4B2E2B] text-white"
-                      : "bg-white text-[#4B2E2B]"
-                  }`}
-                  onClick={() =>
-                    setOpenIndex(openIndex === index ? null : index)
-                  }
-                >
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium">{faq.question}</span>
-                    <span>{openIndex === index ? "▲" : "▼"}</span>
+              {filteredFaqs.length > 0 ? (
+                filteredFaqs.map((faq, index) => (
+                  <div
+                    key={index}
+                    className={`rounded-xl px-4 py-3 shadow cursor-pointer ${
+                      openIndex === index
+                        ? "bg-[#4B2E2B] text-white"
+                        : "bg-white text-[#4B2E2B]"
+                    }`}
+                    onClick={() =>
+                      setOpenIndex(openIndex === index ? null : index)
+                    }
+                  >
+                    <div className="flex justify-between items-center">
+                      <span className="font-medium">{faq.question}</span>
+                      <span>{openIndex === index ? "▲" : "▼"}</span>
+                    </div>
+                    {openIndex === index && (
+                      <p className="mt-2 text-sm">{faq.answer}</p>
+                    )}
                   </div>
-                  {openIndex === index && (
-                    <p className="mt-2 text-sm">{faq.answer}</p>
-                  )}
-                </div>
-              ))}
+                ))
+              ) : (
+                <p className="text-center text-sm text-gray-500 mt-6">
+                  No results found.
+                </p>
+              )}
             </div>
           </>
         ) : (
