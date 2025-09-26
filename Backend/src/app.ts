@@ -39,18 +39,12 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      console.log("CORS request origin:", origin);
-      
-      // Allow requests with no origin (like mobile apps, Postman, SSR)
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
+    origin: [
+      "http://localhost:5173",
+      "https://mindmates-beta.vercel.app", // deployed frontend
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, // allow cookies
   })
 );
 

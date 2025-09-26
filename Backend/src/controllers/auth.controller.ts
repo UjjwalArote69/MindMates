@@ -29,13 +29,15 @@ export const registerUser = async (req: Request, res: Response) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "none", // or "None" if using cross-origin cookies with HTTPS
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      secure: true, // Render uses HTTPS
+      sameSite: "none", // allow cross-site (Vercel → Render)
+      path: "/", // valid everywhere
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    console.log(`🆕 New user registered: ${newUser.name} at ${newUser.createdAt}`);
-    
+    console.log(
+      `🆕 New user registered: ${newUser.name} at ${newUser.createdAt}`
+    );
 
     res.status(201).json({
       newUser,
@@ -69,12 +71,15 @@ export const loginUser = async (req: Request, res: Response) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "none", // or "None" if using cross-origin cookies with HTTPS
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      secure: true, // Render uses HTTPS
+      sameSite: "none", // allow cross-site (Vercel → Render)
+      path: "/", // valid everywhere
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    console.log(`🔑 User logged in: ${user.name} at ${new Date().toISOString()}`);
+    console.log(
+      `🔑 User logged in: ${user.name} at ${new Date().toISOString()}`
+    );
 
     res.status(200).json({
       user: userWithoutPassword,
