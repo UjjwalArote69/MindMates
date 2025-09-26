@@ -41,10 +41,10 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://mindmates-beta.vercel.app", // deployed frontend
+      "https://mindmates-beta.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true, // allow cookies
+    credentials: true,  // ✅ allow cookies
   })
 );
 

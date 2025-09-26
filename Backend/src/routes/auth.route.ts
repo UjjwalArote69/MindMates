@@ -28,12 +28,13 @@ router.get(
 
     // Fixed cookie configuration
     res.cookie("token", token, {
-      httpOnly: true,
-      secure: true, // Render uses HTTPS
-      sameSite: "none", // allow cross-site (Vercel → Render)
-      path: "/", // valid everywhere
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  path: "/",
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+});
+
 
     console.log(
       `🔑 User logged in: ${user.name} at ${new Date().toISOString()}`

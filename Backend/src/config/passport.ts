@@ -11,7 +11,9 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      callbackURL: process.env.GOOGLE_CALLBACK_URL || "http://localhost:5000/api/auth/google/callback",
+      callbackURL:
+        process.env.GOOGLE_CALLBACK_URL ||
+        "http://localhost:5000/api/auth/google/callback",
       passReqToCallback: true,
     },
     async (request, accessToken, refreshToken, profile, done) => {
@@ -30,8 +32,9 @@ passport.use(
               profile.name?.familyName || ""
             }`.trim(),
             email: profile.emails?.[0]?.value || "",
-            photo: profile.photos?.[0]?.value || "",
+            avatar: profile.photos?.[0]?.value || "", // ✅ use avatar not photo
           });
+
           isNewUser = true;
         }
 
