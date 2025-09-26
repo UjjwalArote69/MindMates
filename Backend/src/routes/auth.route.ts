@@ -17,24 +17,22 @@ router.get(
   "/google/callback",
   passport.authenticate("google", {
     session: false,
-    failureRedirect: `${process.env.CLIENT_ID}/login`,
+    failureRedirect: `${process.env.CLIENT_URL}/login`,
   }),
   (req, res) => {
     const user = req.user as any;
     const token = generateToken({ id: user._id.toString() });
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax", // or "None" if using cross-origin cookies with HTTPS
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      secure: process.env.NODE_ENV === "production", // true in prod
+      sameSite: "none", // required for cross-origin
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     if (user.isNewUser) {
-      
-      res.redirect(`${process.env.CLIENT_ID}/onboarding`);
+      res.redirect(`${process.env.CLIENT_URL}/onboarding`);
     } else {
-
-      res.redirect(`${process.env.CLIENT_ID}/home`);
+      res.redirect(`${process.env.CLIENT_URL}/home`);
     }
   }
 );
