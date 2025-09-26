@@ -23,6 +23,7 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: (origin, callback) => {
+      console.log("CORS request origin:", origin);
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
@@ -32,6 +33,7 @@ app.use(
     credentials: true,
   })
 );
+
 
 
 app.use("/api/auth", authRoutes);
