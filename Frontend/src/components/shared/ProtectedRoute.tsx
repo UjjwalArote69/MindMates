@@ -28,7 +28,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
-    API.get("/users/me")
+    API.get("/api/users/me")
       .then(() => setIsAuth(true))
       .catch(() => setIsAuth(false))
       .finally(() => setLoading(false));
