@@ -14,12 +14,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_BASE_URL}/users/me`, { withCredentials: true })
-      .then(res => setUser(res.data))
-      .catch(() => setUser(null))
-      .finally(() => setLoading(false));
-  }, []);
+  axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/users/me`, { withCredentials: true })
+    .then(res => setUser(res.data))
+    .catch(err => {
+      if (err.response?.status === 401) {
+        setUser(null); // user is not logged in, that's fine
+      } else {
+        console.error(err); // other errors you may want to see
+      }
+    })
+    .finally(() => setLoading(false));
+}, []);
+
 
   return (
     <AuthContext.Provider value={{ user, loading }}>
