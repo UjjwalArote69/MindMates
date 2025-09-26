@@ -6,7 +6,7 @@ const API = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
 export const logoutUser = async () => {
   try {
     const res = await axios.post(
-      `${API}/users/logout`,
+      `${API}/api/users/logout`,
       {}, // empty body
       {
         headers: { "Content-Type": "application/json" },

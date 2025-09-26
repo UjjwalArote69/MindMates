@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const fetchUser = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/users/me`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/users/me`, {
         withCredentials: true,
       });
       setUser(res.data);
