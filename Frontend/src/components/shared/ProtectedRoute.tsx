@@ -7,34 +7,18 @@ interface ProtectedRouteProps {
   children: JSX.Element;
 }
 
-const API = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
-  withCredentials: true,
-});
-
-export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  // const token = document.cookie
-  //   .split("; ")
-  //   .find((row) => row.startsWith("token="));
-
-  // // If no token → redirect to login
-  // if (!token) {
-  //   return <Navigate to="/login" replace />;
-  // }
-
-  // return children;
-
+function ProtectedRoute({ children }: ProtectedRouteProps) {
   const [loading, setLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
-    API.get("/api/users/me")
+    axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/users/me`, { withCredentials: true })
       .then(() => setIsAuth(true))
       .catch(() => setIsAuth(false))
       .finally(() => setLoading(false));
   }, []);
 
   if (loading) return <p>Loading...</p>;
-
   return isAuth ? children : <Navigate to="/auth/login" replace />;
 }
+export default ProtectedRoute;
