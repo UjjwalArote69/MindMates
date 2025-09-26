@@ -7,54 +7,37 @@ import AiReccomendation from "./components/AiReccomendation";
 import SwipableCards from "./components/SwipableCards";
 import MindfullTracker from "./components/MindfullTracker";
 import NotificationsIcon from "../../assets/Icons/Notifications.svg";
-import { useEffect, useState } from "react";
-import { getMe } from "../../services/user.service";
+import { useEffect } from "react";
 import DefaultAvatar from "../../assets/Icons/User Pfp Avatar.png";
-
-interface Mood {
-  date: string;
-  mood: string;
-}
-
-interface User {
-  name: string;
-  email: string;
-  avatar?: string;
-  moodTracker?: Mood[];
-  mentalHealthScore?: number;
-  age?: number;
-  weight?: number;
-  height?: number;
-  gender?: string;
-  isPro?: boolean;
-  sleepQuality?: number;
-  currentMood?: string;
-  currentStress?: number;
-  subscriptionType?: string;
-}
+import { useUserStore } from "../../store/userStore";
 
 const Home = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [_loading, setLoading] = useState<boolean>(true);
+  const { user, fetchUser, loading } = useUserStore();
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const data = await getMe();
-        setUser(data);
-      } catch (error) {
-        console.error("Failed to fetch user: ", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchUser();
-  }, []);
+  }, [fetchUser]);
 
-  const getProfileImage = () => {
-    if (user?.avatar) return user.avatar;
-    return DefaultAvatar;
-  };
+  const getProfileImage = () => (user?.avatar ? user.avatar : DefaultAvatar);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-[#F9F5F2]">
+        <div className="flex flex-col items-center gap-4">
+          {/* Spinner */}
+          <div className="w-16 h-16 border-4 border-[#4E342E] border-t-transparent rounded-full animate-spin"></div>
+          {/* Loading Text */}
+          <p className="text-[#4E342E] font-semibold text-lg">
+            Loading your MindMates...
+          </p>
+          {/* Subtext */}
+          <p className="text-gray-500 text-sm text-center max-w-xs">
+            Fetching your profile and personalized recommendations.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div id="main" className="min-h-screen pb-20 w-full font-Lato bg-[#f6f5f2]">
@@ -72,12 +55,9 @@ const Home = () => {
           </p>
 
           <div className="relative">
-            {/* Notification Icon Circle */}
             <div className="w-10 h-10 flex items-center justify-center rounded-full border border-black">
               <img src={NotificationsIcon} alt="" />
             </div>
-            {/* Small dot indicator */}
-            {/* <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span> */}
           </div>
         </div>
 
@@ -93,21 +73,16 @@ const Home = () => {
               {`Hi, ${user?.name}!`}
             </h1>
             <div className="flex items-center gap-3 mt-1 text-sm text-gray-700">
-              {/* Pro Badge */}
               <div className="flex items-center gap-1 px-2 py-0.5 bg-[#e5f8e5] text-[#2f7a32] rounded-lg font-semibold text-xs">
                 <img src={StarIcon} alt="star" className="w-4 h-4" />
                 {user?.isPro ? "Pro Member" : "Free Member"}
               </div>
-
-              {/* Percentage */}
               <div className="flex items-center gap-1">
                 <img src={FourCirclesIcon} alt="progress" className="w-4 h-4" />
                 {user?.mentalHealthScore !== undefined
                   ? `${user.mentalHealthScore}%`
                   : "N/A"}
               </div>
-
-              {/* Mood */}
               <div className="flex items-center gap-1">
                 <img src={HappyIcon} alt="happy" className="w-4 h-4" />
                 <span>
@@ -132,41 +107,10 @@ const Home = () => {
       </div>
 
       <div className="flex flex-col items-center bg-amber-20 px-3">
-        <AiReccomendation user={user} />
-        <SwipableCards user={user} />
-        <MindfullTracker user={user} />
+        <AiReccomendation />
+        <SwipableCards />
+        <MindfullTracker />
       </div>
-
-      {/* Quick Stats */}
-      {/* <div className="grid grid-cols-2 gap-4 mt-4">
-        <div className="p-4 bg-white rounded-2xl shadow-sm flex flex-col">
-          <span className="text-sm text-gray-500">Sleep Quality</span>
-          <span className="text-lg font-bold text-[#3f2c22]">
-            {user?.sleepQuality ? `${user.sleepQuality}/10` : "Not set"}
-          </span>
-        </div>
-
-        <div className="p-4 bg-white rounded-2xl shadow-sm flex flex-col">
-          <span className="text-sm text-gray-500">Stress Level</span>
-          <span className="text-lg font-bold text-[#3f2c22]">
-            {user?.currentStress ? `${user.currentStress}/10` : "Not set"}
-          </span>
-        </div>
-
-        <div className="p-4 bg-white rounded-2xl shadow-sm flex flex-col">
-          <span className="text-sm text-gray-500">Current Mood</span>
-          <span className="text-lg font-bold text-[#3f2c22]">
-            {user?.currentMood ?? "Not set"}
-          </span>
-        </div>
-
-        <div className="p-4 bg-white rounded-2xl shadow-sm flex flex-col">
-          <span className="text-sm text-gray-500">Weight</span>
-          <span className="text-lg font-bold text-[#3f2c22]">
-            {user?.weight ? `${user.weight} kg` : "Not set"}
-          </span>
-        </div>
-      </div> */}
 
       <Navbar />
     </div>

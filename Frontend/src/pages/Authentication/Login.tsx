@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUserService } from "../../services/auth.service";
+// import { loginUserService } from "../../services/auth.service";
 import MindMatesIcon from "../../assets/Icons/MindMates Auth Icon.svg";
 import GoogleIcon from "../../assets/Icons/Google Icon.png";
 
@@ -8,14 +8,18 @@ import EmailIcon from "../../assets/Icons/Email Icon.svg";
 import PasswordIcon from "../../assets/Icons/Security Lock Icon.svg";
 import EyeOpenIcon from "../../assets/Icons/Eye Open Password.svg";
 import EyeCloseIcon from "../../assets/Icons/Eye Closed Password.svg";
+import { useUserStore } from "../../store/userStore";
 
 const Login = () => {
+  const [formError, _setFormError] = useState("");
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
-  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState("");
-  const [formError, setFormError] = useState("");
+
+  const login = useUserStore((state) => state.login);
+  const loading = useUserStore((state) => state.loading);
+  // const error = useUserStore((state) => state.error);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -29,16 +33,8 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormError("");
-    setLoading(true);
-    try {
-      await loginUserService(form);
-      navigate("/home", { replace: true });
-    } catch (error: any) {
-      setFormError(error.response?.data?.message || "Something went wrong");
-    } finally {
-      setLoading(false);
-    }
+    await login(form.email, form.password);
+    navigate("/home", { replace: true });
   };
 
   const handleGoogleLogin = () => {

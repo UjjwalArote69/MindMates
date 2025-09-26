@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { onboardingData } from "../services/user.service";
+// import { onboardingData } from "../services/user.service";
 
 import BackArrow from "../assets/Icons/Back Arrow.svg";
 import MaleIcon from "../assets/Icons/Male Gender Icon.svg";
@@ -18,16 +18,17 @@ import GoodSleepIcon from "../assets/Icons/Good Sleep Icon.svg";
 import NuetralSleepIcon from "../assets/Icons/Neutral Sleep Icon.svg";
 import BadSleepIcon from "../assets/Icons/Bad Sleep Icon.svg";
 import VeryBadSleepIcon from "../assets/Icons/Very Bad Sleep Icon.svg";
+import { useUserStore } from "../store/userStore";
 
 const Onboarding = () => {
-  const [gender, setGender] = useState<"male" | "female">();
-  const [age, setAge] = useState<number>(18);
+  // const [gender, setGender] = useState<"male" | "female">();
+  // const [age, setAge] = useState<number>(18);
 
   // Additional answers
   // const [mentalHealthScore, setMentalHealthScore] = useState<string>("happy");
-  const [stressQuality, setStressQuality] = useState<string>("good");
-  const [currentMood, setCurrentMood] = useState<string>("Happy");
-  const [sleepQuality, setSleepQuality] = useState<number>(3);
+  // const [stressQuality, setStressQuality] = useState<string>("good");
+  // const [currentMood, setCurrentMood] = useState<string>("Happy");
+  // const [sleepQuality, setSleepQuality] = useState<number>(3);
 
   const sleepOptions = [
     {
@@ -73,6 +74,20 @@ const Onboarding = () => {
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => (prev > 1 ? prev - 1 : prev));
 
+  const gender = useUserStore((state) => state.gender);
+const setGender = useUserStore((state) => state.setGender);
+const age = useUserStore((state) => state.age);
+const setAge = useUserStore((state) => state.setAge);
+const currentMood = useUserStore((state) => state.currentMood);
+const setCurrentMood = useUserStore((state) => state.setCurrentMood);
+const sleepQuality = useUserStore((state) => state.sleepQuality);
+const setSleepQuality = useUserStore((state) => state.setSleepQuality);
+const stressQuality = useUserStore((state) => state.stressQuality);
+const setStressQuality = useUserStore((state) => state.setStressQuality);
+
+const submitOnboarding = useUserStore((state) => state.submitOnboarding);
+
+
   const handleGenderSelect = (selected: "male" | "female") => {
     setGender(selected);
   };
@@ -84,16 +99,7 @@ const Onboarding = () => {
     }
 
     try {
-      const res = await onboardingData({
-        age,
-        gender,
-        currentMood,
-        sleepQuality,
-        currentStress: Number(stressQuality), // since it's stored as string
-        mentalHealthScore: 50, // placeholder, we can calculate later
-        subscriptionType: "free",
-      });
-      console.log("Onboarding saved:", res);
+      await submitOnboarding();
       navigate("/home");
     } catch (error) {
       console.error("Error saving onboarding data:", error);

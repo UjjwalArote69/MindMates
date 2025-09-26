@@ -5,8 +5,11 @@ import "swiper/css";
 import "swiper/css/pagination";
 import HeartIcon from "../../../assets/Icons/White Heart Icon.svg";
 import SadIcon from "../../../assets/Icons/White Sad Icon.svg";
+import { useUserStore } from "../../../store/userStore";
 
-const SwipableCards = ({ user }: { user: any }) => {
+const SwipableCards = () => {
+
+  const user = useUserStore((state) => state.user)
   const score = user?.mentalHealthScore ?? 0;
   const mood = user?.currentMood ?? "Not set";
 

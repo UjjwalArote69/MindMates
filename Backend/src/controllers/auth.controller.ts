@@ -34,10 +34,13 @@ export const registerUser = async (req: Request, res: Response) => {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
+    console.log(`🆕 New user registered: ${newUser.name} at ${newUser.createdAt}`);
+    
+
     res.status(201).json({
       newUser,
       token,
-      message: `User created - ${newUser.name} at ${newUser.createdAt} && Token - ${token}`,
+      message: `User created - ${newUser.name} at ${new Date().toISOString()}`,
     });
   } catch (error) {
     console.error("Auth Controller : registerUser, ", error);
@@ -70,6 +73,8 @@ export const loginUser = async (req: Request, res: Response) => {
       sameSite: "none", // or "None" if using cross-origin cookies with HTTPS
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
+
+    console.log(`🔑 User logged in: ${user.name} at ${new Date().toISOString()}`);
 
     res.status(200).json({
       user: userWithoutPassword,

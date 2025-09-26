@@ -10,56 +10,51 @@ import WeightIcon from "../../assets/Icons/Weight Icon.svg";
 import HeightIcon from "../../assets/Icons/Height Anatomy Spine Icon.svg";
 import CheckIcon from "../../assets/Icons/Check Icon.svg";
 import CloseIcon from "../../assets/Icons/Close Icon.svg";
-import { getMe, updateUser } from "../../services/user.service";
+import { updateUser } from "../../services/user.service";
+import { useUserStore } from "../../store/userStore";
 
 const PersonalInfo: React.FC = () => {
   const navigate = useNavigate();
 
-  // User states
-  const [_user, setUser] = useState<any>(null);
+  const user = useUserStore((state) => state.user);
+  const setUser = useUserStore((state) => state.setUser);
+  const fetchUser = useUserStore((state) => state.fetchUser);
+
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
-  // Form states
-  const [username, setUsername] = useState("");
-  const [tempUsername, setTempUsername] = useState("");
+  // Editable states
+  const [username, setUsername] = useState(user?.name || "");
+  const [tempUsername, setTempUsername] = useState(username);
   const [isEditingName, setIsEditingName] = useState(false);
 
   const [password, setPassword] = useState("********");
   const [tempPassword, setTempPassword] = useState(password);
   const [isEditingPassword, setIsEditingPassword] = useState(false);
 
-  const [weight, setWeight] = useState<number | undefined>(undefined);
-  const [height, setHeight] = useState<number | undefined>(undefined);
-  const [birthDate, setBirthDate] = useState<string>("");
-  const [selectedGender, setSelectedGender] = useState("other");
+  const [weight, setWeight] = useState<number | undefined>(user?.weight);
+  const [height, setHeight] = useState<number | undefined>(user?.height);
+  const [birthDate, setBirthDate] = useState(
+    user?.birthDate ? new Date(user.birthDate).toISOString().split("T")[0] : ""
+  );
+  const [selectedGender, setSelectedGender] = useState(user?.gender || "other");
 
-  // Fetch user
+  // On mount, fetch user if not loaded
   useEffect(() => {
-    const fetchUser = async () => {
+    const init = async () => {
       try {
-        const me = await getMe();
-        setUser(me);
-        setUsername(me.name || "");
-        setTempUsername(me.name || "");
-        setWeight(me.weight);
-        setHeight(me.height);
-        setSelectedGender(me.gender || "other");
-        setBirthDate(
-          me.birthDate ? new Date(me.birthDate).toISOString().split("T")[0] : ""
-        );
+        if (!user) await fetchUser();
       } catch (err) {
-        setError("Failed to load user data.");
         console.error(err);
+        setError("Failed to load user data.");
       } finally {
         setLoading(false);
       }
     };
-    fetchUser();
-  }, []);
+    init();
+  }, [user, fetchUser]);
 
-  // Save handlers
   const saveName = () => {
     setUsername(tempUsername);
     setIsEditingName(false);
@@ -90,26 +85,35 @@ const PersonalInfo: React.FC = () => {
         updatedBirthDate: birthDate ? new Date(birthDate) : undefined,
       });
 
+      // Update global store
       setUser(res.user);
       navigate("/profile", { state: { updated: true } });
-
-      // ❌ Remove these lines:
-      // setHeight(res.user.height);
-      // setWeight(res.user.weight);
-      // setUsername(res.user.name);
-
-      // ✅ Optionally, you can just show a success toast instead of overwriting
-      // toast.success("Profile updated!");
     } catch (err) {
-      setError("Failed to update profile. Try again.");
       console.error(err);
+      setError("Failed to update profile. Try again.");
     } finally {
       setSaving(false);
     }
   };
 
-  if (loading)
-    return <p className="p-5 text-center text-gray-600">Loading...</p>;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-[#F9F5F2]">
+        <div className="flex flex-col items-center gap-4">
+          {/* Spinner */}
+          <div className="w-16 h-16 border-4 border-[#4E342E] border-t-transparent rounded-full animate-spin"></div>
+          {/* Loading Text */}
+          <p className="text-[#4E342E] font-semibold text-lg">
+            Loading your MindMates...
+          </p>
+          {/* Subtext */}
+          <p className="text-gray-500 text-sm text-center max-w-xs">
+            Fetching your profile and personalized recommendations.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full min-h-screen bg-[#fdfcfb] px-5 py-6 text-[#4B2E2B]">
@@ -230,10 +234,10 @@ const PersonalInfo: React.FC = () => {
         </div>
       </div>
 
-      {/* Error Message */}
+      {/* Error */}
       {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 
-      {/* Save Button */}
+      {/* Save */}
       <button
         onClick={updateUserProfile}
         disabled={saving}
@@ -245,7 +249,7 @@ const PersonalInfo: React.FC = () => {
   );
 };
 
-// Input wrapper
+// --- Reusable Components ---
 const InputWrapper = ({
   icon,
   children,
@@ -259,7 +263,6 @@ const InputWrapper = ({
   </div>
 );
 
-// Editable Field
 const EditableField = ({
   icon,
   value,
@@ -313,7 +316,6 @@ const EditableField = ({
   </div>
 );
 
-// Gender Option
 const GenderOption = ({
   label,
   active,

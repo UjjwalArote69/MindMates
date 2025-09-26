@@ -1,15 +1,15 @@
-import { JSX } from "react";
-import { useAuth } from "../../context/AuthContext";
 import { Navigate } from "react-router-dom";
+import { useUserStore } from "../../store/userStore";
+import { JSX } from "react";
 
-interface ProtectedRouteProps {
-  children: JSX.Element;
-}
+const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+  const user = useUserStore((state) => state.user);
 
-export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { user, loading } = useAuth();
+  if (!user) {
+    return <Navigate to="/auth/login" replace />;
+  }
 
-  if (loading) return <p>Loading...</p>; // optional spinner
+  return children;
+};
 
-  return user ? children : <Navigate to="/auth/login" replace />;
-}
+export default ProtectedRoute;

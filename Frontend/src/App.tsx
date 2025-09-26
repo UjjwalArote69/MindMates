@@ -1,40 +1,53 @@
-// src/App.tsx
 import { Routes, Route } from "react-router-dom";
-// import ProtectedRoute from "./components/shared/ProtectedRoute";
+// import { useEffect, useState } from "react";
+
+import Hero from "./pages/Hero";
+import Auth from "./pages/Authentication/Auth";
+import Register from "./pages/Authentication/Register";
 import Login from "./pages/Authentication/Login";
 import Onboarding from "./pages/Onboarding";
 import Home from "./pages/Home/Home";
-import Hero from "./pages/Hero";
-import Register from "./pages/Authentication/Register";
 import Profile from "./pages/Profile/Profile";
+import ProfileHome from "./pages/Profile/ProfileHome";
 import PersonalInfo from "./pages/Profile/PersonalInfo";
 import Emergency from "./pages/Profile/Emergency";
 import Feedback from "./pages/Profile/Feedback";
 import Language from "./pages/Profile/Language";
 import HelpCenter from "./pages/Profile/HelpCenter";
+import InviteFriends from "./pages/Profile/InviteFriends";
+import CloseAccount from "./pages/Profile/CloseAccount";
+
 import Chat from "./pages/Chat/Chat";
+import ChatTemp from "./pages/Chat/ChatTemp";
 import ChatList from "./pages/Chat/ChatList";
 import ChatSingle from "./pages/Chat/ChatSingle";
 import ChatIntro from "./pages/Chat/ChatIntro";
 import ChatLimit from "./pages/Chat/ChatLimit";
 import UpgradePlan from "./pages/Chat/UpgradePlan";
-import ProfileHome from "./pages/Profile/ProfileHome";
-import Auth from "./pages/Authentication/Auth";
+
 import Stats from "./pages/Stats/Stats";
 import StatsHome from "./pages/Stats/StatsHome";
-// import StressLevel from "./pages/Stats/StressLevel";
+import Mood from "./pages/Stats/Mood";
 import MindScore from "./pages/Stats/MindScore";
 import MindfulExercise from "./pages/Stats/MindfulExercise";
 import SleepAnalysis from "./pages/Stats/SleepAnalysis";
-// import MoodStats from "./pages/Stats/Mood_n_Stress";
-// import Mood_n_Stress from "./pages/Stats/Mood_n_Stress";
-import Mood from "./pages/Stats/Mood";
-import InviteFriends from "./pages/Profile/InviteFriends";
-import CloseAccount from "./pages/Profile/CloseAccount";
-import ChatTemp from "./pages/Chat/ChatTemp";
+
 import ProtectedRoute from "./components/shared/ProtectedRoute";
+import { useUserStore } from "./store/userStore";
+import { useEffect, useState } from "react";
+// import { useUserStore } from "./store/userStore";
 
 function App() {
+
+  const fetchUser = useUserStore((state) => state.fetchUser);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchUser().finally(() => setLoading(false));
+  }, [fetchUser]);
+
+  if (loading) return <div>Loading...</div>;
+
   return (
     <Routes>
       {/* Public routes */}
@@ -74,7 +87,7 @@ function App() {
           </ProtectedRoute>
         }
       >
-        <Route index element={<ProfileHome />} /> {/* /profile */}
+        <Route index element={<ProfileHome />} />
         <Route path="personal-info" element={<PersonalInfo />} />
         <Route path="emergency" element={<Emergency />} />
         <Route path="feedback" element={<Feedback />} />
@@ -84,19 +97,32 @@ function App() {
         <Route path="delete" element={<CloseAccount />} />
       </Route>
 
-      <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>}>
+      <Route
+        path="/chat"
+        element={
+          <ProtectedRoute>
+            <Chat />
+          </ProtectedRoute>
+        }
+      >
         <Route index element={<ChatTemp />} />
-        <Route path="list" element={<ChatList />} /> {/* /chat */}
-        <Route path=":id" element={<ChatSingle />} /> {/* /chat/123 */}
-        <Route path="intro" element={<ChatIntro />} /> {/* /chat/intro */}
-        <Route path="limit" element={<ChatLimit />} /> {/* /chat/limit */}
-        <Route path="upgrade" element={<UpgradePlan />} /> {/* /chat/upgrade */}
+        <Route path="list" element={<ChatList />} />
+        <Route path=":id" element={<ChatSingle />} />
+        <Route path="intro" element={<ChatIntro />} />
+        <Route path="limit" element={<ChatLimit />} />
+        <Route path="upgrade" element={<UpgradePlan />} />
       </Route>
 
-      <Route path="/stats" element={<ProtectedRoute><Stats /></ProtectedRoute>}>
+      <Route
+        path="/stats"
+        element={
+          <ProtectedRoute>
+            <Stats />
+          </ProtectedRoute>
+        }
+      >
         <Route index element={<StatsHome />} />
         <Route path="mood" element={<Mood />} />
-        {/* <Route path="stres" element={<StressLevel/>}/> */}
         <Route path="mindscore" element={<MindScore />} />
         <Route path="exercise" element={<MindfulExercise />} />
         <Route path="sleep" element={<SleepAnalysis />} />

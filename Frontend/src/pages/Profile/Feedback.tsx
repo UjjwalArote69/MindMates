@@ -67,6 +67,25 @@ const Feedback = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-[#F9F5F2]">
+        <div className="flex flex-col items-center gap-4">
+          {/* Spinner */}
+          <div className="w-16 h-16 border-4 border-[#4E342E] border-t-transparent rounded-full animate-spin"></div>
+          {/* Loading Text */}
+          <p className="text-[#4E342E] font-semibold text-lg">
+            Loading your MindMates...
+          </p>
+          {/* Subtext */}
+          <p className="text-gray-500 text-sm text-center max-w-xs">
+            Fetching your profile and personalized recommendations.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full min-h-screen bg-[#fdfcfb] text-[#4B2E2B] flex flex-col">
       {/* Header */}

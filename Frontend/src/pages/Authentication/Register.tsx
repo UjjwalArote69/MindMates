@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { registerUserService } from "../../services/auth.service";
+// import { registerUserService } from "../../services/auth.service";
 import MindMatesIcon from "../../assets/Icons/MindMates Auth Icon.svg";
 import GoogleIcon from "../../assets/Icons/Google Icon.png";
 import EmailIcon from "../../assets/Icons/Email Icon.svg";
@@ -8,14 +8,16 @@ import PasswordIcon from "../../assets/Icons/Security Lock Icon.svg";
 import UserIcon from "../../assets/Icons/User Pfp Avatar.png";
 import EyeOpenIcon from "../../assets/Icons/Eye Open Password.svg";
 import EyeCloseIcon from "../../assets/Icons/Eye Closed Password.svg";
+import { useUserStore } from "../../store/userStore";
 
 const Register = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", email: "", password: "" });
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState("");
-  const [formError, setFormError] = useState("");
+  const [formError, _setFormError] = useState("");
+  // const fetchUser = useUserStore((state) => state.fetchUser);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -27,18 +29,14 @@ const Register = () => {
     }
   };
 
+  const register = useUserStore((state) => state.register);
+  const loading = useUserStore((state) => state.loading);
+  // const _error = useUserStore((state) => state.error);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormError("");
-    setLoading(true);
-    try {
-      await registerUserService(form);
-      navigate("/onboarding");
-    } catch (error: any) {
-      setFormError(error.response?.data?.message || "Something went wrong");
-    } finally {
-      setLoading(false);
-    }
+    await register(form.name, form.email, form.password);
+    navigate("/onboarding");
   };
 
   const handleGoogleRegister = () => {
@@ -63,7 +61,9 @@ const Register = () => {
 
         {/* Full Name */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#4E342E]">Full Name</label>
+          <label className="text-sm font-medium text-[#4E342E]">
+            Full Name
+          </label>
           <div className="flex items-center gap-2 rounded-full px-4 py-3 bg-white border border-gray-300">
             <img src={UserIcon} alt="User Icon" className="w-5 h-5" />
             <input
@@ -80,7 +80,9 @@ const Register = () => {
 
         {/* Email */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-[#4E342E]">Email Address</label>
+          <label className="text-sm font-medium text-[#4E342E]">
+            Email Address
+          </label>
           <div
             className={`flex items-center gap-2 rounded-full px-4 py-3 bg-white border ${
               emailError ? "border-[#F4A261]" : "border-gray-300"

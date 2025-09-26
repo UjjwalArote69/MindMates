@@ -3,9 +3,12 @@ import SleepBedIcon from "../../../assets/Icons/Sleep bed Icon.svg";
 import DocumentHealthIcon from "../../../assets/Icons/Document Health Icon.svg";
 import MindfullJournalIcon from "../../../assets/Icons/Mindfull Journal Icon.svg";
 import StressLevelIcon from "../../../assets/Icons/Stress Level Heart Icon.svg";
+import { useUserStore } from "../../../store/userStore";
 
-const MindfullTracker = ({ user }: { user: any }) => {
+const MindfullTracker = () => {
   // if (user?.sleepQuality == )
+
+  const user = useUserStore((state) => state.user)
 
   const getStressLabel = (stress?: number): string => {
     if (stress === undefined || stress === null) return "Not tracked";

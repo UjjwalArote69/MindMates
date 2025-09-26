@@ -13,6 +13,9 @@ export const getMe = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+
+    console.log(`👤 getMe: ${user.name} at ${new Date().toISOString()}`);
+
     res.status(200).json(user);
   } catch (error) {
     console.error("User Controller : getMe, ", error);
@@ -52,6 +55,8 @@ export const updateUser = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "User not found" });
     }
 
+    console.log(`✏️ User updated: ${updated.name} at ${new Date().toISOString()}`);
+
     res
       .status(200)
       .json({ message: "Profile updated succesfully", user: updated });
@@ -85,6 +90,9 @@ export const deleteUser = async (req: Request, res: Response) => {
     }
 
     await User.findByIdAndDelete(userId);
+
+    console.log(`🗑️ User deleted: ${user.name} at ${new Date().toISOString()}`);
+
     res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
     console.error("User Controller : deleteUser", error);
@@ -100,6 +108,8 @@ export const logoutUser = async (req: Request, res: Response) => {
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
     });
+
+    console.log(`🚪 User logged out at ${new Date().toISOString()}`);
 
     res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
@@ -145,6 +155,13 @@ export const updateOnboardingData = async (req: Request, res: Response) => {
       { new: true }
     );
 
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    console.log(`📝 Onboarding data updated: ${updatedUser.name} at ${new Date().toISOString()}`);
+    
+
     res.json(updatedUser);
   } catch (error) {
     res.status(500).json({ message: "Error updating onboarding data", error });
@@ -184,6 +201,8 @@ export const submitFeedback = async (req: Request, res: Response) => {
       userId,
       name: user.name ?? "",
     });
+
+    console.log(`💬 Feedback submitted by: ${user.name} at ${new Date().toISOString()}`);
 
     res.status(201).json({
       message: "Feedback submitted successfully",

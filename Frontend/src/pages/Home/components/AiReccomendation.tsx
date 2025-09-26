@@ -1,7 +1,11 @@
 import AiRobot from "../../../assets/Images/Ai Reccomendations/Ai robot mockup.svg";
 import SleepIcon from "../../../assets/Icons/Sleep zzz Icon.svg";
+import { useUserStore } from "../../../store/userStore";
 
-const AiReccomendation = ({ user }: { user: any }) => {
+const AiReccomendation = () => {
+
+  const user = useUserStore((state) => state.user)
+
   return (
     <div className="mt-5 flex flex-col justify-start gap-2 font-Lato ">
       <h1 className="font-extrabold text-[#4c3729] text-2xl">AI insights -</h1>

@@ -22,3 +22,7 @@ declare module "*.gif" {
   const content: string;
   export default content;
 }
+
+// src/declarations.d.ts
+declare module "swiper/css";
+declare module "swiper/css/pagination";
