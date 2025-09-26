@@ -30,8 +30,9 @@ router.get(
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Fix this
+      sameSite: "none", // Fix this
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: "/",
     });
 
     console.log(`🔑 User logged in: ${user.name} at ${new Date().toISOString()}`);

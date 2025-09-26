@@ -21,7 +21,7 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Fix this
+      sameSite:"none", // Fix this
       maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
     },
   })
@@ -49,6 +49,7 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
 );
