@@ -29,9 +29,10 @@ export const registerUser = async (req: Request, res: Response) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true, // Render uses HTTPS
-      sameSite: "none", // allow cross-site (Vercel → Render)
-      path: "/", // valid everywhere
+      secure: true,
+      sameSite: "none",
+      domain: ".onrender.com", // ✅ force cookie for Render domain
+      path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -71,9 +72,10 @@ export const loginUser = async (req: Request, res: Response) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true, // Render uses HTTPS
-      sameSite: "none", // allow cross-site (Vercel → Render)
-      path: "/", // valid everywhere
+      secure: true,
+      sameSite: "none",
+      domain: ".onrender.com", // ✅ force cookie for Render domain
+      path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
