@@ -8,7 +8,7 @@ export const registerUserService = async (data: {
   password: string;
 }) => {
   try {
-    const res = await axios.post(`${API}/api/auth/register`, data, {
+    const res = await axios.post(`${API}/auth/register`, data, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -23,7 +23,7 @@ export const registerUserService = async (data: {
 
 export const loginUserService = async (data: { email: string; password: string }) => {
   try {
-    const res = await axios.post(`${API}/api/auth/login`, data, {
+    const res = await axios.post(`${API}/auth/login`, data, {
       headers: {
         "Content-Type": "application/json",
       },

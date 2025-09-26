@@ -13,17 +13,18 @@ app.use(express.json());
 app.use(passport.initialize());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 const allowedOrigins = [
   "http://localhost:5173",
   "https://mindmates-beta.vercel.app",
-  "https://mindmates-git-main-ujjwalarote69s-projects.vercel.app",
-  "https://mindmates-kl7qxai0x-ujjwalarote69s-projects.vercel.app",
 ];
 
 app.use(
   cors({
     origin: (origin, callback) => {
       console.log("CORS request origin:", origin);
+
+      // allow requests with no origin (like mobile apps, Postman, SSR)
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
@@ -33,6 +34,7 @@ app.use(
     credentials: true,
   })
 );
+
 
 
 
