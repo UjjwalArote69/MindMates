@@ -3,34 +3,40 @@ import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
 
 type AuthContextType = {
-  user: any;
+  user: any | null;
   loading: boolean;
+  refreshUser: () => void; // optional: to refresh after login
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_API_BASE_URL}/api/users/me`, {
+  const fetchUser = async () => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/users/me`, {
         withCredentials: true,
-      })
-      .then((res) => setUser(res.data))
-      .catch((err) => {
-        if (err.response?.status === 401) {
-          setUser(null); // User not logged in → expected
-        } else {
-          console.error(err); // Other unexpected errors
-        }
-      })
-      .finally(() => setLoading(false));
+      });
+      setUser(res.data);
+    } catch (err: any) {
+      if (err.response?.status === 401) {
+        setUser(null); // not logged in → expected
+      } else {
+        console.error(err);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading }}>
+    <AuthContext.Provider value={{ user, loading, refreshUser: fetchUser }}>
       {children}
     </AuthContext.Provider>
   );
@@ -38,8 +44,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
+  if (!context) throw new Error("useAuth must be used within AuthProvider");
   return context;
 };

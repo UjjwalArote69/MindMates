@@ -1,24 +1,15 @@
-// src/components/ProtectedRoute.tsx
-import axios from "axios";
-import { useEffect, useState, type JSX } from "react";
+import { JSX } from "react";
+import { useAuth } from "../../context/AuthContext";
 import { Navigate } from "react-router-dom";
 
 interface ProtectedRouteProps {
   children: JSX.Element;
 }
 
-function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const [loading, setLoading] = useState(true);
-  const [isAuth, setIsAuth] = useState(false);
+export default function ProtectedRoute({ children }: ProtectedRouteProps) {
+  const { user, loading } = useAuth();
 
-  useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/users/me`, { withCredentials: true })
-      .then(() => setIsAuth(true))
-      .catch(() => setIsAuth(false))
-      .finally(() => setLoading(false));
-  }, []);
+  if (loading) return <p>Loading...</p>; // optional spinner
 
-  if (loading) return <p>Loading...</p>;
-  return isAuth ? children : <Navigate to="/auth/login" replace />;
+  return user ? children : <Navigate to="/auth/login" replace />;
 }
-export default ProtectedRoute;
