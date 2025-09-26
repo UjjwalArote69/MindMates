@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: process.env.CLIENT_ID || "http:localhost:5173",
+    origin: [process.env.CLIENT_ID || "http:localhost:5173", "https://mindmates-beta.vercel.app", "https://mindmates-git-main-ujjwalarote69s-projects.vercel.app", "https://mindmates-rehmj7dmt-ujjwalarote69s-projects.vercel.app"],
     credentials: true,
   })
 );

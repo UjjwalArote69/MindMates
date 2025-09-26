@@ -36,5 +36,5 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   if (loading) return <p>Loading...</p>;
 
-  return isAuth ? children : <Navigate to="/login" replace />;
+  return isAuth ? children : <Navigate to="/auth/login" replace />;
 }

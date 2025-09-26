@@ -310,7 +310,7 @@ const Hero = () => {
       <div className="w-full p-4 font-Lato flex flex-col md:p-20">
         <div className="flex flex-col gap-3 border-b-2 bg-amber-00  border-[#5336305e] ">
           <div className="pt-7 flex ">
-            <img src="src/assets/Images/Logo.png" className="md:h-10" alt="" />
+            <img src={MindMatesLogo} className="md:h-10" alt="" />
             <h2 className="text-2xl font-bold md:text-xl  text-[#]">
               MindMates
             </h2>
