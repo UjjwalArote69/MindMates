@@ -12,6 +12,7 @@ import { useState } from "react";
 import { FiX, FiMenu } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import AnimatedBlurTestimonialsDemo from "../components/ui/animated-blur-testimonials/demo";
+import MindMatesLogo from "../assets/Icons/MindMates Logo.svg";
 
 const Hero = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -24,7 +25,7 @@ const Hero = () => {
         {/* Logo */}
         <a href="#" className="pl-2 md:pl-0 flex flex-row items-center">
           <img
-            src="src/assets/Images/Logo.png"
+            src={MindMatesLogo}
             className="h-10 w-10 md:h-16 md:w-16"
             alt="MindMates Logo"
           />
