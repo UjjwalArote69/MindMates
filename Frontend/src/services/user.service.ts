@@ -22,7 +22,7 @@ export const logoutUser = async () => {
 
 export const deleteUser = async () => {
   try {
-    const res = await axios.delete(`${API}/users/me`, {
+    const res = await axios.delete(`${API}/api/users/me`, {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     });
@@ -35,7 +35,7 @@ export const deleteUser = async () => {
 
 export const getMe = async () => {
   try {
-    const res = await axios.get(`${API}/users/me`, {
+    const res = await axios.get(`${API}/api/users/me`, {
       withCredentials: true, // VERY IMPORTANT for cookies
     });
     return res.data;
@@ -56,7 +56,7 @@ export const onboardingData = async (data: {
   mentalHealthScore?: number;
 }) => {
   try {
-    const res = await axios.put(`${API}/users/onboarding`, data, {
+    const res = await axios.put(`${API}/api/users/onboarding`, data, {
       withCredentials: true,
     });
     return res.data;
@@ -75,7 +75,7 @@ export const updateUser = async (data: {
   updatedBirthDate?: Date;
 }) => {
   try {
-    const res = await axios.put(`${API}/users/me`, data, {
+    const res = await axios.put(`${API}/api/users/me`, data, {
       withCredentials: true,
     });
     return res.data;
@@ -90,7 +90,7 @@ export const submitFeedback = async (data: {
   feedback: string;
 }) => {
   try {
-    const res = await axios.post(`${API}/users/feedback`, data, {
+    const res = await axios.post(`${API}/api/users/feedback`, data, {
       headers: { "Content-Type": "application/json" },
       withCredentials: true, // ensures auth cookie/token is sent
     });
