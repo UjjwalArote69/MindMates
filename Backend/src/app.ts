@@ -32,11 +32,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: true }));
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://mindmates-beta.vercel.app",
-  "https://mindmates-a7r4q4xv4-ujjwalarote69s-projects.vercel.app",
-];
 
 app.use(cors({
   origin: "https://mindmates-beta.vercel.app",
