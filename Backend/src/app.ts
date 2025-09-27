@@ -10,7 +10,7 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 app.use(express.json());
-app.use(cookieParser()); // Move this BEFORE session
+app.use(cookieParser()); 
 
 // Configure session for passport (Google OAuth)
 app.use(
@@ -20,8 +20,9 @@ app.use(
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       sameSite:"none", // Fix this
+      path: "/",
       maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
     },
   })
@@ -40,6 +41,7 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: [
+      process.env.CLIENT_URL || "https://mindmates-a7r4q4xv4-ujjwalarote69s-projects.vercel.app",
       "http://localhost:5173",
       "https://mindmates-beta.vercel.app",
     ],
