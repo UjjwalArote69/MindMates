@@ -2,6 +2,7 @@ import { Router } from "express";
 import passport from "passport";
 import { generateToken } from "../utils/generateToken";
 import { loginUser, registerUser } from "../controllers/auth.controller";
+import jwt from "jsonwebtoken";
 
 const router = Router();
 
@@ -10,35 +11,34 @@ router.get(
   passport.authenticate("google", {
     scope: ["profile", "email"],
     prompt: "select_account",
-  }),
-  (req, res) => {
-    console.log("Initiating Google OAuth2 login", req.user);
-  }
+  })
 );
 
 router.get(
   "/google/callback",
   passport.authenticate("google", {
     session: false,
-    failureRedirect: `${process.env.CLIENT_URL}/auth/login`, // Fix redirect path
+    failureRedirect: `${process.env.CLIENT_URL}/auth/login`,
   }),
   (req, res) => {
     const user = req.user as any;
+
+    // ✅ Correct: make sure to use _id as string
     const token = generateToken({ id: user._id.toString() });
 
-    // Fixed cookie configuration
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,
       sameSite: "none",
-      domain: ".onrender.com", // ✅ force cookie for Render domain
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    console.log(
-      `🔑 User logged in: ${user.name} at ${new Date().toISOString()}`
-    );
+    console.log("Token generated for OAuth:", token);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
+      id: string;
+    };
+    console.log("Decoded token after generation:", decoded); // should show { id: "...", iat: ..., exp: ... }
 
     if (user.isNewUser) {
       res.redirect(`${process.env.CLIENT_URL}/onboarding`);

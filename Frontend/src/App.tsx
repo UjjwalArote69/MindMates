@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-// import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import Hero from "./pages/Hero";
 import Auth from "./pages/Authentication/Auth";
@@ -31,28 +31,28 @@ import Mood from "./pages/Stats/Mood";
 import MindScore from "./pages/Stats/MindScore";
 import MindfulExercise from "./pages/Stats/MindfulExercise";
 import SleepAnalysis from "./pages/Stats/SleepAnalysis";
-
-import ProtectedRoute from "./components/shared/ProtectedRoute";
 import { useUserStore } from "./store/userStore";
-import { useEffect, useState } from "react";
-// import { useUserStore } from "./store/userStore";
 
 function App() {
-
-  const fetchUser = useUserStore((state) => state.fetchUser);
-  const [loading, setLoading] = useState(true);
+  const { fetchUser, loading } = useUserStore();
 
   useEffect(() => {
-    fetchUser().finally(() => setLoading(false));
-  }, [fetchUser]);
+    fetchUser();
+    console.log("App mounted, fetching user... loading", loading);
+  }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-lg font-medium text-gray-700">Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <Routes>
       {/* Public routes */}
       <Route path="/" element={<Hero />} />
-
       <Route path="/auth" element={<Auth />}>
         <Route index element={<Register />} />
         <Route path="register" element={<Register />} />
@@ -63,9 +63,9 @@ function App() {
       <Route
         path="/onboarding"
         element={
-          <ProtectedRoute>
+
             <Onboarding />
-          </ProtectedRoute>
+
         }
       />
 
@@ -73,18 +73,20 @@ function App() {
       <Route
         path="/home"
         element={
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
+
+            // <ProtectedRoute>
+              <Home />
+            // {/* </ProtectedRoute> */}
+
         }
       />
 
       <Route
         path="/profile"
         element={
-          <ProtectedRoute>
+
             <Profile />
-          </ProtectedRoute>
+
         }
       >
         <Route index element={<ProfileHome />} />
@@ -100,9 +102,7 @@ function App() {
       <Route
         path="/chat"
         element={
-          <ProtectedRoute>
             <Chat />
-          </ProtectedRoute>
         }
       >
         <Route index element={<ChatTemp />} />
@@ -116,9 +116,7 @@ function App() {
       <Route
         path="/stats"
         element={
-          <ProtectedRoute>
             <Stats />
-          </ProtectedRoute>
         }
       >
         <Route index element={<StatsHome />} />

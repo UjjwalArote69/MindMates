@@ -91,7 +91,8 @@ export const useUserStore = create<UserState>((set, get) => ({
     try {
       set({ loading: true, error: null });
       const data = await getMe();
-      set({ user: data, loading: false });
+      set({ loading: false });
+      set({ user: data, });
     } catch (err: any) {
       if (err.response?.status === 401) {
         set({ user: null, loading: false });
@@ -102,14 +103,17 @@ export const useUserStore = create<UserState>((set, get) => ({
   },
 
   login: async (email, password) => {
-    try {
-      set({ loading: true, error: null });
-      const data = await loginUserService({ email, password });
-      set({ user: data.user, loading: false });
-    } catch (err: any) {
-      set({ error: err.message, loading: false });
-    }
-  },
+  try {
+    set({ loading: true, error: null });
+    const data = await loginUserService({ email, password });
+    set({ user: data.user, loading: false });
+    return data.user; // ✅ return logged in user
+  } catch (err: any) {
+    set({ error: err.message, loading: false });
+    throw err;
+  }
+},
+
 
   register: async (name, email, password) => {
     try {

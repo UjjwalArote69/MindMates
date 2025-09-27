@@ -17,8 +17,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState("");
 
-  const login = useUserStore((state) => state.login);
-  const loading = useUserStore((state) => state.loading);
+  const {login, loading} = useUserStore();
   // const error = useUserStore((state) => state.error);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,8 +32,20 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await login(form.email, form.password);
-    navigate("/home", { replace: true });
+    try {
+      await login(form.email, form.password); // wait until store updates user
+
+      const user = useUserStore.getState().user; // ✅ grab fresh user
+      console.log("login", loading);
+      
+      if (user) {
+        navigate("/home", { replace: true });
+      } else {
+        _setFormError("Invalid email or password");
+      }
+    } catch (err) {
+      _setFormError("Something went wrong. Try again.");
+    }
   };
 
   const handleGoogleLogin = () => {

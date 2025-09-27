@@ -2,18 +2,13 @@
 import axios from "axios";
 
 const API = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
-axios.defaults.withCredentials = true; // Allow cookies to be sent with requests
 
 export const logoutUser = async () => {
   try {
-    const res = await axios.post(
-      `${API}/users/logout`,
-      {}, // empty body
-      {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true, // ensures cookie (token) is sent
-      }
-    );
+    const res = await axios.post(`${API}/users/logout`, {
+      
+      withCredentials: true, // ensures cookie (token) is sent
+    });
     return res.data;
   } catch (error) {
     console.error("User service : logoutUser ", error);
@@ -24,7 +19,7 @@ export const logoutUser = async () => {
 export const deleteUser = async () => {
   try {
     const res = await axios.delete(`${API}/users/me`, {
-      headers: { "Content-Type": "application/json" },
+      
       withCredentials: true,
     });
     return res.data;

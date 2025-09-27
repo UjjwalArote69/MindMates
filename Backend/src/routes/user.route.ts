@@ -5,7 +5,7 @@ import { deleteUser, getMe, logoutUser, submitFeedback, updateOnboardingData, up
 
 const router = Router();
 
-// console.log("authMiddleware type:", typeof authMiddleware);
+console.log("authMiddleware type:", typeof protect);
 // console.log("getUser type:", typeof getMe);
 router.get("/me", protect, getMe);
 router.put("/me", protect, updateUser);

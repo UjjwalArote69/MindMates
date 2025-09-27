@@ -7,16 +7,27 @@ import AiReccomendation from "./components/AiReccomendation";
 import SwipableCards from "./components/SwipableCards";
 import MindfullTracker from "./components/MindfullTracker";
 import NotificationsIcon from "../../assets/Icons/Notifications.svg";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import DefaultAvatar from "../../assets/Icons/User Pfp Avatar.png";
 import { useUserStore } from "../../store/userStore";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+// import { useEffect } from "react";
 
 const Home = () => {
   const { user, fetchUser, loading } = useUserStore();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    fetchUser();
-  }, [fetchUser]);
+    if (!user) {
+      fetchUser().then(() => {
+        if (!useUserStore.getState().user) {
+          navigate("/auth/login", { replace: true });
+        }
+      });
+    }
+  }, [user, fetchUser, navigate]);
 
   const getProfileImage = () => (user?.avatar ? user.avatar : DefaultAvatar);
 
@@ -24,13 +35,10 @@ const Home = () => {
     return (
       <div className="flex items-center justify-center h-screen bg-[#F9F5F2]">
         <div className="flex flex-col items-center gap-4">
-          {/* Spinner */}
           <div className="w-16 h-16 border-4 border-[#4E342E] border-t-transparent rounded-full animate-spin"></div>
-          {/* Loading Text */}
           <p className="text-[#4E342E] font-semibold text-lg">
             Loading your MindMates...
           </p>
-          {/* Subtext */}
           <p className="text-gray-500 text-sm text-center max-w-xs">
             Fetching your profile and personalized recommendations.
           </p>

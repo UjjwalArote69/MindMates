@@ -44,7 +44,14 @@ const PersonalInfo: React.FC = () => {
   useEffect(() => {
     const init = async () => {
       try {
-        if (!user) await fetchUser();
+        if (!user) {
+          fetchUser().then(() => {
+            if (!useUserStore.getState().user) {
+              navigate("/auth/login", { replace: true });
+            }
+          });
+        }
+        console.log("Loading in personal info -", loading);
       } catch (err) {
         console.error(err);
         setError("Failed to load user data.");

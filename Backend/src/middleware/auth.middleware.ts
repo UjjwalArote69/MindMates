@@ -1,4 +1,3 @@
-// auth.middleware.ts - Enhanced debugging
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { User } from "../model/user.model";
@@ -11,66 +10,45 @@ export const protect = async (
   try {
     let token: string | undefined;
 
-    // console.log("🔍 Auth Debug:");
-    // console.log("Headers:", req.headers.authorization);
-    // console.log("Cookies:", req.cookies);
-    // console.log("All cookies:", Object.keys(req.cookies || {}));
-
-    // 1️⃣ Try reading from Authorization header
-    if (
-      req.headers.authorization &&
-      req.headers.authorization.startsWith("Bearer")
-    ) {
+    // 1️⃣ From Authorization header
+    if (req.headers.authorization?.startsWith("Bearer ")) {
       token = req.headers.authorization.split(" ")[1];
-      console.log("✅ Token from header:", token?.substring(0, 20) + "...");
     }
 
-    // 2️⃣ If not in header, check cookies
+    // 2️⃣ From cookies
     if (!token && req.cookies?.token) {
       token = req.cookies.token;
-      // console.log("✅ Token from cookie:", token?.substring(0, 20) + "...");
     }
+
+    console.log("Token used for auth:", token);
 
     // 3️⃣ No token → Unauthorized
     if (!token) {
-      console.log("❌ No token found");
-      return res.status(401).json({
-        message: "Unauthorized - No token",
-        debug: {
-          hasAuthHeader: !!req.headers.authorization,
-          hasCookies: !!req.cookies,
-          cookieKeys: Object.keys(req.cookies || {}),
-        },
-      });
+      return res.status(401).json({ message: "Unauthorized - No token" });
     }
 
     // 4️⃣ Verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
       id: string;
     };
+    console.log("Decoded token:", decoded);
 
     if (!decoded) {
-      console.log("❌ Token decode failed");
       return res.status(401).json({ message: "Unauthorized - Invalid token" });
     }
-
-    // console.log("✅ Token decoded, user ID:", decoded.id);
 
     // 5️⃣ Attach user to request
     const user = await User.findById(decoded.id).select("-password");
     if (!user) {
-      console.log("❌ User not found for ID:", decoded.id);
       return res.status(401).json({ message: "Unauthorized - User not found" });
     }
 
-    // console.log("✅ User found:", user.name || user.email);
     (req as any).user = user;
     next();
-  } catch (err) {
-    console.error("❌ Auth Middleware Error:", err);
-    res.status(401).json({
-      message: "Unauthorized - Token verification failed",
-      error: process.env.NODE_ENV === "development" ? err : undefined,
-    });
+  } catch (error) {
+    console.error("Auth Middleware:", error);
+    res
+      .status(401)
+      .json({ message: "Unauthorized - Token verification failed" });
   }
 };

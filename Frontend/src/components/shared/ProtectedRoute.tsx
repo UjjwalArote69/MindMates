@@ -1,34 +1,25 @@
-// ProtectedRoute.tsx
-import { Navigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useUserStore } from "../../store/userStore";
 import { JSX } from "react";
+import { useUserStore } from "../../store/userStore";
+import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-  const { user, loading, fetchUser } = useUserStore();
+  const { user, loading } = useUserStore();
 
-  // 🔄 Always try to fetch user on mount
-  useEffect(() => {
-    if (!user) {
-      fetchUser();
-    }
-  }, [user, fetchUser]);
-
-  // Still loading → show spinner
+  // Still fetching user → show loader
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <p>Loading...</p>
+        <p className="text-lg font-medium">Loading your session...</p>
       </div>
     );
   }
 
-  // No user after loading → redirect
+  // ✅ Only redirect if fetch is done and user is definitely null
   if (!user) {
     return <Navigate to="/auth/login" replace />;
   }
 
-  // ✅ Authenticated → show page
+  // ✅ Authenticated → render page
   return children;
 };
 
