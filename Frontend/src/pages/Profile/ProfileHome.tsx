@@ -24,20 +24,18 @@ const ProfileHome = () => {
 
 
   useEffect(() => {
-    const init = async () => {
-      await fetchUser();
+  if (!user) {
+    fetchUser().then(() => {
+      if (!useUserStore.getState().user) {
+        navigate("/auth/login", { replace: true });
+      }
       setLoading(false);
-    };
-    if (!user) {
-      fetchUser().then(() => {
-        if (!useUserStore.getState().user) {
-          navigate("/auth/login", { replace: true });
-        }
-      });
-    } else {
-      setLoading(false);
-    }
-  }, [fetchUser, user, navigate]);
+    });
+  } else {
+    setLoading(false);
+  }
+}, [fetchUser, user, navigate]);
+
 
   console.log("Loadind in profile home -", loading);
 
