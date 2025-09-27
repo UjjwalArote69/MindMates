@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 
 import Hero from "./pages/Hero";
@@ -34,7 +34,7 @@ import SleepAnalysis from "./pages/Stats/SleepAnalysis";
 import { useUserStore } from "./store/userStore";
 
 function App() {
-  const { user, fetchUser, loading } = useUserStore();
+  const {  fetchUser, loading } = useUserStore();
 
   useEffect(() => {
     fetchUser();
@@ -65,7 +65,7 @@ function App() {
       {/* Home route - logged in */}
       <Route
         path="/home"
-        element={user ? <Home /> : <Navigate to="/auth/login" replace />}
+        element={<Home /> }
       />
 
       <Route path="/profile" element={<Profile />}>
