@@ -38,17 +38,11 @@ const allowedOrigins = [
   "https://mindmates-a7r4q4xv4-ujjwalarote69s-projects.vercel.app",
 ];
 
-app.use(
-  cors({
-    origin: [
-      process.env.CLIENT_URL || "https://mindmates-a7r4q4xv4-ujjwalarote69s-projects.vercel.app",
-      "http://localhost:5173",
-      "https://mindmates-beta.vercel.app",
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,  // ✅ allow cookies
-  })
-);
+app.use(cors({
+  origin: "https://mindmates-beta.vercel.app",
+  credentials: true,
+}));
+
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
