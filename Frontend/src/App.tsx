@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 
 import Hero from "./pages/Hero";
@@ -34,7 +34,7 @@ import SleepAnalysis from "./pages/Stats/SleepAnalysis";
 import { useUserStore } from "./store/userStore";
 
 function App() {
-  const { fetchUser, loading } = useUserStore();
+  const { user, fetchUser, loading } = useUserStore();
 
   useEffect(() => {
     fetchUser();
@@ -60,35 +60,15 @@ function App() {
       </Route>
 
       {/* Onboarding route - logged in */}
-      <Route
-        path="/onboarding"
-        element={
-
-            <Onboarding />
-
-        }
-      />
+      <Route path="/onboarding" element={<Onboarding />} />
 
       {/* Home route - logged in */}
       <Route
         path="/home"
-        element={
-
-            // <ProtectedRoute>
-              <Home />
-            // {/* </ProtectedRoute> */}
-
-        }
+        element={user ? <Home /> : <Navigate to="/auth/login" replace />}
       />
 
-      <Route
-        path="/profile"
-        element={
-
-            <Profile />
-
-        }
-      >
+      <Route path="/profile" element={<Profile />}>
         <Route index element={<ProfileHome />} />
         <Route path="personal-info" element={<PersonalInfo />} />
         <Route path="emergency" element={<Emergency />} />
@@ -99,12 +79,7 @@ function App() {
         <Route path="delete" element={<CloseAccount />} />
       </Route>
 
-      <Route
-        path="/chat"
-        element={
-            <Chat />
-        }
-      >
+      <Route path="/chat" element={<Chat />}>
         <Route index element={<ChatTemp />} />
         <Route path="list" element={<ChatList />} />
         <Route path=":id" element={<ChatSingle />} />
@@ -113,12 +88,7 @@ function App() {
         <Route path="upgrade" element={<UpgradePlan />} />
       </Route>
 
-      <Route
-        path="/stats"
-        element={
-            <Stats />
-        }
-      >
+      <Route path="/stats" element={<Stats />}>
         <Route index element={<StatsHome />} />
         <Route path="mood" element={<Mood />} />
         <Route path="mindscore" element={<MindScore />} />

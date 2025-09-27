@@ -11,23 +11,13 @@ import NotificationsIcon from "../../assets/Icons/Notifications.svg";
 import DefaultAvatar from "../../assets/Icons/User Pfp Avatar.png";
 import { useUserStore } from "../../store/userStore";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 // import { useEffect } from "react";
 
 const Home = () => {
   const { user, fetchUser, loading } = useUserStore();
 
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!user) {
-      fetchUser().then(() => {
-        if (!useUserStore.getState().user) {
-          navigate("/auth/login", { replace: true });
-        }
-      });
-    }
-  }, [user, fetchUser, navigate]);
+  useEffect(() => { if (!user) { fetchUser(); } }, [fetchUser, user]);
 
   const getProfileImage = () => (user?.avatar ? user.avatar : DefaultAvatar);
 
