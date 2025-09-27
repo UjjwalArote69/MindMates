@@ -27,12 +27,14 @@ export const registerUser = async (req: Request, res: Response) => {
 
     const token = generateToken({ id: newUser._id as string });
 
+    const isProduction = process.env.NODE_ENV === "production";
+
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true, // Render uses HTTPS
-      sameSite: "none", // allow cross-site (Vercel → Render)
-      path: "/", // valid everywhere
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      secure: isProduction, // true only in production
+      sameSite: isProduction ? "none" : "lax", // cross-origin only in production
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
     });
 
     console.log(
@@ -69,11 +71,14 @@ export const loginUser = async (req: Request, res: Response) => {
 
     const { password: _, ...userWithoutPassword } = user.toObject();
 
+    const isProduction = process.env.NODE_ENV === "production";
+
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "none", // or "None" if using cross-origin cookies with HTTPS
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      secure: isProduction, // true only in production
+      sameSite: isProduction ? "none" : "lax", // cross-origin only in production
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
     });
 
     console.log(

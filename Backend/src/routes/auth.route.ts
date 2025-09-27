@@ -26,12 +26,14 @@ router.get(
     // ✅ Correct: make sure to use _id as string
     const token = generateToken({ id: user._id.toString() });
 
+    const isProduction = process.env.NODE_ENV === "production";
+
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      secure: isProduction, // true only in production
+      sameSite: isProduction ? "none" : "lax", // cross-origin only in production
       path: "/",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
     });
 
     console.log("Token generated for OAuth:", token);
