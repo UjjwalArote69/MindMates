@@ -1,13 +1,26 @@
-// user.service.ts
 import axios from "axios";
-axios.defaults.withCredentials = true; // ensures cookies are sent with every request
-axios.defaults.baseURL = "https://mindmates-l2ba.onrender.com";
 
+// Use VITE_API_BASE_URL, fallback only to localhost
 const API = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+
+const instance = axios.create({
+  baseURL: API,
+  withCredentials: true, // ensures cookies are sent
+});
+
+export const getMe = async () => {
+  try {
+    const res = await instance.get("/users/me");
+    return { data: res.data || null };
+  } catch (error) {
+    console.error("User service : getMe ", error);
+    return { data: null };
+  }
+};
 
 export const logoutUser = async () => {
   try {
-    const res = await axios.post(
+    const res = await instance.post(
       `${API}/users/logout`,
       {}, // empty body
       { withCredentials: true } // config goes here
@@ -21,7 +34,7 @@ export const logoutUser = async () => {
 
 export const deleteUser = async () => {
   try {
-    const res = await axios.delete(`${API}/users/me`, {
+    const res = await instance.delete(`${API}/users/me`, {
       withCredentials: true,
     });
     return res.data;
@@ -31,17 +44,6 @@ export const deleteUser = async () => {
   }
 };
 
-export const getMe = async () => {
-  try {
-    const res = await axios.get(`${API}/users/me`, {
-      withCredentials: true,
-    });
-    return { data: res.data || null };
-  } catch (error) {
-    console.error("User service : getMe ", error);
-    return { data: null };
-  }
-};
 
 export const onboardingData = async (data: {
   age: number;
@@ -54,7 +56,7 @@ export const onboardingData = async (data: {
   mentalHealthScore?: number;
 }) => {
   try {
-    const res = await axios.put(`${API}/users/onboarding`, data, {
+    const res = await instance.put(`${API}/users/onboarding`, data, {
       withCredentials: true,
     });
     return res.data;
@@ -73,7 +75,7 @@ export const updateUser = async (data: {
   updatedBirthDate?: Date;
 }) => {
   try {
-    const res = await axios.put(`${API}/users/me`, data, {
+    const res = await instance.put(`${API}/users/me`, data, {
       withCredentials: true,
     });
     return res.data;
@@ -88,7 +90,7 @@ export const submitFeedback = async (data: {
   feedback: string;
 }) => {
   try {
-    const res = await axios.post(`${API}/users/feedback`, data, {
+    const res = await instance.post(`${API}/users/feedback`, data, {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     });

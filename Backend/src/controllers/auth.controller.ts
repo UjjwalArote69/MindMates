@@ -31,10 +31,10 @@ export const registerUser = async (req: Request, res: Response) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: isProduction, // true only in production
-      sameSite: isProduction ? "none" : "lax", // cross-origin only in production
+      secure: true, // only over HTTPS
+      sameSite: "none", // allow cross-domain
       path: "/",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     console.log(
@@ -75,10 +75,10 @@ export const loginUser = async (req: Request, res: Response) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: isProduction, // true only in production
-      sameSite: isProduction ? "none" : "lax", // cross-origin only in production
+      secure: true, // only over HTTPS
+      sameSite: "none", // allow cross-domain
       path: "/",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     console.log(

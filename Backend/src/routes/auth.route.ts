@@ -36,28 +36,30 @@ router.get(
 
     const isProduction = process.env.NODE_ENV === "production";
 
-    // ✅ Set cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: isProduction, // HTTPS only in prod
-      sameSite: isProduction ? "none" : "lax", // cross-origin cookies only in prod
+      secure: true, // only over HTTPS
+      sameSite: "none", // allow cross-domain
       path: "/",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     console.log("✅ Token generated for OAuth:", token);
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
+      id: string;
+    };
     console.log("✅ Decoded token after generation:", decoded);
 
     // ✅ Redirect user
     if (user.isNewUser) {
-  const clientUrl = process.env.CLIENT_URL ?? "https://mindmates-beta.vercel.app";
-  res.redirect(`${clientUrl.replace(/\/$/, "")}/onboarding`);
-} else {
-  const clientUrl = process.env.CLIENT_URL ?? "https://mindmates-beta.vercel.app";
-  res.redirect(`${clientUrl.replace(/\/$/, "")}/home`);
-}
-
+      const clientUrl =
+        process.env.CLIENT_URL ?? "https://mindmates-beta.vercel.app";
+      res.redirect(`${clientUrl.replace(/\/$/, "")}/onboarding`);
+    } else {
+      const clientUrl =
+        process.env.CLIENT_URL ?? "https://mindmates-beta.vercel.app";
+      res.redirect(`${clientUrl.replace(/\/$/, "")}/home`);
+    }
   }
 );
 
