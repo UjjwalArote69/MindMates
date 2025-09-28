@@ -51,10 +51,13 @@ router.get(
 
     // ✅ Redirect user
     if (user.isNewUser) {
-      res.redirect(`${process.env.CLIENT_URL}/onboarding`);
-    } else {
-      res.redirect(`${process.env.CLIENT_URL}/home`);
-    }
+  const clientUrl = process.env.CLIENT_URL ?? "https://mindmates-beta.vercel.app";
+  res.redirect(`${clientUrl.replace(/\/$/, "")}/onboarding`);
+} else {
+  const clientUrl = process.env.CLIENT_URL ?? "https://mindmates-beta.vercel.app";
+  res.redirect(`${clientUrl.replace(/\/$/, "")}/home`);
+}
+
   }
 );
 
