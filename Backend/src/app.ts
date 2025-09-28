@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cookieParser()); 
 app.use(passport.initialize());
 app.use(express.urlencoded({ extended: true }));
-
+app.set("trust proxy", 1); 
 app.use(cors({
   origin: ["https://mindmates-beta.vercel.app", "http://localhost:5173"],
   credentials: true,
