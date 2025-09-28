@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 import Hero from "./pages/Hero";
 import Auth from "./pages/Authentication/Auth";
@@ -31,27 +31,10 @@ import Mood from "./pages/Stats/Mood";
 import MindScore from "./pages/Stats/MindScore";
 import MindfulExercise from "./pages/Stats/MindfulExercise";
 import SleepAnalysis from "./pages/Stats/SleepAnalysis";
-import { useUserStore } from "./store/userStore";
+// import { useUserStore } from "./store/userStore";
 
 function App() {
-  const {  fetchUser, user,loading } = useUserStore();
-
-  // App.tsx
-useEffect(() => {
-  // fetch only if user is not already loaded
-  if (!user) {
-    fetchUser();
-  }
-}, []); // ✅ no dependency on `loading` or `user`
-
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <p className="text-lg font-medium text-gray-700">Loading...</p>
-      </div>
-    );
-  }
+  
 
   return (
     <Routes>
