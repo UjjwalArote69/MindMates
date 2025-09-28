@@ -9,23 +9,23 @@ import MindfullTracker from "./components/MindfullTracker";
 import NotificationsIcon from "../../assets/Icons/Notifications.svg";
 import DefaultAvatar from "../../assets/Icons/User Pfp Avatar.png";
 import { useUserStore } from "../../store/userStore";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { useEffect } from "react";
 
 const Home = () => {
   const { user, loading, initialized } = useUserStore();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const getProfileImage = () => (user?.avatar ? user.avatar : DefaultAvatar);
 
   // console.log("🔍 Home Render:", { user, loading, initialized });
 
-  useEffect(() => {
-    if (initialized && !loading) {
-      if (user === null) {
-        navigate("/auth/login", { replace: true });
-      }
-    }
-  }, [user, loading, initialized, navigate]);
+  // useEffect(() => {
+  //   if (initialized && !loading) {
+  //     if (user === null) {
+  //       navigate("/auth/login", { replace: true });
+  //     }
+  //   }
+  // }, [user, loading, initialized, navigate]);
 
   // console.log("🔍 Home Render:", { user, loading, initialized });
 
