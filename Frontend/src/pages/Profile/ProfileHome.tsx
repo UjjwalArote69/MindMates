@@ -10,36 +10,26 @@ import GarbageIcon from "../../assets/Icons/Close Account Garbage Icon.svg";
 import LogoutIcon from "../../assets/Icons/Log Out Icon.svg";
 import ForwardIcon from "../../assets/Icons/Forward Icon.svg";
 import DefaultAvatar from "../../assets/Icons/User Pfp Avatar.png";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
 import { logoutUser } from "../../services/user.service";
 
 const ProfileHome = () => {
+  const { user, loading, initialized } = useUserStore();
   const navigate = useNavigate();
-  const user = useUserStore((state) => state.user);
-  const fetchUser = useUserStore((state) => state.fetchUser);
   const setUser = useUserStore((state) => state.setUser);
-  const [loading, setLoading] = useState(true);
 
+  console.log("🔍 ProfileHome Render:", { user, loading, initialized });
 
+  // Redirect if user is not logged in
   useEffect(() => {
-  if (!user) {
-    fetchUser().then(() => {
-      if (!useUserStore.getState().user) {
-        navigate("/auth/login", { replace: true });
-      }
-      setLoading(false);
-    });
-  } else {
-    setLoading(false);
-  }
-}, [fetchUser, user, navigate]);
+    if (initialized && !loading && !user) {
+      navigate("/auth/login", { replace: true });
+    }
+  }, [user, loading, initialized, navigate]);
 
-
-  console.log("Loadind in profile home -", loading);
-
-  if (loading) {
+  if (!initialized || loading) {
     return (
       <div className="flex items-center justify-center h-screen bg-[#F9F5F2]">
         <div className="flex flex-col items-center gap-4">
@@ -62,9 +52,9 @@ const ProfileHome = () => {
 
   const logoutButton = async () => {
     try {
-      await logoutUser(); // Clear backend session/cookie
-      setUser(null); // Clear frontend user state
-      navigate("/auth/login"); // Redirect
+      await logoutUser();
+      setUser(null);
+      navigate("/auth/login");
     } catch (error) {
       console.error("Logout failed:", error);
       alert("Failed to logout. Try again.");
@@ -73,7 +63,7 @@ const ProfileHome = () => {
 
   return (
     <div className="w-full min-h-screen bg-[#fdfcfb] text-[#4B2E2B] flex flex-col items-center">
-      {/* Header with background */}
+      {/* Header */}
       <div className="relative w-full h-48">
         <img
           src={BgImage}
@@ -107,46 +97,24 @@ const ProfileHome = () => {
             <span className="text-sm">Age</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="font-semibold text-lg">
-              {user?.weight || "N/A"}
-            </span>
+            <span className="font-semibold text-lg">{user?.weight || "N/A"}</span>
             <span className="text-sm">Weight</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="font-semibold text-lg">
-              {user?.height || "N/A"}
-            </span>
+            <span className="font-semibold text-lg">{user?.height || "N/A"}</span>
             <span className="text-sm">Height</span>
           </div>
         </div>
 
-        {/* General Settings */}
+        {/* Settings Sections */}
         <SettingsSection title="General Settings">
-          <SettingItem
-            icon={PersonalInfo}
-            label="Personal Information"
-            route="/profile/personal-info"
-          />
-          <SettingItem
-            icon={EmergencyIcon}
-            label="Emergency Contact"
-            value="3+"
-            route="/profile/emergency"
-          />
-          <SettingItem
-            icon={FeedbackIcon}
-            label="Submit Feedback"
-            route="/profile/feedback"
-          />
+          <SettingItem icon={PersonalInfo} label="Personal Information" route="/profile/personal-info" />
+          <SettingItem icon={EmergencyIcon} label="Emergency Contact" value="3+" route="/profile/emergency" />
+          <SettingItem icon={FeedbackIcon} label="Submit Feedback" route="/profile/feedback" />
           <SettingItem icon={MoonIcon} label="Dark Mode" toggle />
-          <SettingItem
-            icon={InviteIcon}
-            label="Invite Friends"
-            route="/profile/invite"
-          />
+          <SettingItem icon={InviteIcon} label="Invite Friends" route="/profile/invite" />
         </SettingsSection>
 
-        {/* Service & Privacy */}
         <SettingsSection title="Service & Privacy">
           <SettingItem icon={Help} label="Help Center" route="/profile/help" />
           <div
@@ -154,18 +122,13 @@ const ProfileHome = () => {
             onClick={() => navigate("/profile/delete")}
           >
             <div className="flex items-center gap-3">
-              <img
-                src={GarbageIcon}
-                alt="Close Account"
-                className="w-13 p-3 bg-red-400 rounded-xl"
-              />
+              <img src={GarbageIcon} alt="Close Account" className="w-13 p-3 bg-red-400 rounded-xl" />
               <span>Close Account</span>
             </div>
             <img src={ForwardIcon} alt="Forward" className="w-6 h-6" />
           </div>
         </SettingsSection>
 
-        {/* Logout */}
         <SettingsSection title="Log Out">
           <div onClick={logoutButton}>
             <SettingItem icon={LogoutIcon} label="Log Out" />
@@ -178,21 +141,15 @@ const ProfileHome = () => {
   );
 };
 
-// Reusable SettingsSection wrapper
-const SettingsSection = ({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) => (
+// SettingsSection component
+const SettingsSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <div className="w-full max-w-md mt-6">
     <h2 className="text-sm font-bold text-[#4B2E2B] mb-2 px-4">{title}</h2>
     <div className="space-y-3">{children}</div>
   </div>
 );
 
-// Reusable setting row
+// SettingItem component
 const SettingItem = ({
   icon,
   label,
@@ -207,24 +164,16 @@ const SettingItem = ({
   route?: string;
 }) => {
   const navigate = useNavigate();
-
   const handleClick = () => {
     if (!toggle && route) navigate(route);
   };
-
   return (
     <div
-      className={`flex justify-between items-center px-4 py-3 rounded-xl bg-white shadow-sm ${
-        !toggle && "cursor-pointer"
-      }`}
+      className={`flex justify-between items-center px-4 py-3 rounded-xl bg-white shadow-sm ${!toggle && "cursor-pointer"}`}
       onClick={handleClick}
     >
       <div className="flex items-center gap-3">
-        <img
-          src={icon}
-          alt={label}
-          className="w-13 p-3 bg-gray-100 rounded-xl"
-        />
+        <img src={icon} alt={label} className="w-13 p-3 bg-gray-100 rounded-xl" />
         <span className="font-medium">{label}</span>
       </div>
       <div className="flex items-center gap-2">
@@ -236,9 +185,7 @@ const SettingItem = ({
             <div className="absolute left-1 top-0.5 w-4 h-4 bg-white rounded-full transition peer-checked:translate-x-5"></div>
           </label>
         )}
-        {!toggle && !value && (
-          <img src={ForwardIcon} alt="Forward" className="w-6 h-6" />
-        )}
+        {!toggle && !value && <img src={ForwardIcon} alt="Forward" className="w-6 h-6" />}
       </div>
     </div>
   );

@@ -1,16 +1,17 @@
 // user.service.ts
 import axios from "axios";
-axios.defaults.withCredentials = true; // ensures cookies are sent with requests
+axios.defaults.withCredentials = true; // ensures cookies are sent with every request
 
 const API = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
 
 export const logoutUser = async () => {
   try {
-    const res = await axios.post(`${API}/users/logout`, {
-      
-      withCredentials: true, // ensures cookie (token) is sent
-    });
-    return res.data;
+    const res = await axios.post(
+      `${API}/users/logout`,
+      {}, // empty body
+      { withCredentials: true } // config goes here
+    );
+    return { data: res.data || null };
   } catch (error) {
     console.error("User service : logoutUser ", error);
     throw error;
@@ -20,7 +21,6 @@ export const logoutUser = async () => {
 export const deleteUser = async () => {
   try {
     const res = await axios.delete(`${API}/users/me`, {
-      
       withCredentials: true,
     });
     return res.data;
@@ -33,12 +33,12 @@ export const deleteUser = async () => {
 export const getMe = async () => {
   try {
     const res = await axios.get(`${API}/users/me`, {
-      withCredentials: true, // VERY IMPORTANT for cookies
+      withCredentials: true,
     });
-    return res.data;
+    return { data: res.data || null };
   } catch (error) {
     console.error("User service : getMe ", error);
-    throw error;
+    return { data: null };
   }
 };
 
@@ -89,7 +89,7 @@ export const submitFeedback = async (data: {
   try {
     const res = await axios.post(`${API}/users/feedback`, data, {
       headers: { "Content-Type": "application/json" },
-      withCredentials: true, // ensures auth cookie/token is sent
+      withCredentials: true,
     });
     return res.data;
   } catch (error: any) {

@@ -7,7 +7,10 @@ import {
   deleteUser,
   submitFeedback,
 } from "../services/user.service";
-import { loginUserService, registerUserService } from "../services/auth.service";
+import {
+  loginUserService,
+  registerUserService,
+} from "../services/auth.service";
 
 interface Mood {
   date: string;
@@ -17,7 +20,7 @@ interface Mood {
 interface User {
   _id: string;
   googleId?: string;
-  
+
   name: string;
   email: string;
   avatar?: string;
@@ -40,6 +43,7 @@ interface UserState {
   user: User | null;
   loading: boolean;
   error: string | null;
+  initialized: boolean;
 
   // Onboarding fields
   gender: "male" | "female" | null;
@@ -63,7 +67,10 @@ interface UserState {
     updatedBirthDate?: Date;
   }) => Promise<void>;
   deleteUserAccount: () => Promise<void>;
-  submitFeedback: (data: { selectedAreas: string[]; feedback: string }) => Promise<void>;
+  submitFeedback: (data: {
+    selectedAreas: string[];
+    feedback: string;
+  }) => Promise<void>;
 
   // onboarding actions
   setGender: (g: "male" | "female") => void;
@@ -78,6 +85,7 @@ export const useUserStore = create<UserState>((set, get) => ({
   user: null,
   loading: false,
   error: null,
+  initialized: false,
 
   gender: null,
   age: 18,
@@ -89,31 +97,31 @@ export const useUserStore = create<UserState>((set, get) => ({
 
   fetchUser: async () => {
     try {
-      set({ loading: true, error: null });
-      const data = await getMe();
-      set({ loading: false });
-      set({ user: data, });
-    } catch (err: any) {
-      if (err.response?.status === 401) {
-        set({ user: null, loading: false });
+      set({ loading: true });
+      const res = await getMe();
+
+      // normalize API response
+      if (!res?.data) {
+        set({ user: null, loading: false, initialized: true });
       } else {
-        set({ user: null, loading: false, error: err.message });
+        set({ user: res.data, loading: false, initialized: true });
       }
+    } catch (error) {
+      set({ user: null, loading: false, initialized: true });
     }
   },
 
   login: async (email, password) => {
-  try {
-    set({ loading: true, error: null });
-    const data = await loginUserService({ email, password });
-    set({ user: data.user, loading: false });
-    return data.user; // ✅ return logged in user
-  } catch (err: any) {
-    set({ error: err.message, loading: false });
-    throw err;
-  }
-},
-
+    try {
+      set({ loading: true, error: null });
+      const data = await loginUserService({ email, password });
+      set({ user: data.user, loading: false });
+      return data.user; // ✅ return logged in user
+    } catch (err: any) {
+      set({ error: err.message, loading: false });
+      throw err;
+    }
+  },
 
   register: async (name, email, password) => {
     try {
@@ -177,7 +185,8 @@ export const useUserStore = create<UserState>((set, get) => ({
   setStressQuality: (s) => set({ stressQuality: s }),
 
   submitOnboarding: async () => {
-    const { gender, age, currentMood, sleepQuality, stressQuality, fetchUser } = get();
+    const { gender, age, currentMood, sleepQuality, stressQuality, fetchUser } =
+      get();
     try {
       await onboardingData({
         gender: gender!,

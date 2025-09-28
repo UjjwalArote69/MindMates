@@ -34,7 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use(cors({
-  origin: "https://mindmates-beta.vercel.app",
+  origin: ["https://mindmates-beta.vercel.app", "http://localhost:5173"],
   credentials: true,
 }));
 

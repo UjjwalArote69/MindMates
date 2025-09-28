@@ -14,13 +14,10 @@ import { updateUser } from "../../services/user.service";
 import { useUserStore } from "../../store/userStore";
 
 const PersonalInfo: React.FC = () => {
+
+  const { user, loading, initialized } = useUserStore();
   const navigate = useNavigate();
-
-  const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
-  const fetchUser = useUserStore((state) => state.fetchUser);
-
-  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -40,27 +37,32 @@ const PersonalInfo: React.FC = () => {
   );
   const [selectedGender, setSelectedGender] = useState(user?.gender || "other");
 
-  // On mount, fetch user if not loaded
+
+  // Redirect if user is not logged in
   useEffect(() => {
-    const init = async () => {
-      try {
-        if (!user) {
-          fetchUser().then(() => {
-            if (!useUserStore.getState().user) {
-              navigate("/auth/login", { replace: true });
-            }
-          });
-        }
-        console.log("Loading in personal info -", loading);
-      } catch (err) {
-        console.error(err);
-        setError("Failed to load user data.");
-      } finally {
-        setLoading(false);
-      }
-    };
-    init();
-  }, [user, fetchUser]);
+    if (initialized && !loading && !user) {
+      navigate("/auth/login", { replace: true });
+    }
+  }, [user, loading, initialized, navigate]);
+
+  if (!initialized || loading) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-[#F9F5F2]">
+        <div className="flex flex-col items-center gap-4">
+          {/* Spinner */}
+          <div className="w-16 h-16 border-4 border-[#4E342E] border-t-transparent rounded-full animate-spin"></div>
+          {/* Loading Text */}
+          <p className="text-[#4E342E] font-semibold text-lg">
+            Loading your MindMates...
+          </p>
+          {/* Subtext */}
+          <p className="text-gray-500 text-sm text-center max-w-xs">
+            Fetching your profile and personalized recommendations.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   const saveName = () => {
     setUsername(tempUsername);
@@ -102,25 +104,6 @@ const PersonalInfo: React.FC = () => {
       setSaving(false);
     }
   };
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-[#F9F5F2]">
-        <div className="flex flex-col items-center gap-4">
-          {/* Spinner */}
-          <div className="w-16 h-16 border-4 border-[#4E342E] border-t-transparent rounded-full animate-spin"></div>
-          {/* Loading Text */}
-          <p className="text-[#4E342E] font-semibold text-lg">
-            Loading your MindMates...
-          </p>
-          {/* Subtext */}
-          <p className="text-gray-500 text-sm text-center max-w-xs">
-            Fetching your profile and personalized recommendations.
-          </p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="w-full min-h-screen bg-[#fdfcfb] px-5 py-6 text-[#4B2E2B]">

@@ -34,12 +34,16 @@ import SleepAnalysis from "./pages/Stats/SleepAnalysis";
 import { useUserStore } from "./store/userStore";
 
 function App() {
-  const {  fetchUser, loading } = useUserStore();
+  const {  fetchUser, user,loading } = useUserStore();
 
-  useEffect(() => {
+  // App.tsx
+useEffect(() => {
+  // fetch only if user is not already loaded
+  if (!user) {
     fetchUser();
-    console.log("App mounted, fetching user... loading", loading);
-  }, []);
+  }
+}, []); // ✅ no dependency on `loading` or `user`
+
 
   if (loading) {
     return (
