@@ -11,27 +11,8 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser()); 
-
-// Configure session for passport (Google OAuth)
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET || "keyboard cat",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      httpOnly: true,
-      secure: true,
-      sameSite:"none", // Fix this
-      path: "/",
-      maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
-    },
-  })
-);
-
 app.use(passport.initialize());
-app.use(passport.session());
 app.use(express.urlencoded({ extended: true }));
-
 
 app.use(cors({
   origin: ["https://mindmates-beta.vercel.app", "http://localhost:5173"],
