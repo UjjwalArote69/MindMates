@@ -10,26 +10,22 @@ import NotificationsIcon from "../../assets/Icons/Notifications.svg";
 import DefaultAvatar from "../../assets/Icons/User Pfp Avatar.png";
 import { useUserStore } from "../../store/userStore";
 // import { useNavigate } from "react-router-dom";
-// import { useEffect } from "react";
+import { useEffect } from "react";
 
 const Home = () => {
-  const { user, loading, initialized } = useUserStore();
+  const { user, fetchUser, loading } = useUserStore();
   // const navigate = useNavigate();
   const getProfileImage = () => (user?.avatar ? user.avatar : DefaultAvatar);
 
   // console.log("🔍 Home Render:", { user, loading, initialized });
 
-  // useEffect(() => {
-  //   if (initialized && !loading) {
-  //     if (user === null) {
-  //       navigate("/auth/login", { replace: true });
-  //     }
-  //   }
-  // }, [user, loading, initialized, navigate]);
+  useEffect(() => {
+    fetchUser();
+  }, [user]);
 
   // console.log("🔍 Home Render:", { user, loading, initialized });
 
-  if (!initialized || loading) {
+  if (loading) {
     return (
       <div className="flex items-center justify-center h-screen bg-[#F9F5F2]">
         <div className="flex flex-col items-center gap-4">
