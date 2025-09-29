@@ -21,7 +21,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchUser();
-  }, [user]);
+  }, []);
 
   // console.log("🔍 Home Render:", { user, loading, initialized });
 
