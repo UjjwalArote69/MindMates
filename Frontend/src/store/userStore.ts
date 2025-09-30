@@ -11,7 +11,7 @@ import {
   loginUserService,
   registerUserService,
 } from "../services/auth.service";
-import { getToken } from "../lib/utils";
+// import { getToken } from "../lib/utils";
 
 interface Mood {
   date: string;
