@@ -65,7 +65,7 @@ function App() {
       </Route>
 
       {/* Onboarding route - logged in */}
-      <Route path="/onboarding" element={<Onboarding />} />
+      <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
 
       {/* Home route - logged in */}
       <Route
