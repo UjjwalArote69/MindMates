@@ -14,40 +14,31 @@ export const registerUser = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "All fields are required" });
 
     const existingUser = await User.findOne({ email });
-    if (existingUser)
-      return res.status(400).json({ message: "Email already exists" });
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    let isNewUser = false;
+    let user;
 
-    const newUser = await User.create({
-      email,
-      name,
-      password: hashedPassword,
-    });
+    if (existingUser) {
+      user = existingUser;
+    } else {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user = await User.create({ email, name, password: hashedPassword });
+      isNewUser = true;
+    }
 
-    const token = generateToken({ id: newUser._id as string });
-
-    const isProduction = process.env.NODE_ENV === "production";
+    const token = generateToken({ id: user._id as string});
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true, // only over HTTPS
-      sameSite: "none", // allow cross-domain
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    console.log(
-      `🆕 New user registered: ${newUser.name} at ${newUser.createdAt}`
-    );
-
-    res.status(201).json({
-      message: `User created - ${newUser.name} at ${new Date().toISOString()}`,
-      newUser,
-      token,
-    });
+    res.status(201).json({ user, token, isNewUser });
   } catch (error) {
-    console.error("Auth Controller : registerUser, ", error);
+    console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };

@@ -31,11 +31,14 @@ const Register = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await register(form.name, form.email, form.password);
+      const data = await register(form.name, form.email, form.password);
 
-      const user = useUserStore.getState().user; // ✅ grab fresh user
-      if (user) {
-        navigate("/onboarding", { replace: true });
+      if (data.user) {
+        if (data.isNewUser) {
+          navigate("/onboarding", { replace: true });
+        } else {
+          navigate("/home", { replace: true });
+        }
       } else {
         setFormError("Registration failed. Try again.");
       }

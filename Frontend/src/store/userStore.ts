@@ -17,6 +17,12 @@ interface Mood {
   mood: string;
 }
 
+interface UserRegisterResponse {
+  user: User;
+  token: string;
+  isNewUser: boolean;
+}
+
 interface User {
   _id: string;
   googleId?: string;
@@ -44,7 +50,6 @@ interface UserState {
   loading: boolean;
   error: string | null;
   initialized: boolean;
-
   // Onboarding fields
   gender: "male" | "female" | null;
   age: number;
@@ -56,7 +61,11 @@ interface UserState {
   setUser: (user: User | null) => void;
   fetchUser: () => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string) => Promise<void>;
+  register: (
+    name: string,
+    email: string,
+    password: string
+  ) => Promise<UserRegisterResponse>;
   logout: () => Promise<void>;
   updateUserProfile: (data: {
     updatedName?: string;
@@ -132,8 +141,10 @@ export const useUserStore = create<UserState>((set, get) => ({
       set({ loading: true, error: null });
       const data = await registerUserService({ name, email, password });
       set({ user: data.user, loading: false });
+      return data; // ✅ now TS knows this is UserRegisterResponse
     } catch (err: any) {
       set({ error: err.message, loading: false });
+      throw err;
     }
   },
 
