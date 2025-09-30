@@ -15,8 +15,6 @@ instance.interceptors.request.use((config) => {
   return config;
 });
 
-
-
 export const getMe = async () => {
   try {
     const res = await instance.get("/users/me");
@@ -37,8 +35,7 @@ export const logoutUser = async () => {
 
     // Clear localStorage + cookie
     localStorage.removeItem("token");
-    document.cookie =
-      "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+    document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
 
     return { data: res.data || null };
   } catch (error) {
@@ -70,7 +67,9 @@ export const onboardingData = async (data: {
   mentalHealthScore?: number;
 }) => {
   try {
-    const res = await instance.put(`${API}/users/onboarding`, data, {
+    const res = await instance.put(`${API}/users/onboarding`, 
+      data, {
+        headers: { "Content-Type": "application/json" },
       withCredentials: true,
     });
     return res.data;
@@ -89,7 +88,9 @@ export const updateUser = async (data: {
   updatedBirthDate?: Date;
 }) => {
   try {
-    const res = await instance.put(`${API}/users/me`, data, {
+    const res = await instance.put(`${API}/users/me`, data, 
+      {
+      headers: { "Content-Type": "application/json" },
       withCredentials: true,
     });
     return res.data;
