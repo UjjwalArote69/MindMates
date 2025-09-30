@@ -42,9 +42,9 @@ export const registerUser = async (req: Request, res: Response) => {
     );
 
     res.status(201).json({
+      message: `User created - ${newUser.name} at ${new Date().toISOString()}`,
       newUser,
       token,
-      message: `User created - ${newUser.name} at ${new Date().toISOString()}`,
     });
   } catch (error) {
     console.error("Auth Controller : registerUser, ", error);
@@ -86,9 +86,9 @@ export const loginUser = async (req: Request, res: Response) => {
     );
 
     res.status(200).json({
+      message: `Logged in User - ${user.name} at ${new Date().toISOString()}`,
       user: userWithoutPassword,
       token,
-      message: `Logged in User - ${user.name} at ${new Date().toISOString()}`,
     });
   } catch (error) {
     console.error("Auth Controller : loginUser, ", error);

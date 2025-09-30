@@ -32,18 +32,18 @@ import MindScore from "./pages/Stats/MindScore";
 import MindfulExercise from "./pages/Stats/MindfulExercise";
 import SleepAnalysis from "./pages/Stats/SleepAnalysis";
 import { useUserStore } from "./store/userStore";
+import GoogleCallback from "./pages/Authentication/GoogleCallback";
+import ProtectedRoute from "./components/shared/ProtectedRoute";
 
 function App() {
-  const {  fetchUser, user,loading } = useUserStore();
+  const { fetchUser, initialized, loading } = useUserStore();
 
-  // App.tsx
-useEffect(() => {
-  // fetch only if user is not already loaded
-  if (!user) {
-    fetchUser();
-  }
-}, []); // ✅ no dependency on `loading` or `user`
-
+  useEffect(() => {
+    // fetch only if user is not already loaded
+    if (!initialized) {
+      fetchUser();
+    }
+  }, [initialized]); // ✅ no dependency on `loading` or `user`
 
   if (loading) {
     return (
@@ -61,6 +61,7 @@ useEffect(() => {
         <Route index element={<Register />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
+        <Route path="google/callback" element={<GoogleCallback />} />
       </Route>
 
       {/* Onboarding route - logged in */}
@@ -69,10 +70,13 @@ useEffect(() => {
       {/* Home route - logged in */}
       <Route
         path="/home"
-        element={<Home /> }
+        element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        }
       />
-
-      <Route path="/profile" element={<Profile />}>
+      <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>}>
         <Route index element={<ProfileHome />} />
         <Route path="personal-info" element={<PersonalInfo />} />
         <Route path="emergency" element={<Emergency />} />
@@ -83,7 +87,7 @@ useEffect(() => {
         <Route path="delete" element={<CloseAccount />} />
       </Route>
 
-      <Route path="/chat" element={<Chat />}>
+      <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>}>
         <Route index element={<ChatTemp />} />
         <Route path="list" element={<ChatList />} />
         <Route path=":id" element={<ChatSingle />} />
@@ -92,7 +96,7 @@ useEffect(() => {
         <Route path="upgrade" element={<UpgradePlan />} />
       </Route>
 
-      <Route path="/stats" element={<Stats />}>
+      <Route path="/stats" element={<ProtectedRoute><Stats /></ProtectedRoute>}>
         <Route index element={<StatsHome />} />
         <Route path="mood" element={<Mood />} />
         <Route path="mindscore" element={<MindScore />} />

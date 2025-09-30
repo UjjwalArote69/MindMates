@@ -10,18 +10,15 @@ import NotificationsIcon from "../../assets/Icons/Notifications.svg";
 import DefaultAvatar from "../../assets/Icons/User Pfp Avatar.png";
 import { useUserStore } from "../../store/userStore";
 // import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 const Home = () => {
-  const { user, fetchUser, loading } = useUserStore();
+  const { user, loading } = useUserStore();
   // const navigate = useNavigate();
   const getProfileImage = () => (user?.avatar ? user.avatar : DefaultAvatar);
 
   // console.log("🔍 Home Render:", { user, loading, initialized });
 
-  useEffect(() => {
-    fetchUser();
-  }, []);
 
   // console.log("🔍 Home Render:", { user, loading, initialized });
 

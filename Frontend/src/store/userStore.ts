@@ -11,6 +11,7 @@ import {
   loginUserService,
   registerUserService,
 } from "../services/auth.service";
+import { getToken } from "../lib/utils";
 
 interface Mood {
   date: string;
@@ -98,9 +99,8 @@ export const useUserStore = create<UserState>((set, get) => ({
   fetchUser: async () => {
     try {
       set({ loading: true });
-      const res = await getMe();
 
-      // normalize API response
+      const res = await getMe(); // will send cookie
       if (!res?.data) {
         set({ user: null, loading: false, initialized: true });
       } else {
@@ -115,8 +115,15 @@ export const useUserStore = create<UserState>((set, get) => ({
     try {
       set({ loading: true, error: null });
       const data = await loginUserService({ email, password });
+
+      if (data.token) {
+        // Save token
+        localStorage.setItem("token", data.token);
+        document.cookie = `token=${data.token}; path=/; SameSite=None; Secure`;
+      }
+
       set({ user: data.user, loading: false });
-      return data.user; // ✅ return logged in user
+      return data.user;
     } catch (err: any) {
       set({ error: err.message, loading: false });
       throw err;

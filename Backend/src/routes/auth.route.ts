@@ -17,51 +17,35 @@ router.get(
 );
 
 // ✅ Google OAuth callback
+// auth.route.ts (Google callback)
+// Google OAuth callback
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    session: false, // 🚀 important: no session
+    session: false,
     failureRedirect: `${process.env.CLIENT_URL}/auth/login`,
   }),
   (req, res) => {
     const user = req.user as any;
+    if (!user) return res.redirect(`${process.env.CLIENT_URL}/auth/login`);
 
-    if (!user) {
-      console.error("❌ No user returned from Google OAuth");
-      return res.redirect(`${process.env.CLIENT_URL}/auth/login`);
-    }
-
-    // ✅ Generate JWT
     const token = generateToken({ id: user._id.toString() });
 
-    const isProduction = process.env.NODE_ENV === "production";
-
+    // 1. Set cookie for backend requests
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true, // only over HTTPS
-      sameSite: "none", // allow cross-domain
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    console.log("✅ Token generated for OAuth:", token);
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
-      id: string;
-    };
-    console.log("✅ Decoded token after generation:", decoded);
-
-    // ✅ Redirect user
-    if (user.isNewUser) {
-      const clientUrl =
-        process.env.CLIENT_URL ?? "https://mindmates-beta.vercel.app";
-      res.redirect(`${clientUrl.replace(/\/$/, "")}/onboarding`);
-    } else {
-      const clientUrl =
-        process.env.CLIENT_URL ?? "https://mindmates-beta.vercel.app";
-      res.redirect(`${clientUrl.replace(/\/$/, "")}/home`);
-    }
+    // 2. Redirect with token for frontend to store in localStorage
+    const redirectUrl = `${process.env.CLIENT_URL}/auth/google/callback?token=${token}`;
+    res.redirect(redirectUrl);
   }
 );
+
 
 // Email/password routes
 router.post("/register", registerUser);

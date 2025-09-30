@@ -1,12 +1,21 @@
 import axios from "axios";
+import { getToken } from "../lib/utils";
 
 // Use VITE_API_BASE_URL, fallback only to localhost
 const API = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
 
 const instance = axios.create({
   baseURL: API,
-  withCredentials: true, // ensures cookies are sent
+  withCredentials: true, // still try cookies
 });
+
+instance.interceptors.request.use((config) => {
+  const token = getToken();
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
+
 
 export const getMe = async () => {
   try {
@@ -22,9 +31,15 @@ export const logoutUser = async () => {
   try {
     const res = await instance.post(
       `${API}/users/logout`,
-      {}, // empty body
-      { withCredentials: true } // config goes here
+      {},
+      { withCredentials: true }
     );
+
+    // Clear localStorage + cookie
+    localStorage.removeItem("token");
+    document.cookie =
+      "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+
     return { data: res.data || null };
   } catch (error) {
     console.error("User service : logoutUser ", error);
@@ -43,7 +58,6 @@ export const deleteUser = async () => {
     throw error;
   }
 };
-
 
 export const onboardingData = async (data: {
   age: number;
