@@ -11,7 +11,6 @@ import {
   loginUserService,
   registerUserService,
 } from "../services/auth.service";
-// import { getToken } from "../lib/utils";
 
 interface Mood {
   date: string;
@@ -72,14 +71,14 @@ interface UserState {
     selectedAreas: string[];
     feedback: string;
   }) => Promise<void>;
+  submitOnboarding: () => Promise<void>;
 
-  // onboarding actions
+  // onboarding setters
   setGender: (g: "male" | "female") => void;
   setAge: (a: number) => void;
   setCurrentMood: (m: string) => void;
   setSleepQuality: (s: number) => void;
   setStressQuality: (s: string) => void;
-  submitOnboarding: () => Promise<void>;
 }
 
 export const useUserStore = create<UserState>((set, get) => ({
@@ -99,8 +98,7 @@ export const useUserStore = create<UserState>((set, get) => ({
   fetchUser: async () => {
     try {
       set({ loading: true });
-
-      const res = await getMe(); // will send cookie
+      const res = await getMe(); // 🔑 checks cookies/token
       if (!res?.data) {
         set({ user: null, loading: false, initialized: true });
       } else {
@@ -117,7 +115,6 @@ export const useUserStore = create<UserState>((set, get) => ({
       const data = await loginUserService({ email, password });
 
       if (data.token) {
-        // Save token
         localStorage.setItem("token", data.token);
         document.cookie = `token=${data.token}; path=/; SameSite=None; Secure`;
       }
@@ -143,6 +140,9 @@ export const useUserStore = create<UserState>((set, get) => ({
   logout: async () => {
     try {
       await logoutUser();
+      localStorage.removeItem("token");
+      document.cookie =
+        "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
       set({ user: null });
     } catch (err: any) {
       set({ error: err.message });
@@ -165,6 +165,9 @@ export const useUserStore = create<UserState>((set, get) => ({
     try {
       set({ loading: true, error: null });
       await deleteUser();
+      localStorage.removeItem("token");
+      document.cookie =
+        "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
       set({ user: null, loading: false });
     } catch (err: any) {
       console.error("deleteUserAccount failed:", err);
@@ -185,12 +188,6 @@ export const useUserStore = create<UserState>((set, get) => ({
     }
   },
 
-  setGender: (g) => set({ gender: g }),
-  setAge: (a) => set({ age: a }),
-  setCurrentMood: (m) => set({ currentMood: m }),
-  setSleepQuality: (s) => set({ sleepQuality: s }),
-  setStressQuality: (s) => set({ stressQuality: s }),
-
   submitOnboarding: async () => {
     const { gender, age, currentMood, sleepQuality, stressQuality, fetchUser } =
       get();
@@ -208,4 +205,11 @@ export const useUserStore = create<UserState>((set, get) => ({
       throw err;
     }
   },
+
+  // onboarding setters
+  setGender: (g) => set({ gender: g }),
+  setAge: (a) => set({ age: a }),
+  setCurrentMood: (m) => set({ currentMood: m }),
+  setSleepQuality: (s) => set({ sleepQuality: s }),
+  setStressQuality: (s) => set({ stressQuality: s }),
 }));

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import { registerUserService } from "../../services/auth.service";
 import MindMatesIcon from "../../assets/Icons/MindMates Auth Icon.svg";
 import GoogleIcon from "../../assets/Icons/Google Icon.png";
 import EmailIcon from "../../assets/Icons/Email Icon.svg";
@@ -13,11 +12,11 @@ import { useUserStore } from "../../store/userStore";
 const Register = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", email: "", password: "" });
-  // const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState("");
-  const [formError, _setFormError] = useState("");
-  // const fetchUser = useUserStore((state) => state.fetchUser);
+  const [formError, setFormError] = useState("");
+
+  const { register, loading } = useUserStore();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -29,14 +28,20 @@ const Register = () => {
     }
   };
 
-  const register = useUserStore((state) => state.register);
-  const loading = useUserStore((state) => state.loading);
-  // const _error = useUserStore((state) => state.error);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await register(form.name, form.email, form.password);
-    navigate("/onboarding");
+    try {
+      await register(form.name, form.email, form.password);
+
+      const user = useUserStore.getState().user; // ✅ grab fresh user
+      if (user) {
+        navigate("/onboarding", { replace: true });
+      } else {
+        setFormError("Registration failed. Try again.");
+      }
+    } catch (err) {
+      setFormError("Something went wrong. Please try again.");
+    }
   };
 
   const handleGoogleRegister = () => {

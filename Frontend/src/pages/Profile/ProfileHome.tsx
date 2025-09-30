@@ -7,18 +7,19 @@ import InviteIcon from "../../assets/Icons/Share Invite Friends.svg";
 import FeedbackIcon from "../../assets/Icons/Submit Feedback Icon.svg";
 import Help from "../../assets/Icons/Help Center Icon.svg";
 import GarbageIcon from "../../assets/Icons/Close Account Garbage Icon.svg";
-import LogoutIcon from "../../assets/Icons/Log Out Icon.svg";
+// import LogoutIcon from "../../assets/Icons/Log Out Icon.svg";
 import ForwardIcon from "../../assets/Icons/Forward Icon.svg";
 import DefaultAvatar from "../../assets/Icons/User Pfp Avatar.png";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
-import { logoutUser } from "../../services/user.service";
+import LogoutButton from "./LogoutButton";
+// import { logoutUser } from "../../services/user.service";
 
 const ProfileHome = () => {
   const { user, loading, initialized } = useUserStore();
   const navigate = useNavigate();
-  const setUser = useUserStore((state) => state.setUser);
+  // const setUser = useUserStore((state) => state.setUser);
 
   console.log("🔍 ProfileHome Render:", { user, loading, initialized });
 
@@ -50,16 +51,11 @@ const ProfileHome = () => {
 
   const getProfileImage = () => user?.avatar || DefaultAvatar;
 
-  const logoutButton = async () => {
-    try {
-      await logoutUser();
-      setUser(null);
-      navigate("/auth/login");
-    } catch (error) {
-      console.error("Logout failed:", error);
-      alert("Failed to logout. Try again.");
-    }
-  };
+  // const logoutButton = async () => {
+  //   await logout();
+  //   setUser(null);
+  //   navigate("/auth/login");
+  // };
 
   return (
     <div className="w-full min-h-screen bg-[#fdfcfb] text-[#4B2E2B] flex flex-col items-center">
@@ -97,43 +93,72 @@ const ProfileHome = () => {
             <span className="text-sm">Age</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="font-semibold text-lg">{user?.weight || "N/A"}</span>
+            <span className="font-semibold text-lg">
+              {user?.weight || "N/A"}
+            </span>
             <span className="text-sm">Weight</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="font-semibold text-lg">{user?.height || "N/A"}</span>
+            <span className="font-semibold text-lg">
+              {user?.height || "N/A"}
+            </span>
             <span className="text-sm">Height</span>
           </div>
         </div>
-
-        {/* Settings Sections */}
-        <SettingsSection title="General Settings">
-          <SettingItem icon={PersonalInfo} label="Personal Information" route="/profile/personal-info" />
-          <SettingItem icon={EmergencyIcon} label="Emergency Contact" value="3+" route="/profile/emergency" />
-          <SettingItem icon={FeedbackIcon} label="Submit Feedback" route="/profile/feedback" />
-          <SettingItem icon={MoonIcon} label="Dark Mode" toggle />
-          <SettingItem icon={InviteIcon} label="Invite Friends" route="/profile/invite" />
-        </SettingsSection>
-
-        <SettingsSection title="Service & Privacy">
-          <SettingItem icon={Help} label="Help Center" route="/profile/help" />
-          <div
-            className="flex justify-between items-center px-4 py-3 rounded-xl bg-red-100 text-red-600 font-semibold cursor-pointer"
-            onClick={() => navigate("/profile/delete")}
-          >
-            <div className="flex items-center gap-3">
-              <img src={GarbageIcon} alt="Close Account" className="w-13 p-3 bg-red-400 rounded-xl" />
-              <span>Close Account</span>
+        <div className="flex flex-col w-full px-1 pb-24">
+          {/* Settings Sections */}
+          <SettingsSection title="General Settings">
+            <SettingItem
+              icon={PersonalInfo}
+              label="Personal Information"
+              route="/profile/personal-info"
+            />
+            <SettingItem
+              icon={EmergencyIcon}
+              label="Emergency Contact"
+              value="3+"
+              route="/profile/emergency"
+            />
+            <SettingItem
+              icon={FeedbackIcon}
+              label="Submit Feedback"
+              route="/profile/feedback"
+            />
+            <SettingItem icon={MoonIcon} label="Dark Mode" toggle />
+            <SettingItem
+              icon={InviteIcon}
+              label="Invite Friends"
+              route="/profile/invite"
+            />
+          </SettingsSection>
+          <SettingsSection title="Service & Privacy">
+            <SettingItem
+              icon={Help}
+              label="Help Center"
+              route="/profile/help"
+            />
+            <div
+              className="flex justify-between items-center px-4 py-3 rounded-xl bg-red-100 text-red-600 font-semibold cursor-pointer"
+              onClick={() => navigate("/profile/delete")}
+            >
+              <div className="flex items-center gap-3">
+                <img
+                  src={GarbageIcon}
+                  alt="Close Account"
+                  className="w-13 p-3 bg-red-400 rounded-xl"
+                />
+                <span>Close Account</span>
+              </div>
+              <img src={ForwardIcon} alt="Forward" className="w-6 h-6" />
             </div>
-            <img src={ForwardIcon} alt="Forward" className="w-6 h-6" />
-          </div>
-        </SettingsSection>
-
-        <SettingsSection title="Log Out">
-          <div onClick={logoutButton}>
-            <SettingItem icon={LogoutIcon} label="Log Out" />
-          </div>
-        </SettingsSection>
+          </SettingsSection>{" "}
+          {/* 👈 add pb-24 */}
+          {/* ... your settings sections ... */}
+          <SettingsSection title="Log Out">
+            <LogoutButton/>
+          </SettingsSection>
+          <Navbar />
+        </div>
 
         <Navbar />
       </div>
@@ -142,7 +167,13 @@ const ProfileHome = () => {
 };
 
 // SettingsSection component
-const SettingsSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+const SettingsSection = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) => (
   <div className="w-full max-w-md mt-6">
     <h2 className="text-sm font-bold text-[#4B2E2B] mb-2 px-4">{title}</h2>
     <div className="space-y-3">{children}</div>
@@ -169,11 +200,17 @@ const SettingItem = ({
   };
   return (
     <div
-      className={`flex justify-between items-center px-4 py-3 rounded-xl bg-white shadow-sm ${!toggle && "cursor-pointer"}`}
+      className={`flex justify-between items-center px-4 py-3 rounded-xl bg-white shadow-sm ${
+        !toggle && "cursor-pointer"
+      }`}
       onClick={handleClick}
     >
       <div className="flex items-center gap-3">
-        <img src={icon} alt={label} className="w-13 p-3 bg-gray-100 rounded-xl" />
+        <img
+          src={icon}
+          alt={label}
+          className="w-13 p-3 bg-gray-100 rounded-xl"
+        />
         <span className="font-medium">{label}</span>
       </div>
       <div className="flex items-center gap-2">
@@ -185,7 +222,9 @@ const SettingItem = ({
             <div className="absolute left-1 top-0.5 w-4 h-4 bg-white rounded-full transition peer-checked:translate-x-5"></div>
           </label>
         )}
-        {!toggle && !value && <img src={ForwardIcon} alt="Forward" className="w-6 h-6" />}
+        {!toggle && !value && (
+          <img src={ForwardIcon} alt="Forward" className="w-6 h-6" />
+        )}
       </div>
     </div>
   );
