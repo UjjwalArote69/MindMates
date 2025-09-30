@@ -6,6 +6,7 @@ const API = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
 
 const instance = axios.create({
   baseURL: API,
+  headers: { "Content-Type": "application/json" },
   withCredentials: true, // still try cookies
 });
 
@@ -17,7 +18,10 @@ instance.interceptors.request.use((config) => {
 
 export const getMe = async () => {
   try {
-    const res = await instance.get("/users/me");
+    const res = await instance.get("/users/me", {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    });
     return { data: res.data || null };
   } catch (error) {
     console.error("User service : getMe ", error);
