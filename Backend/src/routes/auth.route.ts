@@ -41,11 +41,37 @@ router.get(
     });
 
     // 2. Redirect with token for frontend to store in localStorage
-    const redirectUrl = `${process.env.CLIENT_URL}/auth/google/callback?token=${token}`;
-    res.redirect(redirectUrl);
+    router.get(
+      "/google/callback",
+      passport.authenticate("google", {
+        session: false,
+        failureRedirect: `${process.env.CLIENT_URL}/auth/login`,
+      }),
+      (req, res) => {
+        const user = req.user as any;
+        if (!user) return res.redirect(`${process.env.CLIENT_URL}/auth/login`);
+
+        const token = generateToken({ id: user._id.toString() });
+
+        // ✅ Set cookie for backend requests
+        res.cookie("token", token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "none",
+          path: "/",
+          maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
+
+        // ✅ Redirect based on whether the user is new
+        if (user.isNewUser) {
+          res.redirect(`${process.env.CLIENT_URL}/onboarding`);
+        } else {
+          res.redirect(`${process.env.CLIENT_URL}/home`);
+        }
+      }
+    );
   }
 );
-
 
 // Email/password routes
 router.post("/register", registerUser);
