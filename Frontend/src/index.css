@@ -8,7 +8,6 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  /* ::-webkit-scrollbar: disabled */
   --font-Lato: "Lato", san-serif;
 }
 
@@ -154,8 +153,7 @@ body::-webkit-scrollbar {
   width: 0px;
 }
 
-
-/* in globals.css or SwipableCards.css */
+/* Swiper Pagination */
 .custom-pagination .swiper-pagination-bullet {
   background: #ccc;
   opacity: 0.6;
@@ -166,10 +164,311 @@ body::-webkit-scrollbar {
 }
 
 .custom-pagination .swiper-pagination-bullet-active {
-  background: #7d726a; /* dark brown like screenshot */
+  background: #7d726a;
   opacity: 1;
   width: 10px;
   height: 10px;
-  /* writing-mode: ; */
 }
 
+/* ✅ STRONG & NOTICEABLE BLOB ANIMATIONS */
+@keyframes blob {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: translate(80px, -90px) scale(1.5);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate(-40px, 50px) scale(0.85);
+    opacity: 0.75;
+  }
+  75% {
+    transform: translate(50px, -60px) scale(1.15);
+    opacity: 0.9;
+  }
+}
+
+@keyframes blob-slow {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  33% {
+    transform: translate(70px, -55px) scale(1.3) rotate(20deg);
+    opacity: 0.8;
+  }
+  66% {
+    transform: translate(-60px, 45px) scale(0.8) rotate(-15deg);
+    opacity: 0.7;
+  }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.35);
+    opacity: 0.85;
+  }
+}
+
+/* ✅ Slow Spin Animation */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-blob {
+  animation: blob 8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-blob-slow {
+  animation: blob-slow 10s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-breathe {
+  animation: breathe 7s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+/* Animation Delays */
+.animation-delay-2s {
+  animation-delay: 2s;
+}
+
+.animation-delay-3s {
+  animation-delay: 3s;
+}
+
+.animation-delay-4s {
+  animation-delay: 4s;
+}
+
+.animation-delay-5s {
+  animation-delay: 5s;
+}
+
+.animation-delay-6s {
+  animation-delay: 6s;
+}
+
+.animation-delay-7s {
+  animation-delay: 7s;
+}
+
+.animation-delay-8s {
+  animation-delay: 8s;
+}
+
+/* ✅ Mobile & Desktop Optimizations */
+@media (max-width: 768px) {
+  /* Keep animations strong on mobile */
+  .animate-blob {
+    animation: blob 10s ease-in-out infinite;
+  }
+  
+  .animate-blob-slow {
+    animation: blob-slow 12s ease-in-out infinite;
+  }
+  
+  .animate-breathe {
+    animation: breathe 9s ease-in-out infinite;
+  }
+  
+  /* Hardware acceleration */
+  * {
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+@keyframes scale-in {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.2s ease-out;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+  }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.3s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.hover\:scale-102:hover {
+  transform: scale(1.02);
+}
+
+.active\:scale-98:active {
+  transform: scale(0.98);
+}
+
+/* Custom range slider styling */
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #694a39;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #694a39;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
+}
+
+@keyframes scale-in {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.delay-1000 {
+  animation-delay: 1s;
+}
+
+.delay-2000 {
+  animation-delay: 2s;
+}

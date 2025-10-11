@@ -13,7 +13,12 @@ export interface UserDocument extends Document {
   height?: number;
   gender?: "male" | "female" | "other";
   birthDate?: Date;
-  
+  isOnboarded?: boolean;
+
+  // Current Day Status (resets daily)
+  todayLogged?: boolean;
+  lastLoggedDate?: Date;
+
   // Emergency Contacts
   emergencyContacts: { name: string; phone: string }[];
 
@@ -27,6 +32,9 @@ export interface UserDocument extends Document {
   hydrationLogs?: { date: Date; liters: number }[];
   activityLogs?: { date: Date; steps: number; minutes: number }[];
   meditationLogs?: { date: Date; minutes: number }[];
+  
+  // ✅ NEW: Mental Health Score History
+  mentalHealthScoreLogs?: { date: Date; score: number }[];
 
   // Calculated/Latest Metrics
   mentalHealthScore?: number;
@@ -47,14 +55,6 @@ export interface UserDocument extends Document {
   updatedAt: Date;
 }
 
-const logSchema = new mongoose.Schema(
-  {
-    date: { type: Date, default: Date.now },
-    value: mongoose.Schema.Types.Mixed,
-  },
-  { _id: false }
-);
-
 const userSchema = new mongoose.Schema<UserDocument>(
   {
     email: { type: String, required: true, unique: true },
@@ -67,11 +67,16 @@ const userSchema = new mongoose.Schema<UserDocument>(
     height: { type: Number },
     gender: { type: String, enum: ["male", "female", "other"] },
     birthDate: { type: Date },
+    isOnboarded: { type: Boolean, default: false },
+
+    todayLogged: { type: Boolean, default: false },
+    lastLoggedDate: { type: Date },
+
     emergencyContacts: {
       type: [
         {
           name: { type: String, required: true, trim: true },
-          phone: { type: String, required: true, match: /^\+?[0-9]{7,15}$/ }, // allows +91, +1, etc.
+          phone: { type: String, required: true, match: /^\+?[0-9]{7,15}$/ },
         },
       ],
       default: [],
@@ -118,6 +123,14 @@ const userSchema = new mongoose.Schema<UserDocument>(
         minutes: { type: Number, min: 0 },
       },
     ],
+    
+    // ✅ NEW: Mental Health Score History
+    mentalHealthScoreLogs: [
+      {
+        date: { type: Date, default: Date.now },
+        score: { type: Number, min: 0, max: 100 },
+      },
+    ],
 
     mentalHealthScore: { type: Number, min: 0, max: 100, default: 80 },
     goals: [{ type: String }],
@@ -132,5 +145,38 @@ const userSchema = new mongoose.Schema<UserDocument>(
   },
   { timestamps: true }
 );
+
+// ✅ MIDDLEWARE: Auto-log mental health score changes
+userSchema.pre('save', function(next) {
+  if (this.isModified('mentalHealthScore') && this.mentalHealthScore !== undefined) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    if (!this.mentalHealthScoreLogs) this.mentalHealthScoreLogs = [];
+    
+    // Find today's log
+    const todayLogIndex = this.mentalHealthScoreLogs.findIndex(log => {
+      const logDate = new Date(log.date);
+      logDate.setHours(0, 0, 0, 0);
+      return logDate.getTime() === today.getTime();
+    });
+    
+    if (
+      todayLogIndex >= 0 &&
+      Array.isArray(this.mentalHealthScoreLogs) &&
+      this.mentalHealthScoreLogs[todayLogIndex]
+    ) {
+      // Update existing log for today
+      this.mentalHealthScoreLogs[todayLogIndex].score = this.mentalHealthScore;
+    } else if (Array.isArray(this.mentalHealthScoreLogs)) {
+      // Add new log for today
+      this.mentalHealthScoreLogs.push({
+        date: today,
+        score: this.mentalHealthScore
+      });
+    }
+  }
+  next();
+});
 
 export const User = mongoose.model<UserDocument>("User", userSchema);

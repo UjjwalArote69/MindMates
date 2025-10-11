@@ -27,8 +27,14 @@
     /* Additional */
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    
+    /* ✅ Path Mapping + Silence Deprecation (use 6.0 as error says) */
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["src", "src/types"],
-  // "exclude": ["**/*.d.ts"]
+  "include": ["src", "src/types"]
 }

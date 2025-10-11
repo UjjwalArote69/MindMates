@@ -29,23 +29,24 @@ const Register = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const data = await register(form.name, form.email, form.password);
+  e.preventDefault();
+  try {
+    const data = await register(form.name, form.email, form.password);
 
-      if (data.user) {
-        if (data.isNewUser) {
-          navigate("/onboarding", { replace: true });
-        } else {
-          navigate("/home", { replace: true });
-        }
+    if (data.user) {
+      // ✅ Navigate based on isNewUser flag
+      if (data.isNewUser) {
+        navigate("/onboarding", { replace: true });
       } else {
-        setFormError("Registration failed. Try again.");
+        navigate("/home", { replace: true });
       }
-    } catch (err) {
-      setFormError("Something went wrong. Please try again.");
+    } else {
+      setFormError("Registration failed. Try again.");
     }
-  };
+  } catch (err: any) {
+    setFormError(err.response?.data?.message || "Something went wrong. Please try again.");
+  }
+};
 
   const handleGoogleRegister = () => {
     window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/google`;

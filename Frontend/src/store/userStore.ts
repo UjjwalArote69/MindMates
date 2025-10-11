@@ -6,6 +6,8 @@ import {
   updateUser,
   deleteUser,
   submitFeedback,
+  updateTodayMood,
+  updateTodayStress,
 } from "../services/user.service";
 import {
   loginUserService,
@@ -26,7 +28,6 @@ interface UserRegisterResponse {
 interface User {
   _id: string;
   googleId?: string;
-
   name: string;
   email: string;
   avatar?: string;
@@ -43,6 +44,20 @@ interface User {
   weight?: number;
   height?: number;
   birthDate?: string;
+  createdAt?: string;
+  isOnboarded?: boolean;
+
+  // ✅ ADD THESE MISSING FIELDS
+  todayLogged?: boolean;
+  lastLoggedDate?: Date | string;
+
+  // Log arrays
+  stressLogs?: { date: Date; level: number }[];
+  sleepLogs?: { date: Date; quality: number; hours: number }[];
+  hydrationLogs?: { date: Date; liters: number }[];
+  activityLogs?: { date: Date; steps: number; minutes: number }[];
+  meditationLogs?: { date: Date; minutes: number }[];
+  mentalHealthScoreLogs?: { date: Date; score: number }[];
 }
 
 interface UserState {
@@ -56,11 +71,13 @@ interface UserState {
   currentMood: string | null;
   sleepQuality: number | null;
   stressQuality: string | null;
+  height: number | null;
+  weight: number | null;
 
   // actions
   setUser: (user: User | null) => void;
   fetchUser: () => Promise<void>;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<User>;
   register: (
     name: string,
     email: string,
@@ -81,6 +98,8 @@ interface UserState {
     feedback: string;
   }) => Promise<void>;
   submitOnboarding: () => Promise<void>;
+  updateTodayMood: (mood: string) => Promise<void>;
+  updateTodayStress: (stressLevel: number) => Promise<void>;
 
   // onboarding setters
   setGender: (g: "male" | "female") => void;
@@ -88,6 +107,8 @@ interface UserState {
   setCurrentMood: (m: string) => void;
   setSleepQuality: (s: number) => void;
   setStressQuality: (s: string) => void;
+  setHeight: (h: number) => void;
+  setWeight: (w: number) => void;
 }
 
 export const useUserStore = create<UserState>((set, get) => ({
@@ -101,13 +122,16 @@ export const useUserStore = create<UserState>((set, get) => ({
   currentMood: null,
   sleepQuality: null,
   stressQuality: null,
+  height: null,
+  weight: null,
 
   setUser: (user) => set({ user }),
 
   fetchUser: async () => {
     try {
       set({ loading: true });
-      const res = await getMe(); // 🔑 checks cookies/token
+      const res = await getMe();
+
       if (!res?.data) {
         set({ user: null, loading: false, initialized: true });
       } else {
@@ -122,12 +146,6 @@ export const useUserStore = create<UserState>((set, get) => ({
     try {
       set({ loading: true, error: null });
       const data = await loginUserService({ email, password });
-
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-        document.cookie = `token=${data.token}; path=/; SameSite=None; Secure`;
-      }
-
       set({ user: data.user, loading: false });
       return data.user;
     } catch (err: any) {
@@ -141,7 +159,7 @@ export const useUserStore = create<UserState>((set, get) => ({
       set({ loading: true, error: null });
       const data = await registerUserService({ name, email, password });
       set({ user: data.user, loading: false });
-      return data; // ✅ now TS knows this is UserRegisterResponse
+      return data;
     } catch (err: any) {
       set({ error: err.message, loading: false });
       throw err;
@@ -151,9 +169,6 @@ export const useUserStore = create<UserState>((set, get) => ({
   logout: async () => {
     try {
       await logoutUser();
-      localStorage.removeItem("token");
-      document.cookie =
-        "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
       set({ user: null });
     } catch (err: any) {
       set({ error: err.message });
@@ -200,27 +215,89 @@ export const useUserStore = create<UserState>((set, get) => ({
   },
 
   submitOnboarding: async () => {
-    const { gender, age, currentMood, sleepQuality, stressQuality, fetchUser } =
-      get();
+    const {
+      gender,
+      age,
+      currentMood,
+      sleepQuality,
+      stressQuality,
+      height,
+      weight,
+    } = get();
+
     try {
+      console.log("📤 Sending onboarding data:", {
+        gender,
+        age,
+        currentMood,
+        sleepQuality,
+        stressQuality,
+        height,
+        weight,
+      });
+
       await onboardingData({
         gender: gender!,
         age,
+        height: height!,
+        weight: weight!,
         currentMood: currentMood!,
         sleepQuality: sleepQuality!,
         currentStress: Number(stressQuality),
       });
-      await fetchUser();
+
+      console.log("✅ Onboarding data saved");
+
+      // ✅ Refresh user data to get updated isOnboarded status
+      await get().fetchUser();
+
+      console.log(
+        "✅ User data refreshed, isOnboarded:",
+        get().user?.isOnboarded
+      );
     } catch (err: any) {
       console.error("❌ Error in onboarding submit:", err);
       throw err;
     }
   },
 
-  // onboarding setters
+  updateTodayMood: async (mood: string) => {
+    try {
+      set({ loading: true, error: null });
+      await updateTodayMood(mood);
+
+      // Refresh user data
+      await get().fetchUser();
+
+      set({ loading: false });
+    } catch (err: any) {
+      console.error("updateTodayMood failed:", err);
+      set({ error: err.message, loading: false });
+      throw err;
+    }
+  },
+
+  updateTodayStress: async (stressLevel: number) => {
+    try {
+      set({ loading: true, error: null });
+      await updateTodayStress(stressLevel);
+
+      // Refresh user data
+      await get().fetchUser();
+
+      set({ loading: false });
+    } catch (err: any) {
+      console.error("updateTodayStress failed:", err);
+      set({ error: err.message, loading: false });
+      throw err;
+    }
+  },
+
   setGender: (g) => set({ gender: g }),
   setAge: (a) => set({ age: a }),
   setCurrentMood: (m) => set({ currentMood: m }),
   setSleepQuality: (s) => set({ sleepQuality: s }),
   setStressQuality: (s) => set({ stressQuality: s }),
+  setHeight: (h) => set({ height: h }),
+  setWeight: (w) => set({ weight: w }),
 }));

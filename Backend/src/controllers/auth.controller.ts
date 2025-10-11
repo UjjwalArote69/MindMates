@@ -1,20 +1,17 @@
+// Backend: auth.controller.ts - COMPLETE FIX
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
-// import jwt from "jsonwebtoken";
 import { User } from "../model/user.model";
 import { generateToken } from "../utils/generateToken";
-
-// const JWT_SECRET = process.env.JWT_SECRET as string;
 
 export const registerUser = async (req: Request, res: Response) => {
   try {
     const { email, password, name } = req.body;
-
+    
     if (!email || !password || !name)
       return res.status(400).json({ message: "All fields are required" });
 
     const existingUser = await User.findOne({ email });
-
     let isNewUser = false;
     let user;
 
@@ -26,63 +23,74 @@ export const registerUser = async (req: Request, res: Response) => {
       isNewUser = true;
     }
 
-    const token = generateToken({ id: user._id as string});
+    const token = generateToken({ id: user._id as string });
 
+    // ✅ FIXED: Proper cookie settings for localhost
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "none",
+      secure: false, // ⚠️ Must be false in development (localhost)
+      sameSite: "lax", // ⚠️ Must be "lax" for localhost
       path: "/",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
-    res.status(201).json({ user, token, isNewUser });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal Server Error" });
+    console.log("✅ Register: Cookie set successfully");
+
+    return res.status(200).json({
+      user: {
+        _id: user._id,
+        email: user.email,
+        name: user.name,
+        avatar: user.avatar,
+      },
+      token,
+      isNewUser,
+    });
+  } catch (error: any) {
+    console.error("❌ Register Error:", error);
+    return res.status(500).json({ message: error.message });
   }
 };
 
 export const loginUser = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
+
     if (!email || !password)
       return res.status(400).json({ message: "All fields are required" });
 
     const user = await User.findOne({ email });
-
     if (!user || !user.password)
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Invalid credentials" });
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch)
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Invalid credentials" });
 
     const token = generateToken({ id: user._id as string });
 
-    const { password: _, ...userWithoutPassword } = user.toObject();
-
-    const isProduction = process.env.NODE_ENV === "production";
-
+    // ✅ FIXED: Same settings
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true, // only over HTTPS
-      sameSite: "none", // allow cross-domain
+      secure: false, // Must be false in development
+      sameSite: "lax", // Must be "lax" for localhost
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    console.log(
-      `🔑 User logged in: ${user.name} at ${new Date().toISOString()}`
-    );
+    console.log("✅ Login: Cookie set successfully");
 
-    res.status(200).json({
-      message: `Logged in User - ${user.name} at ${new Date().toISOString()}`,
-      user: userWithoutPassword,
+    return res.status(200).json({
+      user: {
+        _id: user._id,
+        email: user.email,
+        name: user.name,
+        avatar: user.avatar,
+      },
       token,
     });
-  } catch (error) {
-    console.error("Auth Controller : loginUser, ", error);
-    res.status(500).json({ message: "Internal Server Error" });
+  } catch (error: any) {
+    console.error("❌ Login Error:", error);
+    return res.status(500).json({ message: error.message });
   }
 };

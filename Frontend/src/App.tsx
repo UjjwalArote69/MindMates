@@ -34,6 +34,10 @@ import SleepAnalysis from "./pages/Stats/SleepAnalysis";
 import { useUserStore } from "./store/userStore";
 import GoogleCallback from "./pages/Authentication/GoogleCallback";
 import ProtectedRoute from "./components/shared/ProtectedRoute";
+import OnboardingGuard from "./components/shared/OnboardingGaurd";
+import BreathingTimer from "./pages/Stats/BreathingTimer";
+import DailyTracker from "./pages/DailyTracker";
+import Stress from "./pages/Stats/Stress";
 
 function App() {
   const { fetchUser, initialized, loading } = useUserStore();
@@ -65,7 +69,16 @@ function App() {
       </Route>
 
       {/* Onboarding route - logged in */}
-      <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
+      <Route
+        path="/onboarding"
+        element={
+          <ProtectedRoute>
+            <OnboardingGuard>
+              <Onboarding />
+            </OnboardingGuard>
+          </ProtectedRoute>
+        }
+      />
 
       {/* Home route - logged in */}
       <Route
@@ -76,7 +89,24 @@ function App() {
           </ProtectedRoute>
         }
       />
-      <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>}>
+
+      <Route
+        path="/daily-tracker"
+        element={
+          <ProtectedRoute>
+            <DailyTracker />
+          </ProtectedRoute>
+        }
+      ></Route>
+
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      >
         <Route index element={<ProfileHome />} />
         <Route path="personal-info" element={<PersonalInfo />} />
         <Route path="emergency" element={<Emergency />} />
@@ -87,7 +117,14 @@ function App() {
         <Route path="delete" element={<CloseAccount />} />
       </Route>
 
-      <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>}>
+      <Route
+        path="/chat"
+        element={
+          <ProtectedRoute>
+            <Chat />
+          </ProtectedRoute>
+        }
+      >
         <Route index element={<ChatTemp />} />
         <Route path="list" element={<ChatList />} />
         <Route path=":id" element={<ChatSingle />} />
@@ -96,12 +133,28 @@ function App() {
         <Route path="upgrade" element={<UpgradePlan />} />
       </Route>
 
-      <Route path="/stats" element={<ProtectedRoute><Stats /></ProtectedRoute>}>
+      <Route
+        path="/stats"
+        element={
+          <ProtectedRoute>
+            <Stats />
+          </ProtectedRoute>
+        }
+      >
         <Route index element={<StatsHome />} />
         <Route path="mood" element={<Mood />} />
         <Route path="mindscore" element={<MindScore />} />
         <Route path="exercise" element={<MindfulExercise />} />
+        <Route path="exercise/active" element={<BreathingTimer />} />
         <Route path="sleep" element={<SleepAnalysis />} />
+        <Route
+          path="stress"
+          element={
+            <ProtectedRoute>
+              <Stress />
+            </ProtectedRoute>
+          }
+        />
       </Route>
     </Routes>
   );

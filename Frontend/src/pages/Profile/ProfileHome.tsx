@@ -7,23 +7,21 @@ import InviteIcon from "../../assets/Icons/Share Invite Friends.svg";
 import FeedbackIcon from "../../assets/Icons/Submit Feedback Icon.svg";
 import Help from "../../assets/Icons/Help Center Icon.svg";
 import GarbageIcon from "../../assets/Icons/Close Account Garbage Icon.svg";
-// import LogoutIcon from "../../assets/Icons/Log Out Icon.svg";
 import ForwardIcon from "../../assets/Icons/Forward Icon.svg";
 import DefaultAvatar from "../../assets/Icons/User Pfp Avatar.png";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
 import LogoutButton from "./LogoutButton";
-// import { logoutUser } from "../../services/user.service";
+import { ChevronRight, Crown, Shield } from "lucide-react";
 
 const ProfileHome = () => {
   const { user, loading, initialized } = useUserStore();
   const navigate = useNavigate();
-  // const setUser = useUserStore((state) => state.setUser);
+  const [darkMode, setDarkMode] = useState(false);
 
   console.log("🔍 ProfileHome Render:", { user, loading, initialized });
 
-  // Redirect if user is not logged in
   useEffect(() => {
     if (initialized && !loading && !user) {
       navigate("/auth/login", { replace: true });
@@ -34,13 +32,10 @@ const ProfileHome = () => {
     return (
       <div className="flex items-center justify-center h-screen bg-[#F9F5F2]">
         <div className="flex flex-col items-center gap-4">
-          {/* Spinner */}
           <div className="w-16 h-16 border-4 border-[#4E342E] border-t-transparent rounded-full animate-spin"></div>
-          {/* Loading Text */}
           <p className="text-[#4E342E] font-semibold text-lg">
             Loading your MindMates...
           </p>
-          {/* Subtext */}
           <p className="text-gray-500 text-sm text-center max-w-xs">
             Fetching your profile and personalized recommendations.
           </p>
@@ -51,122 +46,168 @@ const ProfileHome = () => {
 
   const getProfileImage = () => user?.avatar || DefaultAvatar;
 
-  // const logoutButton = async () => {
-  //   await logout();
-  //   setUser(null);
-  //   navigate("/auth/login");
-  // };
-
   return (
-    <div className="w-full min-h-screen bg-[#fdfcfb] text-[#4B2E2B] flex flex-col items-center">
-      {/* Header */}
-      <div className="relative w-full h-48">
-        <img
-          src={BgImage}
-          alt="Profile Background"
-          className="w-full h-full object-cover rounded-b-[80px]"
-        />
-        <div className="absolute bottom-[-40px] left-1/2 transform -translate-x-1/2">
-          <div className="relative w-24 h-24 rounded-full overflow-hidden border-4 border-white">
+    <div className="relative w-full min-h-screen bg-gradient-to-br from-[#fdfcfb] to-[#f8f5f2] text-[#4B2E2B] flex flex-col items-center md:pl-[100px] overflow-hidden">
+      {/* Decorative Background Blobs */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#A3B763]/10 rounded-full blur-3xl animate-blob" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#8676E2]/10 rounded-full blur-3xl animate-blob-slow animation-delay-2s" />
+      </div>
+
+      <div className="relative z-10 w-full max-w-4xl pb-24">
+        {/* Enhanced Header Section */}
+        <div className="relative w-full h-56 md:h-64">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#A3B763] to-[#8fa054] rounded-b-[60px] overflow-hidden">
             <img
-              src={getProfileImage()}
-              alt="User"
-              className="w-full h-full object-cover"
+              src={BgImage}
+              alt="Profile Background"
+              className="w-full h-full object-cover opacity-40 mix-blend-overlay"
             />
           </div>
-        </div>
-      </div>
-
-      <div className="flex flex-col w-full px-5">
-        {/* User Info */}
-        <div className="mt-12 flex flex-col items-center">
-          <h1 className="pb-3 text-xl font-bold">{user?.name}</h1>
-          <span className="text-sm bg-[#e4f0e2] text-[#3c5136] rounded-full px-3 py-1 mt-1">
-            {user?.subscriptionType || "BASIC MEMBERSHIP"}
-          </span>
-        </div>
-
-        {/* Age / Weight / Height */}
-        <div className="mt-6 flex justify-around w-full max-w-md border-t border-b py-4">
-          <div className="flex flex-col items-center">
-            <span className="font-semibold text-lg">{user?.age || "N/A"}</span>
-            <span className="text-sm">Age</span>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="font-semibold text-lg">
-              {user?.weight || "N/A"}
-            </span>
-            <span className="text-sm">Weight</span>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="font-semibold text-lg">
-              {user?.height || "N/A"}
-            </span>
-            <span className="text-sm">Height</span>
-          </div>
-        </div>
-        <div className="flex flex-col w-full px-1 pb-24">
-          {/* Settings Sections */}
-          <SettingsSection title="General Settings">
-            <SettingItem
-              icon={PersonalInfo}
-              label="Personal Information"
-              route="/profile/personal-info"
-            />
-            <SettingItem
-              icon={EmergencyIcon}
-              label="Emergency Contact"
-              value="3+"
-              route="/profile/emergency"
-            />
-            <SettingItem
-              icon={FeedbackIcon}
-              label="Submit Feedback"
-              route="/profile/feedback"
-            />
-            <SettingItem icon={MoonIcon} label="Dark Mode" toggle />
-            <SettingItem
-              icon={InviteIcon}
-              label="Invite Friends"
-              route="/profile/invite"
-            />
-          </SettingsSection>
-          <SettingsSection title="Service & Privacy">
-            <SettingItem
-              icon={Help}
-              label="Help Center"
-              route="/profile/help"
-            />
-            <div
-              className="flex justify-between items-center px-4 py-3 rounded-xl bg-red-100 text-red-600 font-semibold cursor-pointer"
-              onClick={() => navigate("/profile/delete")}
-            >
-              <div className="flex items-center gap-3">
+          
+          {/* Profile Picture */}
+          <div className="absolute bottom-[-50px] left-1/2 transform -translate-x-1/2">
+            <div className="relative">
+              {/* Glow ring */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#A3B763] to-[#8fa054] rounded-full opacity-30 blur-xl"></div>
+              
+              {/* Avatar container */}
+              <div className="relative w-28 h-28 rounded-full overflow-hidden border-4 border-white shadow-2xl">
                 <img
-                  src={GarbageIcon}
-                  alt="Close Account"
-                  className="w-13 p-3 bg-red-400 rounded-xl"
+                  src={getProfileImage()}
+                  alt="User"
+                  className="w-full h-full object-cover"
                 />
-                <span>Close Account</span>
               </div>
-              <img src={ForwardIcon} alt="Forward" className="w-6 h-6" />
+
+              {/* Edit button */}
+              <button className="absolute bottom-0 right-0 w-9 h-9 bg-gradient-to-br from-[#A3B763] to-[#8fa054] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+                <span className="text-white text-lg">✏️</span>
+              </button>
             </div>
-          </SettingsSection>{" "}
-          {/* 👈 add pb-24 */}
-          {/* ... your settings sections ... */}
-          <SettingsSection title="Log Out">
-            <LogoutButton/>
-          </SettingsSection>
-          <Navbar />
+          </div>
         </div>
 
-        <Navbar />
+        <div className="flex flex-col w-full px-5 md:px-8 mt-16">
+          {/* User Info Card */}
+          <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl p-6 md:p-8 border border-white/20">
+            <div className="flex flex-col items-center mb-6">
+              <h1 className="text-2xl md:text-3xl font-bold text-[#4B2E2B] mb-2">
+                {user?.name}
+              </h1>
+              <div className="flex items-center gap-2 bg-gradient-to-r from-[#e4f0e2] to-[#d4e5d0] text-[#3c5136] rounded-full px-4 py-2 shadow-md">
+                {user?.isPro ? (
+                  <>
+                    <Crown size={16} className="text-[#F5D665]" />
+                    <span className="text-sm font-semibold">PRO MEMBER</span>
+                  </>
+                ) : (
+                  <>
+                    <Shield size={16} />
+                    <span className="text-sm font-semibold">BASIC MEMBER</span>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Stats Grid */}
+            <div className="grid grid-cols-3 gap-4 md:gap-6">
+              <div className="flex flex-col items-center p-4 bg-gradient-to-br from-[#F8F6F3] to-white rounded-2xl shadow-sm">
+                <span className="font-bold text-2xl text-[#4B2E2B]">
+                  {user?.age || "--"}
+                </span>
+                <span className="text-sm text-gray-600 mt-1">Age</span>
+              </div>
+              <div className="flex flex-col items-center p-4 bg-gradient-to-br from-[#F8F6F3] to-white rounded-2xl shadow-sm">
+                <span className="font-bold text-2xl text-[#4B2E2B]">
+                  {user?.weight || "--"}
+                </span>
+                <span className="text-sm text-gray-600 mt-1">Weight</span>
+              </div>
+              <div className="flex flex-col items-center p-4 bg-gradient-to-br from-[#F8F6F3] to-white rounded-2xl shadow-sm">
+                <span className="font-bold text-2xl text-[#4B2E2B]">
+                  {user?.height || "--"}
+                </span>
+                <span className="text-sm text-gray-600 mt-1">Height</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Settings Sections */}
+          <div className="mt-8 space-y-6">
+            <SettingsSection title="General Settings">
+              <SettingItem
+                icon={PersonalInfo}
+                label="Personal Information"
+                route="/profile/personal-info"
+              />
+              <SettingItem
+                icon={EmergencyIcon}
+                label="Emergency Contact"
+                value="3+"
+                route="/profile/emergency"
+              />
+              <SettingItem
+                icon={FeedbackIcon}
+                label="Submit Feedback"
+                route="/profile/feedback"
+              />
+              <SettingItem
+                icon={MoonIcon}
+                label="Dark Mode"
+                toggle
+                toggleValue={darkMode}
+                onToggle={() => setDarkMode(!darkMode)}
+              />
+              <SettingItem
+                icon={InviteIcon}
+                label="Invite Friends"
+                route="/profile/invite"
+              />
+            </SettingsSection>
+
+            <SettingsSection title="Service & Privacy">
+              <SettingItem
+                icon={Help}
+                label="Help Center"
+                route="/profile/help"
+              />
+              
+              {/* Danger Zone */}
+              <div
+                className="group relative flex justify-between items-center px-5 py-4 rounded-2xl bg-gradient-to-r from-red-50 to-red-100 text-red-600 font-semibold cursor-pointer shadow-md hover:shadow-lg transition-all overflow-hidden"
+                onClick={() => navigate("/profile/delete")}
+              >
+                <div className="absolute inset-0 bg-red-200 opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                <div className="relative flex items-center gap-4">
+                  <div className="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center">
+                    <img src={GarbageIcon} alt="Close Account" className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <span className="block font-bold">Close Account</span>
+                    <span className="text-xs text-red-500">Permanently delete your account</span>
+                  </div>
+                </div>
+                <ChevronRight
+                  size={20}
+                  className="text-red-600 group-hover:translate-x-1 transition-transform"
+                />
+              </div>
+            </SettingsSection>
+
+            <SettingsSection title="Session">
+              <LogoutButton />
+            </SettingsSection>
+          </div>
+        </div>
       </div>
+
+      <Navbar />
     </div>
   );
 };
 
-// SettingsSection component
+// Enhanced SettingsSection component
 const SettingsSection = ({
   title,
   children,
@@ -174,56 +215,77 @@ const SettingsSection = ({
   title: string;
   children: React.ReactNode;
 }) => (
-  <div className="w-full max-w-md mt-6">
-    <h2 className="text-sm font-bold text-[#4B2E2B] mb-2 px-4">{title}</h2>
-    <div className="space-y-3">{children}</div>
+  <div className="w-full">
+    <h2 className="text-sm font-bold text-[#4B2E2B] mb-3 px-2 uppercase tracking-wide">
+      {title}
+    </h2>
+    <div className="space-y-3 bg-white/60 backdrop-blur-sm rounded-3xl p-4 shadow-lg border border-white/20">
+      {children}
+    </div>
   </div>
 );
 
-// SettingItem component
+// Enhanced SettingItem component
 const SettingItem = ({
   icon,
   label,
   value,
   toggle,
+  toggleValue,
+  onToggle,
   route,
 }: {
   icon: string;
   label: string;
   value?: string;
   toggle?: boolean;
+  toggleValue?: boolean;
+  onToggle?: () => void;
   route?: string;
 }) => {
   const navigate = useNavigate();
   const handleClick = () => {
     if (!toggle && route) navigate(route);
   };
+
   return (
     <div
-      className={`flex justify-between items-center px-4 py-3 rounded-xl bg-white shadow-sm ${
-        !toggle && "cursor-pointer"
+      className={`group flex justify-between items-center px-4 py-4 rounded-2xl bg-white shadow-sm hover:shadow-md transition-all ${
+        !toggle && "cursor-pointer active:scale-98"
       }`}
       onClick={handleClick}
     >
-      <div className="flex items-center gap-3">
-        <img
-          src={icon}
-          alt={label}
-          className="w-13 p-3 bg-gray-100 rounded-xl"
-        />
-        <span className="font-medium">{label}</span>
+      <div className="flex items-center gap-4">
+        <div className="w-12 h-12 bg-gradient-to-br from-[#F8F6F3] to-[#F0EBE6] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+          <img src={icon} alt={label} className="w-6 h-6" />
+        </div>
+        <span className="font-semibold text-[#4B2E2B]">{label}</span>
       </div>
-      <div className="flex items-center gap-2">
-        {value && <span className="text-gray-500">{value}</span>}
+
+      <div className="flex items-center gap-3">
+        {value && (
+          <span className="px-3 py-1 bg-[#A3B763]/20 text-[#4B2E2B] rounded-full text-sm font-semibold">
+            {value}
+          </span>
+        )}
         {toggle && (
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input type="checkbox" className="sr-only peer" defaultChecked />
-            <div className="w-10 h-5 bg-gray-200 peer-checked:bg-green-500 rounded-full peer transition"></div>
-            <div className="absolute left-1 top-0.5 w-4 h-4 bg-white rounded-full transition peer-checked:translate-x-5"></div>
+          <label
+            className="relative inline-flex items-center cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggle?.();
+            }}
+          >
+            <input type="checkbox" className="sr-only peer" checked={toggleValue} readOnly />
+            <div className="w-11 h-6 bg-gray-200 peer-checked:bg-gradient-to-r peer-checked:from-[#A3B763] peer-checked:to-[#8fa054] rounded-full peer transition-all shadow-inner"></div>
+            <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all peer-checked:translate-x-5 shadow-md"></div>
           </label>
         )}
         {!toggle && !value && (
-          <img src={ForwardIcon} alt="Forward" className="w-6 h-6" />
+          <ChevronRight
+            size={20}
+            className="text-gray-400 group-hover:text-[#A3B763] group-hover:translate-x-1 transition-all"
+          />
         )}
       </div>
     </div>

@@ -118,58 +118,203 @@ export const logoutUser = async (req: Request, res: Response) => {
   }
 };
 
-// Get user data on first time login or onboarding data
-
-export const updateOnboardingData = async (req: Request, res: Response) => {
+export const updateOnboardingData = async (req: any, res: Response) => {
   try {
-    const { age, gender, weight, sleepQuality, currentMood, currentStress } =
-      req.body;
-
-    // Calculate score
-    const { mentalHealthScore } = calculateMetrics({
-      age,
-      weight,
-      sleepQuality,
-      currentMood,
-      currentStress,
-    });
-
-    const userId = (req as any).user.id;
+    const { gender, age, currentMood, sleepQuality, currentStress, height, weight } = req.body;
+    
+    const userId = req.user?._id;
     if (!userId) {
-      return res
-        .status(400)
-        .json({ message: "User information is missing in request." });
+      return res.status(401).json({ message: "Unauthorized" });
     }
 
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      {
-        age,
-        gender,
-        weight,
-        sleepQuality,
-        currentMood,
-        currentStress,
-        mentalHealthScore, // save calculated value
-      },
-      { new: true }
-    );
-
-    if (!updatedUser) {
+    const user = await User.findById(userId);
+    if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    console.log(`📝 Onboarding data updated: ${updatedUser.name} at ${new Date().toISOString()}`);
-    
+    // ✅ FIX: Check if already onboarded and return early
+    if (user.isOnboarded) {
+      return res.status(400).json({ message: "User has already completed onboarding" });
+    }
 
-    res.json(updatedUser);
-  } catch (error) {
-    res.status(500).json({ message: "Error updating onboarding data", error });
+    console.log("📝 Onboarding data received:", { userId: req.user?._id, gender, age, currentMood });
+
+    // ✅ FIX: Set isOnboarded to true
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      {
+        gender,
+        age,
+        currentMood,
+        sleepQuality,
+        currentStress,
+        height,
+        weight,
+        isOnboarded: true, // ✅ CRITICAL: Mark as onboarded
+      },
+      { new: true, runValidators: true }
+    ).select("-password");
+
+    console.log("✅ Onboarding updated successfully, user marked as onboarded");
+
+    return res.status(200).json({ updatedUser });
+  } catch (error: any) {
+    console.error("❌ Onboarding Error:", error);
+    return res.status(500).json({ message: error.message });
   }
 };
 
-// Get daily user data e.g. mood, stress, weight
-export const getDailyData = (req: Request, res: Response) => {};
+export const saveDailyLog = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user?.id;
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const {
+      mood,
+      sleepQuality,
+      sleepHours,
+      stressLevel,
+      hydrationLiters,
+      activitySteps,
+      activityMinutes,
+      meditationMinutes,
+    } = req.body;
+
+    // Validation
+    if (!mood || sleepQuality === undefined || !sleepHours || !stressLevel) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Check if already logged today
+    const lastLogged = user.lastLoggedDate
+      ? new Date(user.lastLoggedDate)
+      : null;
+    
+    if (lastLogged) {
+      lastLogged.setHours(0, 0, 0, 0);
+      if (lastLogged.getTime() === today.getTime()) {
+        return res.status(400).json({ 
+          message: "You've already logged your data today!",
+          alreadyLogged: true 
+        });
+      }
+    }
+
+    // Update current mood/stress
+    user.currentMood = mood;
+    user.currentStress = stressLevel;
+    user.sleepQuality = sleepQuality.toString();
+
+    // Add to logs
+    if (!user.moodTracker) user.moodTracker = [];
+    user.moodTracker.push({ date: new Date(), mood });
+
+    if (!user.sleepLogs) user.sleepLogs = [];
+    user.sleepLogs.push({
+      date: new Date(),
+      quality: sleepQuality,
+      hours: sleepHours,
+    });
+
+    if (!user.stressLogs) user.stressLogs = [];
+    user.stressLogs.push({ date: new Date(), level: stressLevel });
+
+    if (hydrationLiters !== undefined) {
+      if (!user.hydrationLogs) user.hydrationLogs = [];
+      user.hydrationLogs.push({
+        date: new Date(),
+        liters: hydrationLiters,
+      });
+    }
+
+    if (activitySteps !== undefined && activityMinutes !== undefined) {
+      if (!user.activityLogs) user.activityLogs = [];
+      user.activityLogs.push({
+        date: new Date(),
+        steps: activitySteps,
+        minutes: activityMinutes,
+      });
+    }
+
+    if (meditationMinutes !== undefined) {
+      if (!user.meditationLogs) user.meditationLogs = [];
+      user.meditationLogs.push({
+        date: new Date(),
+        minutes: meditationMinutes,
+      });
+    }
+
+    // Mark as logged today
+    user.todayLogged = true;
+    user.lastLoggedDate = new Date();
+
+    await user.save();
+
+    console.log(`📊 Daily log saved for user: ${user.name} at ${new Date().toISOString()}`);
+
+    res.status(200).json({
+      message: "Daily log saved successfully! 🎉",
+      user: {
+        todayLogged: user.todayLogged,
+        lastLoggedDate: user.lastLoggedDate,
+        currentMood: user.currentMood,
+        currentStress: user.currentStress,
+      },
+    });
+  } catch (error) {
+    console.error("Error saving daily log:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const getTodayStatus = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user?.id;
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const user = await User.findById(userId).select(
+      "todayLogged lastLoggedDate currentMood currentStress sleepQuality"
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    let alreadyLogged = false;
+    if (user.lastLoggedDate) {
+      const lastLogged = new Date(user.lastLoggedDate);
+      lastLogged.setHours(0, 0, 0, 0);
+      alreadyLogged = lastLogged.getTime() === today.getTime();
+    }
+
+    res.status(200).json({
+      alreadyLogged,
+      lastLoggedDate: user.lastLoggedDate,
+      currentMood: user.currentMood,
+      currentStress: user.currentStress,
+      sleepQuality: user.sleepQuality,
+    });
+  } catch (error) {
+    console.error("Error getting today status:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 
 export const submitFeedback = async (req: Request, res: Response) => {
   try {
@@ -210,6 +355,130 @@ export const submitFeedback = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("User Controller : submitFeedback", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const updateTodayMood = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user?.id;
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const { mood } = req.body;
+
+    if (!mood) {
+      return res.status(400).json({ message: "Mood is required" });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Update current mood
+    user.currentMood = mood;
+
+    // Check if already logged today
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (!user.moodTracker) user.moodTracker = [];
+
+    const lastMood = user.moodTracker[user.moodTracker.length - 1];
+    if (lastMood) {
+      const lastDate = new Date(lastMood.date);
+      lastDate.setHours(0, 0, 0, 0);
+
+      if (lastDate.getTime() === today.getTime()) {
+        // Update today's mood
+        const lastMoodEntry = user.moodTracker[user.moodTracker.length - 1];
+        if (lastMoodEntry) {
+          lastMoodEntry.mood = mood;
+        }
+      } else {
+        // Add new entry
+        user.moodTracker.push({ date: new Date(), mood });
+      }
+    } else {
+      // First mood entry
+      user.moodTracker.push({ date: new Date(), mood });
+    }
+
+    await user.save();
+
+    console.log(`😊 Mood updated to "${mood}" for user: ${user.name}`);
+
+    res.status(200).json({
+      message: "Mood updated successfully!",
+      currentMood: user.currentMood,
+      moodTracker: user.moodTracker,
+    });
+  } catch (error) {
+    console.error("Error updating mood:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const updateTodayStress = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user?.id;
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const { stressLevel } = req.body;
+
+    if (stressLevel === undefined || stressLevel < 1 || stressLevel > 5) {
+      return res.status(400).json({ message: "Stress level must be between 1 and 5" });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Update current stress
+    user.currentStress = stressLevel;
+
+    // Check if already logged today
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (!user.stressLogs) user.stressLogs = [];
+
+    const lastStress = user.stressLogs[user.stressLogs.length - 1];
+    if (lastStress) {
+      const lastDate = new Date(lastStress.date);
+      lastDate.setHours(0, 0, 0, 0);
+
+      if (lastDate.getTime() === today.getTime()) {
+        // Update today's stress
+        const lastStressEntry = user.stressLogs[user.stressLogs.length - 1];
+        if (lastStressEntry) {
+          lastStressEntry.level = stressLevel;
+        }
+      } else {
+        // Add new entry
+        user.stressLogs.push({ date: new Date(), level: stressLevel });
+      }
+    } else {
+      // First stress entry
+      user.stressLogs.push({ date: new Date(), level: stressLevel });
+    }
+
+    await user.save();
+
+    console.log(`😰 Stress updated to ${stressLevel} for user: ${user.name}`);
+
+    res.status(200).json({
+      message: "Stress level updated successfully!",
+      currentStress: user.currentStress,
+      stressLogs: user.stressLogs,
+    });
+  } catch (error) {
+    console.error("Error updating stress:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };

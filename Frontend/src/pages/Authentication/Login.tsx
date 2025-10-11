@@ -17,7 +17,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [emailError, setEmailError] = useState("");
 
-  const {login, loading} = useUserStore();
+  const { login, loading } = useUserStore();
   // const error = useUserStore((state) => state.error);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,18 +33,15 @@ const Login = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await login(form.email, form.password); // wait until store updates user
+      await login(form.email, form.password); // Sets user in store
 
-      const user = useUserStore.getState().user; // ✅ grab fresh user
-      console.log("login", loading);
-      
-      if (user) {
-        navigate("/home", { replace: true });
-      } else {
-        _setFormError("Invalid email or password");
-      }
-    } catch (err) {
-      _setFormError("Something went wrong. Try again.");
+      // If we reach here, login succeeded (didn't throw)
+      navigate("/home", { replace: true });
+    } catch (err: any) {
+      // Only reaches here if login fails
+      _setFormError(
+        err.response?.data?.message || "Invalid credentials. Please try again."
+      );
     }
   };
 

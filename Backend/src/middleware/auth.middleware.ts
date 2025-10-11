@@ -1,54 +1,39 @@
+// Backend: auth.middleware.ts - ENSURE COOKIE IS CHECKED
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { User } from "../model/user.model";
 
-export const protect = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const protect = async (req: any, res: Response, next: NextFunction) => {
   try {
-    let token: string | undefined;
+    let token;
 
-    // 1️⃣ From Authorization header
-    if (req.headers.authorization?.startsWith("Bearer ")) {
-      token = req.headers.authorization.split(" ")[1];
-    }
-
-    // 2️⃣ From cookies
-    if (!token && req.cookies?.token) {
+    // ✅ Check cookie first, then Authorization header
+    if (req.cookies && req.cookies.token) {
       token = req.cookies.token;
+      console.log("🍪 Token from cookie:", token.substring(0, 20) + "...");
+    } else if (req.headers.authorization?.startsWith("Bearer")) {
+      token = req.headers.authorization.split(" ")[1];
+      console.log("🔑 Token from header:", token.substring(0, 20) + "...");
     }
 
-    console.log("Token used for auth:", token);
-
-    // 3️⃣ No token → Unauthorized
     if (!token) {
-      return res.status(401).json({ message: "Unauthorized - No token" });
+      console.log("❌ No token found");
+      return res.status(401).json({ message: "Not authorized, no token" });
     }
 
-    // 4️⃣ Verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
-      id: string;
-    };
-    console.log("Decoded token:", decoded);
-
-    if (!decoded) {
-      return res.status(401).json({ message: "Unauthorized - Invalid token" });
-    }
-
-    // 5️⃣ Attach user to request
+    const decoded: any = jwt.verify(token, process.env.JWT_SECRET as string);
     const user = await User.findById(decoded.id).select("-password");
+
     if (!user) {
-      return res.status(401).json({ message: "Unauthorized - User not found" });
+      console.log("❌ User not found for token");
+      return res.status(401).json({ message: "User not found" });
     }
 
-    (req as any).user = user;
+    req.user = user;
+    console.log("✅ User authenticated:", user.email);
     next();
-  } catch (error) {
-    console.error("Auth Middleware:", error);
-    res
-      .status(401)
-      .json({ message: "Unauthorized - Token verification failed" });
+  } catch (error: any) {
+    console.error("❌ Auth middleware error:", error.message);
+    return res.status(401).json({ message: "Not authorized, token failed" });
   }
 };
