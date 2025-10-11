@@ -7,7 +7,7 @@ import InviteIcon from "../../assets/Icons/Share Invite Friends.svg";
 import FeedbackIcon from "../../assets/Icons/Submit Feedback Icon.svg";
 import Help from "../../assets/Icons/Help Center Icon.svg";
 import GarbageIcon from "../../assets/Icons/Close Account Garbage Icon.svg";
-import ForwardIcon from "../../assets/Icons/Forward Icon.svg";
+// import ForwardIcon from "../../assets/Icons/Forward Icon.svg";
 import DefaultAvatar from "../../assets/Icons/User Pfp Avatar.png";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";

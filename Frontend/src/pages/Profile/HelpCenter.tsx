@@ -1,6 +1,6 @@
 import { useState } from "react";
 import BackIcon from "../../assets/Icons/Back Arrow.svg";
-import SearchIcon from "../../assets/Icons/Search Icon.svg";
+// import SearchIcon from "../../assets/Icons/Search Icon.svg";
 import LiveChatImage from "../../assets/Images/HelpCenter/Help Center Image.svg";
 import { useNavigate } from "react-router-dom";
 import { Search, HelpCircle, MessageCircle, ChevronDown, ChevronUp } from "lucide-react";
