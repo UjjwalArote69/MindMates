@@ -21,7 +21,7 @@ const Hero = () => {
   return (
     <div className="hero min-w-screen overflow-hidden bg-[#F7F3EF]">
       {/* NAVBAR */}
-      <nav className="h-20 w-full  md:px-24 md:pt-4  flex items-center justify-between relative">
+      <nav className="h-20 w-full md:px-24 md:pt-4 flex items-center justify-between relative z-50">
         {/* Logo */}
         <a href="#" className="pl-2 md:pl-0 flex flex-row items-center">
           <img
@@ -29,7 +29,7 @@ const Hero = () => {
             className="h-10 w-10 md:h-16 md:w-16"
             alt="MindMates Logo"
           />
-          <h1 className="-mt-4 font-Lato text-xl  md:text-3xl pt-1.5 font-bold text-[#696767]">
+          <h1 className="-mt-4 font-Lato text-xl md:text-3xl pt-1.5 font-bold text-[#696767]">
             Mindmates
           </h1>
         </a>
@@ -38,13 +38,13 @@ const Hero = () => {
         <div className="hidden md:flex flex-row items-center gap-4">
           <button
             onClick={() => navigate("/auth/register")}
-            className="py-2 px-4 border-2 border-[#926247] text-xl text-[#926247] rounded-full"
+            className="py-2 px-4 border-2 border-[#926247] text-xl text-[#926247] rounded-full hover:bg-[#92624710] transition-all"
           >
             Sign up
           </button>
           <button
             onClick={() => navigate("/auth/login")}
-            className="py-2 px-4 border-2 bg-[#926247] text-xl text-white rounded-full"
+            className="py-2 px-4 border-2 bg-[#926247] text-xl text-white rounded-full hover:bg-[#7d5339] transition-all"
           >
             Sign in
           </button>
@@ -52,23 +52,31 @@ const Hero = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="pr-7 -mt-4 md:hidden text-3xl text-[#926247]"
+          className="pr-7 -mt-4 md:hidden text-3xl text-[#926247] z-[60]"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? <FiX /> : <FiMenu />}
         </button>
 
-        {/* Mobile Dropdown Menu */}
+        {/* Mobile Dropdown Menu - FIXED */}
         {menuOpen && (
-          <div className="absolute top-20 right-4 bg-white shadow-lg rounded-lg p-4 flex flex-col gap-3 md:hidden z-50 w-40">
-            <button 
-            onClick={() => navigate("/auth/register")}
-            className="py-2 px-4 border-2 border-[#926247] text-sm text-[#926247] rounded-full">
+          <div className="fixed top-20 right-4 bg-white shadow-2xl rounded-lg p-4 flex flex-col gap-3 md:hidden z-[60] w-40">
+            <button
+              onClick={() => {
+                navigate("/auth/register");
+                setMenuOpen(false);
+              }}
+              className="py-2 px-4 border-2 border-[#926247] text-sm text-[#926247] rounded-full hover:bg-[#92624710] active:scale-95 transition-all"
+            >
               Sign up
             </button>
-            <button 
-            onClick={() => navigate("/auth/login")}
-            className="py-2 px-4 border-2 bg-[#926247] text-sm text-white rounded-full">
+            <button
+              onClick={() => {
+                navigate("/auth/login");
+                setMenuOpen(false);
+              }}
+              className="py-2 px-4 border-2 bg-[#926247] text-sm text-white rounded-full hover:bg-[#7d5339] active:scale-95 transition-all"
+            >
               Sign in
             </button>
           </div>
