@@ -38,16 +38,18 @@ import OnboardingGuard from "./components/shared/OnboardingGaurd";
 import BreathingTimer from "./pages/Stats/BreathingTimer";
 import DailyTracker from "./pages/DailyTracker";
 import Stress from "./pages/Stats/Stress";
+import Journal from "./pages/Journal/Journal";
+import JournalEditor from "./pages/Journal/JournalEditor";
+import JournalHome from "./pages/Journal/JournalHome";
 
 function App() {
   const { fetchUser, initialized, loading } = useUserStore();
 
   useEffect(() => {
-    // fetch only if user is not already loaded
     if (!initialized) {
       fetchUser();
     }
-  }, [initialized]); // ✅ no dependency on `loading` or `user`
+  }, [initialized]);
 
   if (loading) {
     return (
@@ -62,7 +64,7 @@ function App() {
       {/* Public routes */}
       <Route path="/" element={<Hero />} />
 
-      {/*Authentication routes */}
+      {/* Authentication routes */}
       <Route path="/auth" element={<Auth />}>
         <Route index element={<Register />} />
         <Route path="register" element={<Register />} />
@@ -70,7 +72,7 @@ function App() {
         <Route path="google/callback" element={<GoogleCallback />} />
       </Route>
 
-      {/* Onboarding route - logged in */}
+      {/* Onboarding route */}
       <Route
         path="/onboarding"
         element={
@@ -82,7 +84,7 @@ function App() {
         }
       />
 
-      {/* Home route - logged in */}
+      {/* Home route */}
       <Route
         path="/home"
         element={
@@ -92,6 +94,7 @@ function App() {
         }
       />
 
+      {/* Daily Tracker */}
       <Route
         path="/daily-tracker"
         element={
@@ -99,8 +102,9 @@ function App() {
             <DailyTracker />
           </ProtectedRoute>
         }
-      ></Route>
+      />
 
+      {/* Profile Routes */}
       <Route
         path="/profile"
         element={
@@ -119,6 +123,7 @@ function App() {
         <Route path="delete" element={<CloseAccount />} />
       </Route>
 
+      {/* Chat Routes */}
       <Route
         path="/chat"
         element={
@@ -135,6 +140,7 @@ function App() {
         <Route path="upgrade" element={<UpgradePlan />} />
       </Route>
 
+      {/* Stats Routes */}
       <Route
         path="/stats"
         element={
@@ -149,14 +155,20 @@ function App() {
         <Route path="exercise" element={<MindfulExercise />} />
         <Route path="exercise/active" element={<BreathingTimer />} />
         <Route path="sleep" element={<SleepAnalysis />} />
-        <Route
-          path="stress"
-          element={
-            <ProtectedRoute>
-              <Stress />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="stress" element={<Stress />} />
+      </Route>
+
+      {/* ✅ Journal Routes - CORRECTED */}
+      <Route
+        path="/journal"
+        element={
+          <ProtectedRoute>
+            <Journal />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<JournalHome />} />
+        <Route path=":id" element={<JournalEditor />} />
       </Route>
     </Routes>
   );

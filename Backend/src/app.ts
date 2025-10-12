@@ -30,7 +30,7 @@ app.use(
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/journals", journalRoutes);
+app.use("/api/journal", journalRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");

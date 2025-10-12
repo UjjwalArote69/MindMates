@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
 import { 
@@ -13,7 +13,8 @@ import {
   BarChart2,
   Info,
   Save,
-  CheckCircle2
+  CheckCircle2,
+  AlertCircle
 } from "lucide-react";
 import HappyIcon from "../../assets/Icons/Solid Mood Happy.svg";
 import NeutralIcon from "../../assets/Icons/Solid Mood Neutral.svg";
@@ -68,6 +69,13 @@ const Mood = () => {
     },
   ];
 
+  // Helper function to check if date is today
+  // const isToday = (dateString: string) => {
+  //   const date = new Date(dateString);
+  //   const today = new Date();
+  //   return date.toDateString() === today.toDateString();
+  // };
+
   // Get current mood from user data
   const getCurrentMoodIndex = () => {
     const currentMood = user?.currentMood?.toLowerCase() || "neutral";
@@ -79,80 +87,98 @@ const Mood = () => {
   const [saving, setSaving] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
+  // Update currentMood when user data changes
+  useEffect(() => {
+    setCurrentMood(getCurrentMoodIndex());
+  }, [user?.currentMood]);
+
   // Check if mood changed
   const hasChanged = currentMood !== getCurrentMoodIndex();
 
-  // Generate realistic mood data from user's moodTracker
+  // ✅ Generate mood data from ACTUAL user moodTracker
   const moodStats = useMemo(() => {
     const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     const today = new Date();
-    
-    if (user?.moodTracker && user.moodTracker.length > 0) {
-      const last7Days = user.moodTracker.slice(-7);
+    const weekData: any[] = [];
+
+    // Create 7 days array (last 7 days)
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
       
-      return days.map((day, idx) => {
-        const date = new Date(today);
-        date.setDate(date.getDate() - (6 - idx));
-        
-        const moodEntry = last7Days[idx];
-        let moodIndex = 2;
-        
-        if (moodEntry) {
-          const moodLabel = moodEntry.mood.toLowerCase();
-          moodIndex = moods.findIndex(m => moodLabel.includes(m.label.toLowerCase()));
-          if (moodIndex === -1) moodIndex = 2;
-        }
-        
-        return {
-          day,
-          date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-          mood: moodIndex,
-          value: moods[moodIndex].value,
-        };
+      const dayName = days[date.getDay()];
+      const dateStr = date.toISOString().split('T')[0]; // YYYY-MM-DD format
+      
+      // Find mood entry for this specific date
+      const moodEntry = user?.moodTracker?.find(entry => {
+        const entryDate = new Date(entry.date).toISOString().split('T')[0];
+        return entryDate === dateStr;
+      });
+
+      let moodIndex = -1; // -1 means no data
+      
+      if (moodEntry) {
+        const moodLabel = moodEntry.mood.toLowerCase();
+        moodIndex = moods.findIndex(m => moodLabel.includes(m.label.toLowerCase()));
+        if (moodIndex === -1) moodIndex = 2; // Default to neutral if not found
+      } else if (i === 0 && user?.currentMood) {
+        // Today's data from currentMood if not in moodTracker yet
+        const moodLabel = user.currentMood.toLowerCase();
+        moodIndex = moods.findIndex(m => moodLabel.includes(m.label.toLowerCase()));
+        if (moodIndex === -1) moodIndex = 2;
+      }
+      
+      weekData.push({
+        day: dayName,
+        date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+        dateStr,
+        mood: moodIndex,
+        value: moodIndex >= 0 ? moods[moodIndex].value : null,
+        hasData: moodIndex >= 0,
+        isToday: i === 0
       });
     }
-    
-    return days.map((day, idx) => {
-      const date = new Date(today);
-      date.setDate(date.getDate() - (6 - idx));
-      const moodIndex = idx === 6 ? getCurrentMoodIndex() : Math.floor(Math.random() * moods.length);
-      
-      return {
-        day,
-        date: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-        mood: moodIndex,
-        value: moods[moodIndex].value,
-      };
-    });
-  }, [user?.moodTracker]);
 
-  // Calculate statistics
-  const weeklyAverage = useMemo(() => 
-    Math.round(moodStats.reduce((sum, stat) => sum + stat.value, 0) / moodStats.length),
-    [moodStats]
-  );
+    return weekData;
+  }, [user?.moodTracker, user?.currentMood]);
 
-  const bestDay = useMemo(() => 
-    moodStats.reduce((max, stat) => stat.value > max.value ? stat : max, moodStats[0]),
-    [moodStats]
-  );
+  // Calculate statistics (only from days with data)
+  const dataPoints = moodStats.filter(s => s.hasData);
+  
+  const weeklyAverage = useMemo(() => {
+    if (dataPoints.length === 0) return null;
+    return Math.round(dataPoints.reduce((sum, stat) => sum + stat.value, 0) / dataPoints.length);
+  }, [dataPoints]);
 
-  const worstDay = useMemo(() => 
-    moodStats.reduce((min, stat) => stat.value < min.value ? stat : min, moodStats[0]),
-    [moodStats]
-  );
+  const bestDay = useMemo(() => {
+    if (dataPoints.length === 0) return null;
+    return dataPoints.reduce((max, stat) => stat.value > max.value ? stat : max, dataPoints[0]);
+  }, [dataPoints]);
+
+  const worstDay = useMemo(() => {
+    if (dataPoints.length === 0) return null;
+    return dataPoints.reduce((min, stat) => stat.value < min.value ? stat : min, dataPoints[0]);
+  }, [dataPoints]);
 
   const trend = useMemo(() => {
-    if (moodStats.length < 2) return { direction: "neutral", value: 0 };
-    const recent = moodStats.slice(-3).reduce((sum, s) => sum + s.value, 0) / 3;
-    const earlier = moodStats.slice(0, 3).reduce((sum, s) => sum + s.value, 0) / 3;
+    if (dataPoints.length < 2) return { direction: "neutral", value: 0 };
+    
+    const recentData = dataPoints.slice(-Math.min(3, dataPoints.length));
+    const earlierData = dataPoints.slice(0, Math.min(3, dataPoints.length));
+    
+    if (earlierData.length === 0 || recentData.length === 0) {
+      return { direction: "neutral", value: 0 };
+    }
+    
+    const recent = recentData.reduce((sum, s) => sum + s.value, 0) / recentData.length;
+    const earlier = earlierData.reduce((sum, s) => sum + s.value, 0) / earlierData.length;
     const diff = recent - earlier;
     
     return {
       direction: diff > 5 ? "up" : diff < -5 ? "down" : "neutral",
       value: Math.abs(Math.round(diff))
     };
-  }, [moodStats]);
+  }, [dataPoints]);
 
   const handlePrev = () => {
     setCurrentMood((prev) => (prev - 1 + moods.length) % moods.length);
@@ -162,7 +188,7 @@ const Mood = () => {
     setCurrentMood((prev) => (prev + 1) % moods.length);
   };
 
-  // ✅ Save Mood Function
+  // Save Mood Function
   const handleSaveMood = async () => {
     if (!hasChanged) return;
 
@@ -178,6 +204,9 @@ const Mood = () => {
       setSaving(false);
     }
   };
+
+  // Check if user has any mood data
+  const hasAnyData = dataPoints.length > 0;
 
   return (
     <div className="relative w-full min-h-screen bg-gradient-to-br from-[#f8f5f2] to-[#f0e9e4] overflow-hidden">
@@ -262,30 +291,36 @@ const Mood = () => {
           </div>
         </div>
 
-        {/* Stats Overview Cards */}
-        <div className="mx-6 -mt-8 relative z-20 grid grid-cols-3 gap-3 mb-6">
-          <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-4 shadow-lg text-center">
-            <div className="flex items-center justify-center gap-1 mb-2">
-              {trend.direction === "up" && <TrendingUp size={18} className="text-green-500" />}
-              {trend.direction === "down" && <TrendingDown size={18} className="text-red-500" />}
-              {trend.direction === "neutral" && <Minus size={18} className="text-gray-500" />}
+        {/* Stats Overview Cards - Only show if data exists */}
+        {hasAnyData && (
+          <div className="mx-6 -mt-8 relative z-20 grid grid-cols-3 gap-3 mb-6">
+            <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-4 shadow-lg text-center">
+              <div className="flex items-center justify-center gap-1 mb-2">
+                {trend.direction === "up" && <TrendingUp size={18} className="text-green-500" />}
+                {trend.direction === "down" && <TrendingDown size={18} className="text-red-500" />}
+                {trend.direction === "neutral" && <Minus size={18} className="text-gray-500" />}
+              </div>
+              <p className="text-2xl font-bold text-[#4B2E2B]">{weeklyAverage}%</p>
+              <p className="text-xs text-gray-600 mt-1">Weekly Avg</p>
             </div>
-            <p className="text-2xl font-bold text-[#4B2E2B]">{weeklyAverage}%</p>
-            <p className="text-xs text-gray-600 mt-1">Weekly Avg</p>
-          </div>
 
-          <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-4 shadow-lg text-center">
-            <span className="text-2xl mb-2 block">{moods[bestDay.mood].emoji}</span>
-            <p className="text-xs font-bold text-green-600">{bestDay.day}</p>
-            <p className="text-[10px] text-gray-600 mt-1">Best Day</p>
-          </div>
+            {bestDay && (
+              <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-4 shadow-lg text-center">
+                <span className="text-2xl mb-2 block">{moods[bestDay.mood].emoji}</span>
+                <p className="text-xs font-bold text-green-600">{bestDay.day}</p>
+                <p className="text-[10px] text-gray-600 mt-1">Best Day</p>
+              </div>
+            )}
 
-          <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-4 shadow-lg text-center">
-            <span className="text-2xl mb-2 block">{moods[worstDay.mood].emoji}</span>
-            <p className="text-xs font-bold text-orange-600">{worstDay.day}</p>
-            <p className="text-[10px] text-gray-600 mt-1">Needs Care</p>
+            {worstDay && (
+              <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-4 shadow-lg text-center">
+                <span className="text-2xl mb-2 block">{moods[worstDay.mood].emoji}</span>
+                <p className="text-xs font-bold text-orange-600">{worstDay.day}</p>
+                <p className="text-[10px] text-gray-600 mt-1">Needs Care</p>
+              </div>
+            )}
           </div>
-        </div>
+        )}
 
         {/* Weekly Stats Card */}
         <div className="mx-6 relative z-20">
@@ -295,7 +330,7 @@ const Mood = () => {
                 <BarChart2 size={24} className="text-[#A5BE7C]" />
                 <h2 className="text-xl font-bold text-[#4B2E2B]">Weekly Overview</h2>
               </div>
-              {trend.direction !== "neutral" && (
+              {hasAnyData && trend.direction !== "neutral" && (
                 <div className={`px-3 py-1.5 rounded-full flex items-center gap-1.5 ${
                   trend.direction === "up" ? "bg-green-100" : "bg-orange-100"
                 }`}>
@@ -314,88 +349,115 @@ const Mood = () => {
             </div>
 
             {/* Chart */}
-            <div className="relative">
-              <div className="absolute inset-0 flex flex-col justify-between opacity-10 pointer-events-none">
-                {[...Array(5)].map((_, i) => (
-                  <div key={i} className="h-px bg-gray-400"></div>
-                ))}
+            {!hasAnyData ? (
+              <div className="text-center py-16">
+                <AlertCircle size={48} className="mx-auto text-gray-300 mb-4" />
+                <p className="text-gray-500 font-medium">No mood data yet</p>
+                <p className="text-gray-400 text-sm mt-2">Start tracking your mood to see insights</p>
               </div>
+            ) : (
+              <div className="relative">
+                <div className="absolute inset-0 flex flex-col justify-between opacity-10 pointer-events-none">
+                  {[...Array(5)].map((_, i) => (
+                    <div key={i} className="h-px bg-gray-400"></div>
+                  ))}
+                </div>
 
-              <div className="relative flex items-end justify-between h-56 gap-2">
-                {moodStats.map((stat, idx) => {
-                  const isToday = idx === 6;
-                  return (
-                    <div
-                      key={idx}
-                      className="flex-1 flex flex-col items-center justify-end gap-3 group cursor-pointer"
-                      onClick={() => setCurrentMood(stat.mood)}
-                    >
-                      <img
-                        src={moods[stat.mood].icon}
-                        alt={moods[stat.mood].label}
-                        className={`w-8 h-8 transition-all duration-300 ${
-                          isToday ? "scale-125 drop-shadow-lg" : "group-hover:scale-125"
-                        }`}
-                      />
-
-                      <div className="relative w-full">
+                <div className="relative flex items-end justify-between h-56 gap-2">
+                  {moodStats.map((stat, idx) => {
+                    if (!stat.hasData) {
+                      return (
                         <div
-                          className={`w-full rounded-t-xl transition-all duration-500 shadow-lg relative overflow-hidden ${
-                            isToday ? "ring-4 ring-white" : "group-hover:ring-2 group-hover:ring-white/50"
-                          }`}
-                          style={{
-                            height: `${(stat.value / 100) * 180}px`,
-                            backgroundColor: moods[stat.mood].color,
-                          }}
+                          key={idx}
+                          className="flex-1 flex flex-col items-center justify-end gap-3"
                         >
-                          <div className="absolute inset-0 bg-gradient-to-t from-transparent to-white/30"></div>
-                          <div className="absolute top-1 left-0 right-0 text-center">
-                            <span className="text-xs font-bold text-white drop-shadow">
-                              {stat.value}%
-                            </span>
+                          <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+                            <span className="text-gray-400 text-xs">?</span>
+                          </div>
+                          <div className="w-full h-8 rounded-t-xl bg-gray-100"></div>
+                          <div className="text-center text-gray-400">
+                            <p className="text-xs">{stat.day}</p>
+                            <p className="text-[10px]">{stat.date}</p>
                           </div>
                         </div>
-                      </div>
+                      );
+                    }
 
-                      <div className={`text-center ${isToday ? "text-[#A5BE7C] font-bold" : "text-gray-600"}`}>
-                        <p className="text-xs font-semibold">{stat.day}</p>
-                        <p className="text-[10px] opacity-70">{stat.date}</p>
+                    return (
+                      <div
+                        key={idx}
+                        className="flex-1 flex flex-col items-center justify-end gap-3 group cursor-pointer"
+                        onClick={() => setCurrentMood(stat.mood)}
+                      >
+                        <img
+                          src={moods[stat.mood].icon}
+                          alt={moods[stat.mood].label}
+                          className={`w-8 h-8 transition-all duration-300 ${
+                            stat.isToday ? "scale-125 drop-shadow-lg" : "group-hover:scale-125"
+                          }`}
+                        />
+
+                        <div className="relative w-full">
+                          <div
+                            className={`w-full rounded-t-xl transition-all duration-500 shadow-lg relative overflow-hidden ${
+                              stat.isToday ? "ring-4 ring-white" : "group-hover:ring-2 group-hover:ring-white/50"
+                            }`}
+                            style={{
+                              height: `${(stat.value / 100) * 180}px`,
+                              backgroundColor: moods[stat.mood].color,
+                            }}
+                          >
+                            <div className="absolute inset-0 bg-gradient-to-t from-transparent to-white/30"></div>
+                            <div className="absolute top-1 left-0 right-0 text-center">
+                              <span className="text-xs font-bold text-white drop-shadow">
+                                {stat.value}%
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className={`text-center ${stat.isToday ? "text-[#A5BE7C] font-bold" : "text-gray-600"}`}>
+                          <p className="text-xs font-semibold">{stat.day}</p>
+                          <p className="text-[10px] opacity-70">{stat.date}</p>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 
-        {/* Insights Card */}
-        <div className="mx-6 mt-6">
-          <div className="bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl p-6 shadow-lg">
-            <div className="flex items-start gap-3">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md flex-shrink-0">
-                <Info size={24} className="text-purple-600" />
-              </div>
-              <div className="flex-1">
-                <h3 className="text-lg font-bold text-[#4B2E2B] mb-2">AI Insight</h3>
-                <p className="text-sm text-gray-700 leading-relaxed">
-                  {trend.direction === "up" ? (
-                    <>Your mood has been <span className="font-bold text-green-600">improving</span> this week! Keep up whatever you're doing. 🌟</>
-                  ) : trend.direction === "down" ? (
-                    <>Your mood shows a <span className="font-bold text-orange-600">decline</span>. Consider talking to someone or practicing mindfulness. 💙</>
-                  ) : (
-                    <>Your mood has been <span className="font-bold text-gray-600">stable</span> this week. Remember, it's okay to have ups and downs. 🌈</>
-                  )}
-                </p>
-                {bestDay.value > 70 && (
-                  <p className="text-xs text-purple-600 mt-3 font-medium">
-                    💡 Try to recall what made <span className="font-bold">{bestDay.day}</span> special - you scored {bestDay.value}%!
+        {/* Insights Card - Only show if data exists */}
+        {hasAnyData && (
+          <div className="mx-6 mt-6">
+            <div className="bg-gradient-to-br from-purple-100 to-pink-100 rounded-3xl p-6 shadow-lg">
+              <div className="flex items-start gap-3">
+                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md flex-shrink-0">
+                  <Info size={24} className="text-purple-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-[#4B2E2B] mb-2">AI Insight</h3>
+                  <p className="text-sm text-gray-700 leading-relaxed">
+                    {trend.direction === "up" ? (
+                      <>Your mood has been <span className="font-bold text-green-600">improving</span> this week! Keep up whatever you're doing. 🌟</>
+                    ) : trend.direction === "down" ? (
+                      <>Your mood shows a <span className="font-bold text-orange-600">decline</span>. Consider talking to someone or practicing mindfulness. 💙</>
+                    ) : (
+                      <>Your mood has been <span className="font-bold text-gray-600">stable</span> this week. Remember, it's okay to have ups and downs. 🌈</>
+                    )}
                   </p>
-                )}
+                  {bestDay && bestDay.value > 70 && (
+                    <p className="text-xs text-purple-600 mt-3 font-medium">
+                      💡 Try to recall what made <span className="font-bold">{bestDay.day}</span> special - you scored {bestDay.value}%!
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Mood Legend */}
         <div className="mx-6 mt-6 mb-8">
@@ -436,7 +498,7 @@ const Mood = () => {
         </div>
       </div>
 
-      {/* ✅ Floating Save Button */}
+      {/* Floating Save Button */}
       {hasChanged && (
         <div className="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#f8f5f2] via-[#f8f5f2] to-transparent pointer-events-none z-30">
           <button
