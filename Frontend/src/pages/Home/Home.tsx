@@ -30,11 +30,11 @@ const Home = () => {
   const { user, loading } = useUserStore();
   const navigate = useNavigate();
   
-  // ✅ State Management
+  // State Management
   const [searchQuery, setSearchQuery] = useState("");
   const [showNotifications, setShowNotifications] = useState(false);
   
-  // ✅ Mock Notifications (Replace with real data later)
+  // Mock Notifications (Replace with real data later)
   const [notifications] = useState([
     { id: 1, message: "Your mental health score improved by 5%!", time: "2h ago", read: false },
     { id: 2, message: "Time for your daily breathing exercise 🧘‍♂️", time: "5h ago", read: true },
@@ -43,19 +43,18 @@ const Home = () => {
 
   const unreadCount = notifications.filter(n => !n.read).length;
 
-  // ✅ Helper Functions
+  // Helper Functions
   const getProfileImage = () => (user?.avatar ? user.avatar : DefaultAvatar);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      // TODO: Navigate to search results or filter content
       console.log("Searching for:", searchQuery);
       navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
     }
   };
 
-  // ✅ Loading State
+  // Loading State
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen bg-[#F9F5F2]">
@@ -74,7 +73,7 @@ const Home = () => {
 
   return (
     <div className="relative min-h-screen w-full font-Lato bg-[#f6f5f2] md:flex md:pl-[100px] overflow-hidden">
-      {/* ✅ Animated Background Blobs */}
+      {/* Animated Background Blobs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute -top-10 -left-10 w-[500px] h-[500px] bg-gradient-to-br from-[#A3B763]/40 via-[#7CB47C]/35 to-[#8AA84E]/30 rounded-full blur-3xl animate-blob shadow-2xl" />
         <div className="absolute top-20 -right-10 w-[600px] h-[600px] bg-gradient-to-br from-[#8676E2]/38 via-[#6F5DD3]/33 to-[#9D8EE8]/28 rounded-full blur-3xl animate-blob-slow animation-delay-2s shadow-2xl" />
@@ -88,7 +87,7 @@ const Home = () => {
 
       {/* Main Content */}
       <div className="relative z-10 w-full md:max-w-[1300px] mx-auto pb-20 md:px-6">
-        {/* ✅ IMPROVED Mobile Header */}
+        {/* MOBILE HEADER */}
         <div className="md:hidden bg-white/95 backdrop-blur-xl rounded-b-3xl shadow-xl px-5 py-6 border-b border-gray-100">
           {/* Top Row - Profile & Notification */}
           <div className="flex items-center justify-between mb-4">
@@ -170,7 +169,7 @@ const Home = () => {
           </form>
         </div>
 
-        {/* ✅ Desktop Header */}
+        {/* DESKTOP HEADER */}
         <div className="hidden md:block bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl md:mt-8 px-6 py-7 gap-6 border border-white/20">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
             <div className="flex items-center gap-4">
@@ -245,7 +244,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Desktop Cards/Charts */}
+        {/* DESKTOP CARDS */}
         <div className="hidden md:grid md:grid-cols-12 gap-7 mt-10">
           <MindMatesScore
             mentalHealthScore={user?.mentalHealthScore}
@@ -382,16 +381,138 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Mobile components */}
-        <div className="md:hidden flex flex-col items-center px-3 mt-6">
+        {/* MOBILE VIEW - COMPLETE */}
+        <div className="md:hidden flex flex-col px-4 mt-6 space-y-4">
+          {/* AI Recommendation */}
           <AiReccomendation />
+
+          {/* Feature Cards Grid */}
+          <div className="grid grid-cols-2 gap-3">
+            {/* Sleep Quality Card */}
+            <div
+              className="group relative bg-gradient-to-br from-[#B5CC99] to-[#9CB87D] rounded-2xl p-4 shadow-lg active:scale-95 transition-all"
+              onClick={() => navigate("/stats/sleep")}
+            >
+              <div className="flex flex-col h-full">
+                <Moon size={24} className="text-[#324A2A] mb-2" />
+                <h3 className="text-white text-sm font-bold mb-0.5">Sleep Quality</h3>
+                <p className="text-[#324A2A]/70 text-xs mb-3">Last night</p>
+                <div className="text-2xl font-extrabold text-white mt-auto">
+                  {user?.sleepLogs && user.sleepLogs.length > 0
+                    ? `${user.sleepLogs[user.sleepLogs.length - 1].hours.toFixed(1)}h`
+                    : "N/A"}
+                </div>
+              </div>
+            </div>
+
+            {/* Journal Card */}
+            <div
+              className="group relative bg-gradient-to-br from-[#FCE38A] to-[#F5D665] rounded-2xl p-4 shadow-lg active:scale-95 transition-all"
+              onClick={() => navigate("/journal")}
+            >
+              <div className="flex flex-col h-full">
+                <BookOpen size={24} className="text-[#B28653] mb-2" />
+                <h3 className="text-[#B28653] text-sm font-bold mb-0.5">Health Journal</h3>
+                <p className="text-[#B28653]/70 text-xs mb-3">Daily entries</p>
+                <div className="text-2xl font-extrabold text-[#B28653] mt-auto">
+                  {user?.meditationLogs?.length || 0}d
+                </div>
+              </div>
+            </div>
+
+            {/* AI Chatbot Card */}
+            <div
+              className="group relative bg-gradient-to-br from-[#8676E2] to-[#6F5DD3] rounded-2xl p-4 shadow-lg active:scale-95 transition-all"
+              onClick={() => navigate("/chat")}
+            >
+              <div className="flex flex-col h-full">
+                <MessageCircle size={24} className="text-white mb-2" />
+                <h3 className="text-white text-sm font-bold mb-0.5">AI Chatbot</h3>
+                <p className="text-white/70 text-xs mb-3">24/7 support</p>
+                <div className="text-2xl font-extrabold text-white mt-auto">Chat</div>
+              </div>
+            </div>
+
+            {/* Upgrade to Pro Card */}
+            <div
+              className="group relative bg-gradient-to-br from-[#7D5C47] to-[#624A35] rounded-2xl p-4 shadow-lg active:scale-95 transition-all overflow-hidden"
+              onClick={() => navigate("/upgrade")}
+            >
+              <div className="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-full -mr-10 -mt-10"></div>
+              <div className="relative flex flex-col h-full">
+                <Crown size={24} className="text-[#F5D665] mb-2" />
+                <h3 className="text-white text-sm font-bold mb-0.5">Go Pro!</h3>
+                <p className="text-white/70 text-xs mb-3">Unlock all</p>
+                <div className="flex items-center justify-end mt-auto">
+                  <div className="w-8 h-8 bg-[#F5D665] rounded-full flex items-center justify-center">
+                    <ArrowRight size={16} className="text-[#7D5C47]" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Mental Health Score & Stress Chart */}
+          <div className="space-y-3">
+            <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-5 shadow-lg">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-[#493726] font-bold text-base">Mental Health Score</h3>
+                <BarChart3 size={20} className="text-[#A3B763]" />
+              </div>
+              <div className="flex items-end gap-2">
+                <div className="text-4xl font-extrabold text-[#A3B763]">
+                  {user?.mentalHealthScore !== undefined ? user.mentalHealthScore : "N/A"}
+                </div>
+                <div className="text-sm text-gray-500 mb-1.5">/ 100</div>
+              </div>
+              {user?.mentalHealthScoreLogs && user.mentalHealthScoreLogs.length > 1 && (
+                <div className="mt-3 h-16 flex items-end gap-1">
+                  {user.mentalHealthScoreLogs.slice(-7).map((log, i) => (
+                    <div
+                      key={i}
+                      className="flex-1 bg-gradient-to-t from-[#A3B763] to-[#B5CC99] rounded-t"
+                      style={{ height: `${(log.score / 100) * 100}%` }}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-5 shadow-lg">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-[#493726] font-bold text-base">Stress Level</h3>
+                <BarChart3 size={20} className="text-[#E57373]" />
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="text-4xl font-extrabold text-[#E57373]">
+                  {user?.currentStress !== undefined ? user.currentStress : "N/A"}
+                </div>
+                <div className="text-sm text-gray-500">/ 10</div>
+              </div>
+              {user?.stressLogs && user.stressLogs.length > 1 && (
+                <div className="mt-3 h-16 flex items-end gap-1">
+                  {user.stressLogs.slice(-7).map((log, i) => (
+                    <div
+                      key={i}
+                      className="flex-1 bg-gradient-to-t from-[#E57373] to-[#EF9A9A] rounded-t"
+                      style={{ height: `${(log.level / 10) * 100}%` }}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Swipable Cards */}
           <SwipableCards />
+
+          {/* Mindful Tracker */}
           <MindfullTracker />
         </div>
 
         <Navbar />
 
-        {/* ✅ Floating Action Button */}
+        {/* Floating Action Button */}
         <button
           onClick={() => navigate("/daily-tracker")}
           className="fixed bottom-24 md:bottom-8 right-6 w-16 h-16 bg-gradient-to-br from-[#A3B763] to-[#8AA84E] rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-40"
@@ -400,7 +521,7 @@ const Home = () => {
         </button>
       </div>
 
-      {/* ✅ Notifications Modal */}
+      {/* Notifications Modal */}
       {showNotifications && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-end md:items-center justify-center px-4 z-50 animate-fade-in">
           <div className="bg-white w-full max-w-md rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-slide-up max-h-[80vh] overflow-y-auto">

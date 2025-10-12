@@ -161,7 +161,7 @@ const StatsHome = () => {
       description: getMeditationRecommendation(),
       value: meditationCount > 0 ? "Keep practicing!" : "Start today",
       icon: ExerciseIcon,
-      route: "/stats/meditation",
+      route: "/stats/exercise",
       color: "from-[#A3B763]/20 to-[#7CB47C]/10",
       iconBg: "bg-[#A3B763]/30",
       borderColor: "border-[#A3B763]/40",
