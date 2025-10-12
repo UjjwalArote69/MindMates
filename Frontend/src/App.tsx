@@ -61,6 +61,8 @@ function App() {
     <Routes>
       {/* Public routes */}
       <Route path="/" element={<Hero />} />
+
+      {/*Authentication routes */}
       <Route path="/auth" element={<Auth />}>
         <Route index element={<Register />} />
         <Route path="register" element={<Register />} />

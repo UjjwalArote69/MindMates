@@ -146,6 +146,13 @@ export const useUserStore = create<UserState>((set, get) => ({
     try {
       set({ loading: true, error: null });
       const data = await loginUserService({ email, password });
+
+      // ✅ Save token to localStorage
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        console.log("💾 Token saved to localStorage");
+      }
+
       set({ user: data.user, loading: false });
       return data.user;
     } catch (err: any) {
@@ -158,6 +165,13 @@ export const useUserStore = create<UserState>((set, get) => ({
     try {
       set({ loading: true, error: null });
       const data = await registerUserService({ name, email, password });
+
+      // ✅ Save token to localStorage
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        console.log("💾 Token saved to localStorage");
+      }
+
       set({ user: data.user, loading: false });
       return data;
     } catch (err: any) {
@@ -169,9 +183,16 @@ export const useUserStore = create<UserState>((set, get) => ({
   logout: async () => {
     try {
       await logoutUser();
+
+      // ✅ Clear token from localStorage
+      localStorage.removeItem("token");
+      console.log("🗑️ Token removed from localStorage");
+
       set({ user: null });
     } catch (err: any) {
-      set({ error: err.message });
+      // Still clear local data even if server logout fails
+      localStorage.removeItem("token");
+      set({ error: err.message, user: null });
     }
   },
 
