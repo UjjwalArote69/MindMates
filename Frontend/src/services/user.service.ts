@@ -1,13 +1,15 @@
-// user.service.ts - SIMPLIFIED (NO TOKEN INTERCEPTOR)
 import axios from "axios";
 
 const API = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
 
-const instance = axios.create({
-  baseURL: API,
-  headers: { "Content-Type": "application/json" },
-  withCredentials: true, // ✅ This automatically sends cookies
-});
+// ✅ Helper function to get headers with token
+const getAuthHeaders = () => {
+  const token = localStorage.getItem("token");
+  return {
+    "Content-Type": "application/json",
+    ...(token && { Authorization: `Bearer ${token}` }),
+  };
+};
 
 interface DailyLogData {
   mood: string;
@@ -22,11 +24,14 @@ interface DailyLogData {
 
 export const getMe = async () => {
   try {
-    // In getMe function
     console.log("🔍 Making request to /users/me");
-    console.log("🍪 Document.cookie:", document.cookie);
+    const token = localStorage.getItem("token");
+    console.log("🔑 Token:", token?.substring(0, 20) + "...");
 
-    const res = await instance.get("/users/me");
+    const res = await axios.get(`${API}/users/me`, {
+      headers: getAuthHeaders(),
+      withCredentials: true,
+    });
     console.log("✅ User data received:", res.data);
     return { data: res.data || null };
   } catch (error: any) {
@@ -50,7 +55,10 @@ export const onboardingData = async (data: {
 }) => {
   try {
     console.log("📤 Sending onboarding data to backend...");
-    const res = await instance.put("/users/onboarding", data);
+    const res = await axios.put(`${API}/users/onboarding`, data, {
+      headers: getAuthHeaders(),
+      withCredentials: true,
+    });
     console.log("✅ Onboarding response:", res.data);
     return res.data;
   } catch (error: any) {
@@ -64,8 +72,8 @@ export const onboardingData = async (data: {
 
 export const saveDailyLog = async (data: DailyLogData) => {
   try {
-    // ✅ FIX: Add /users prefix
-    const res = await instance.post("/users/daily-log", data, {
+    const res = await axios.post(`${API}/users/daily-log`, data, {
+      headers: getAuthHeaders(),
       withCredentials: true,
     });
     return res.data;
@@ -73,12 +81,14 @@ export const saveDailyLog = async (data: DailyLogData) => {
     console.error("User service : saveDailyLog ", error);
     throw error;
   }
-}
+};
 
 export const getTodayStatus = async () => {
   try {
-    // ✅ FIX: Add /users prefix
-    const res = await instance.get("/users/daily-status", { withCredentials: true });
+    const res = await axios.get(`${API}/users/daily-status`, {
+      headers: getAuthHeaders(),
+      withCredentials: true,
+    });
     return res.data;
   } catch (error) {
     console.error("User service : getTodayStatus ", error);
@@ -88,10 +98,13 @@ export const getTodayStatus = async () => {
 
 export const logoutUser = async () => {
   try {
-    const res = await instance.post(
+    const res = await axios.post(
       `${API}/users/logout`,
       {},
-      { withCredentials: true }
+      {
+        headers: getAuthHeaders(),
+        withCredentials: true,
+      }
     );
 
     // Clear localStorage + cookie
@@ -107,7 +120,8 @@ export const logoutUser = async () => {
 
 export const deleteUser = async () => {
   try {
-    const res = await instance.delete(`${API}/users/me`, {
+    const res = await axios.delete(`${API}/users/me`, {
+      headers: getAuthHeaders(),
       withCredentials: true,
     });
     return res.data;
@@ -126,8 +140,8 @@ export const updateUser = async (data: {
   updatedBirthDate?: Date;
 }) => {
   try {
-    const res = await instance.put(`${API}/users/me`, data, {
-      headers: { "Content-Type": "application/json" },
+    const res = await axios.put(`${API}/users/me`, data, {
+      headers: getAuthHeaders(),
       withCredentials: true,
     });
     return res.data;
@@ -142,8 +156,8 @@ export const submitFeedback = async (data: {
   feedback: string;
 }) => {
   try {
-    const res = await instance.post(`${API}/users/feedback`, data, {
-      headers: { "Content-Type": "application/json" },
+    const res = await axios.post(`${API}/users/feedback`, data, {
+      headers: getAuthHeaders(),
       withCredentials: true,
     });
     return res.data;
@@ -156,7 +170,10 @@ export const submitFeedback = async (data: {
 export const updateTodayMood = async (mood: string) => {
   try {
     console.log("😊 Updating mood to:", mood);
-    const res = await instance.put("/users/mood", { mood });
+    const res = await axios.put(`${API}/users/mood`, { mood }, {
+      headers: getAuthHeaders(),
+      withCredentials: true,
+    });
     console.log("✅ Mood updated:", res.data);
     return res.data;
   } catch (error: any) {
@@ -168,7 +185,10 @@ export const updateTodayMood = async (mood: string) => {
 export const updateTodayStress = async (stressLevel: number) => {
   try {
     console.log("😰 Updating stress to:", stressLevel);
-    const res = await instance.put("/users/stress", { stressLevel });
+    const res = await axios.put(`${API}/users/stress`, { stressLevel }, {
+      headers: getAuthHeaders(),
+      withCredentials: true,
+    });
     console.log("✅ Stress updated:", res.data);
     return res.data;
   } catch (error: any) {
