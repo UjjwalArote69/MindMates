@@ -18,10 +18,10 @@ import InviteFriends from "./pages/Profile/InviteFriends";
 import CloseAccount from "./pages/Profile/CloseAccount";
 
 import Chat from "./pages/Chat/Chat";
-import ChatTemp from "./pages/Chat/ChatTemp";
-import ChatList from "./pages/Chat/ChatList";
-import ChatSingle from "./pages/Chat/ChatSingle";
-import ChatIntro from "./pages/Chat/ChatIntro";
+// import ChatTemp from "./pages/Chat/ChatTemp";
+// import ChatList from "./pages/Chat/ChatList";
+// import ChatSingle from "./pages/Chat/ChatView";
+// import ChatIntro from "./pages/Chat/ChatIntro";
 import ChatLimit from "./pages/Chat/ChatLimit";
 import UpgradePlan from "./pages/Chat/UpgradePlan";
 
@@ -41,15 +41,25 @@ import Stress from "./pages/Stats/Stress";
 import Journal from "./pages/Journal/Journal";
 import JournalEditor from "./pages/Journal/JournalEditor";
 import JournalHome from "./pages/Journal/JournalHome";
+import { socketService } from "./services/socket.service";
+import ChatView from "./pages/Chat/ChatView";
+import ChatHome from "./pages/Chat/ChatHome";
 
 function App() {
-  const { fetchUser, initialized, loading } = useUserStore();
+  const { fetchUser, initialized, loading, token, user } = useUserStore();
 
   useEffect(() => {
     if (!initialized) {
       fetchUser();
     }
   }, [initialized]);
+
+  useEffect(() => {
+    if (user && token) {
+      socketService.connect(token);
+      return () => socketService.disconnect();
+    }
+  }, [user, token]);
 
   if (loading) {
     return (
@@ -132,10 +142,9 @@ function App() {
           </ProtectedRoute>
         }
       >
-        <Route index element={<ChatTemp />} />
-        <Route path="list" element={<ChatList />} />
-        <Route path=":id" element={<ChatSingle />} />
-        <Route path="intro" element={<ChatIntro />} />
+        <Route index element={<ChatHome />} />
+        <Route path="new" element={<ChatView />} />
+        <Route path=":chatId" element={<ChatView />} />
         <Route path="limit" element={<ChatLimit />} />
         <Route path="upgrade" element={<UpgradePlan />} />
       </Route>

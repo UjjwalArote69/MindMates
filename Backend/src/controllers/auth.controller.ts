@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import { User } from "../model/user.model";
 import { generateToken } from "../utils/generateToken";
+import logger from "../utils/logger";
 
 export const registerUser = async (req: Request, res: Response) => {
   try {
@@ -34,7 +35,7 @@ export const registerUser = async (req: Request, res: Response) => {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
-    console.log("✅ Register: Cookie set successfully");
+    logger.info("✅ Register: Cookie set successfully");
 
     return res.status(200).json({
       user: {
@@ -47,7 +48,7 @@ export const registerUser = async (req: Request, res: Response) => {
       isNewUser,
     });
   } catch (error: any) {
-    console.error("❌ Register Error:", error);
+    logger.error("❌ Register Error:", error);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -78,7 +79,7 @@ export const loginUser = async (req: Request, res: Response) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    console.log("✅ Login: Cookie set successfully");
+    logger.info("✅ Login: Cookie set successfully");
 
     return res.status(200).json({
       user: {
@@ -90,7 +91,7 @@ export const loginUser = async (req: Request, res: Response) => {
       token,
     });
   } catch (error: any) {
-    console.error("❌ Login Error:", error);
+    logger.error("❌ Login Error:", error);
     return res.status(500).json({ message: error.message });
   }
 };

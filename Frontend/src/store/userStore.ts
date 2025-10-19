@@ -62,6 +62,7 @@ interface User {
 
 interface UserState {
   user: User | null;
+  token: string | null;
   loading: boolean;
   error: string | null;
   initialized: boolean;
@@ -113,6 +114,7 @@ interface UserState {
 
 export const useUserStore = create<UserState>((set, get) => ({
   user: null,
+  token: localStorage.getItem('token'),
   loading: false,
   error: null,
   initialized: false,

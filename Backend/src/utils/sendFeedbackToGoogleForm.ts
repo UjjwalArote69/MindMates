@@ -1,6 +1,5 @@
-// npm i node-fetch
+import logger from "./logger";
 
-// utils/sendFeedbackToGoogleForm.ts
 export const sendFeedbackToGoogleForm = async ({
   selectedAreas,
   feedback,
@@ -41,6 +40,6 @@ export const sendFeedbackToGoogleForm = async ({
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
   });
 
-  console.log("Google Form response:", response.status); // helpful for debugging
+  logger.info("Google Form response:", response.status); // helpful for debugging
   return response.ok;
 };

@@ -4,6 +4,7 @@ import { calculateMetrics } from "../utils/calculateMetrics";
 import bcrypt from "bcryptjs";
 import { Feedback } from "../model/feedback.model";
 import { sendFeedbackToGoogleForm } from "../utils/sendFeedbackToGoogleForm";
+import logger from "../utils/logger";
 
 // Get user or me
 export const getMe = async (req: Request, res: Response) => {
@@ -14,11 +15,11 @@ export const getMe = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    console.log(`👤 getMe: ${user.name} at ${new Date().toISOString()}`);
+    logger.info(`👤 getMe: ${user.name} at ${new Date().toISOString()}`);
 
     res.status(200).json(user);
   } catch (error) {
-    console.error("User Controller : getMe, ", error);
+    logger.error("User Controller : getMe, ", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -55,13 +56,13 @@ export const updateUser = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    console.log(`✏️ User updated: ${updated.name} at ${new Date().toISOString()}`);
+    logger.info(`✏️ User updated: ${updated.name} at ${new Date().toISOString()}`);
 
     res
       .status(200)
       .json({ message: "Profile updated succesfully", user: updated });
   } catch (error) {
-    console.error("User Controller : updateUser, ", error);
+    logger.error("User Controller : updateUser, ", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -91,11 +92,11 @@ export const deleteUser = async (req: Request, res: Response) => {
 
     await User.findByIdAndDelete(userId);
 
-    console.log(`🗑️ User deleted: ${user.name} at ${new Date().toISOString()}`);
+    logger.info(`🗑️ User deleted: ${user.name} at ${new Date().toISOString()}`);
 
     res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
-    console.error("User Controller : deleteUser", error);
+    logger.error("User Controller : deleteUser", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -109,11 +110,11 @@ export const logoutUser = async (req: Request, res: Response) => {
       sameSite: "strict",
     });
 
-    console.log(`🚪 User logged out at ${new Date().toISOString()}`);
+    logger.info(`🚪 User logged out at ${new Date().toISOString()}`);
 
     res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
-    console.error("User Controller : logoutUser", error);
+    logger.error("User Controller : logoutUser", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -137,7 +138,7 @@ export const updateOnboardingData = async (req: any, res: Response) => {
       return res.status(400).json({ message: "User has already completed onboarding" });
     }
 
-    console.log("📝 Onboarding data received:", { userId: req.user?._id, gender, age, currentMood });
+    logger.info("📝 Onboarding data received:", { userId: req.user?._id, gender, age, currentMood });
 
     // ✅ FIX: Set isOnboarded to true
     const updatedUser = await User.findByIdAndUpdate(
@@ -155,11 +156,11 @@ export const updateOnboardingData = async (req: any, res: Response) => {
       { new: true, runValidators: true }
     ).select("-password");
 
-    console.log("✅ Onboarding updated successfully, user marked as onboarded");
+    logger.info("✅ Onboarding updated successfully, user marked as onboarded");
 
     return res.status(200).json({ updatedUser });
   } catch (error: any) {
-    console.error("❌ Onboarding Error:", error);
+    logger.error("❌ Onboarding Error:", error);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -260,7 +261,7 @@ export const saveDailyLog = async (req: Request, res: Response) => {
 
     await user.save();
 
-    console.log(`📊 Daily log saved for user: ${user.name} at ${new Date().toISOString()}`);
+    logger.info(`📊 Daily log saved for user: ${user.name} at ${new Date().toISOString()}`);
 
     res.status(200).json({
       message: "Daily log saved successfully! 🎉",
@@ -272,7 +273,7 @@ export const saveDailyLog = async (req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    console.error("Error saving daily log:", error);
+    logger.error("Error saving daily log:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -310,7 +311,7 @@ export const getTodayStatus = async (req: Request, res: Response) => {
       sleepQuality: user.sleepQuality,
     });
   } catch (error) {
-    console.error("Error getting today status:", error);
+    logger.error("Error getting today status:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -347,14 +348,14 @@ export const submitFeedback = async (req: Request, res: Response) => {
       name: user.name ?? "",
     });
 
-    console.log(`💬 Feedback submitted by: ${user.name} at ${new Date().toISOString()}`);
+    logger.info(`💬 Feedback submitted by: ${user.name} at ${new Date().toISOString()}`);
 
     res.status(201).json({
       message: "Feedback submitted successfully",
       feedback: newFeedback,
     });
   } catch (error) {
-    console.error("User Controller : submitFeedback", error);
+    logger.error("User Controller : submitFeedback", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -408,7 +409,7 @@ export const updateTodayMood = async (req: Request, res: Response) => {
 
     await user.save();
 
-    console.log(`😊 Mood updated to "${mood}" for user: ${user.name}`);
+    logger.info(`😊 Mood updated to "${mood}" for user: ${user.name}`);
 
     res.status(200).json({
       message: "Mood updated successfully!",
@@ -416,7 +417,7 @@ export const updateTodayMood = async (req: Request, res: Response) => {
       moodTracker: user.moodTracker,
     });
   } catch (error) {
-    console.error("Error updating mood:", error);
+    logger.error("Error updating mood:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -470,7 +471,7 @@ export const updateTodayStress = async (req: Request, res: Response) => {
 
     await user.save();
 
-    console.log(`😰 Stress updated to ${stressLevel} for user: ${user.name}`);
+    logger.info(`😰 Stress updated to ${stressLevel} for user: ${user.name}`);
 
     res.status(200).json({
       message: "Stress level updated successfully!",
@@ -478,7 +479,7 @@ export const updateTodayStress = async (req: Request, res: Response) => {
       stressLogs: user.stressLogs,
     });
   } catch (error) {
-    console.error("Error updating stress:", error);
+    logger.error("Error updating stress:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };

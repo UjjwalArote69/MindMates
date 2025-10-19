@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import JournalEntry from "../model/journal.model";
+import logger from "../utils/logger";
 
 // Create a new journal entry
 export const createJournalEntry = async (req: Request, res: Response) => {
@@ -28,7 +29,7 @@ export const createJournalEntry = async (req: Request, res: Response) => {
       entry: journalEntry,
     });
   } catch (error: any) {
-    console.error("Error creating journal entry:", error);
+    logger.error("Error creating journal entry:", error);
     res.status(500).json({ message: error.message || "Server error" });
   }
 };
@@ -77,7 +78,7 @@ export const getJournalEntries = async (req: Request, res: Response) => {
       },
     });
   } catch (error: any) {
-    console.error("Error fetching journal entries:", error);
+    logger.error("Error fetching journal entries:", error);
     res.status(500).json({ message: error.message || "Server error" });
   }
 };
@@ -100,7 +101,7 @@ export const getJournalEntryById = async (req: Request, res: Response) => {
 
     res.status(200).json({ entry });
   } catch (error: any) {
-    console.error("Error fetching journal entry:", error);
+    logger.error("Error fetching journal entry:", error);
     res.status(500).json({ message: error.message || "Server error" });
   }
 };
@@ -136,7 +137,7 @@ export const updateJournalEntry = async (req: Request, res: Response) => {
       entry,
     });
   } catch (error: any) {
-    console.error("Error updating journal entry:", error);
+    logger.error("Error updating journal entry:", error);
     res.status(500).json({ message: error.message || "Server error" });
   }
 };
@@ -159,7 +160,7 @@ export const deleteJournalEntry = async (req: Request, res: Response) => {
 
     res.status(200).json({ message: "Journal entry deleted successfully" });
   } catch (error: any) {
-    console.error("Error deleting journal entry:", error);
+    logger.error("Error deleting journal entry:", error);
     res.status(500).json({ message: error.message || "Server error" });
   }
 };
@@ -224,7 +225,7 @@ export const getJournalStats = async (req: Request, res: Response) => {
       currentStreak,
     });
   } catch (error: any) {
-    console.error("Error fetching journal stats:", error);
+    logger.error("Error fetching journal stats:", error);
     res.status(500).json({ message: error.message || "Server error" });
   }
 };

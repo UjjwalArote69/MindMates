@@ -1,65 +1,53 @@
-// import React from "react";
-import BackButton from "../../assets/Icons/Back Arrow.svg"
-import ArrowLeft from "../../assets/Icons/Arrow Curved Bottom Left.svg"
-import RobotImage from "../../assets/Images/Chat/Therapy New Chat Robot.svg"; // replace with your robot image
-import SearchButton from "../../assets/Icons/Search Icon.svg"
+interface Props {
+  onStart: () => void;
+}
 
-const ChatIntro = () => {
+export default function ChatIntro({ onStart }: Props) {
   return (
-    <div className="flex flex-col h-screen bg-[#FAF9F6]">
-      {/* Top Bar */}
-      <div className="flex items-center justify-between px-4 py-3">
-        <button className="p-2">
-          {/* <BackButton className="text-brown-700 w-5 h-5" /> */}
-          <img src={BackButton} alt="" />
-        </button>
-        <h1 className="font-semibold text-lg text-brown-800">Doctor Mates.AI</h1>
-        <button className="p-2">
-          {/* <FiSearch className="text-brown-700 w-5 h-5" /> */}
-          <img src={SearchButton} alt="" />
-        </button>
+    <div className="flex flex-col items-center justify-center h-full text-center p-8">
+      <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#4A7C59] to-[#6FAF84] flex items-center justify-center mb-6 shadow-lg animate-bounce-slow">
+        <svg
+          className="w-16 h-16 text-white"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0c0 1.574.512 3.042 1.395 4.28L3 20l3.745-1.949A9.863 9.863 0 0012 20c4.97 0 9-3.582 9-8z"
+          />
+        </svg>
       </div>
 
-      {/* Robot Illustration */}
-      <div className="flex-1 flex flex-col items-center justify-center px-6">
-        <img
-          src={RobotImage}
-          alt="Robot"
-          className="w-48 h-48 object-contain"
-        />
+      <h2 className="text-2xl font-bold text-[#2E2E2E] mb-2">
+        Start a New Conversation
+      </h2>
+      <p className="text-gray-500 max-w-xs mb-6 leading-relaxed text-sm">
+        Talk about anything — advice, thoughts, or support. Doctor Mates AI is
+        always here to listen and assist.
+      </p>
 
-        {/* Badge */}
-        <div className="mt-6">
-          <span className="px-4 py-1 text-sm rounded-full bg-red-100 text-red-600 font-medium">
-            LIMITATIONS
-          </span>
-        </div>
-
-        {/* Text Section */}
-        <div className="mt-4 text-center">
-          <h2 className="text-lg font-semibold text-brown-800">
-            Limited Knowledge
-          </h2>
-          <p className="mt-2 text-sm text-gray-600 leading-relaxed">
-            No human being is perfect. So is chatbots. Dr Mate’s knowledge is
-            limited to 2024.
-          </p>
-        </div>
-      </div>
-
-      {/* Chat Input */}
-      <div className="px-4 py-3 border-t border-gray-200 flex items-center gap-2 bg-white">
-        <input
-          type="text"
-          placeholder="Type to start chatting...!"
-          className="flex-1 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-green-400 text-sm"
-        />
-        <button className="bg-green-400 p-3 rounded-full">
-          <img src={ArrowLeft} alt="" />
-        </button>
-      </div>
+      <button
+        onClick={onStart}
+        className="bg-[#4A7C59] hover:bg-[#3C6B4B] text-white px-8 py-3 rounded-full font-semibold shadow-md transition-transform hover:scale-105 flex items-center gap-2"
+      >
+        <svg
+          className="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 4v16m8-8H4"
+          />
+        </svg>
+        New Conversation
+      </button>
     </div>
   );
-};
-
-export default ChatIntro;
+}

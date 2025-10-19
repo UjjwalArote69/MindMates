@@ -2,6 +2,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { User } from "../model/user.model";
+import logger from "../utils/logger";
 
 export const protect = async (req: any, res: Response, next: NextFunction) => {
   try {
@@ -10,14 +11,14 @@ export const protect = async (req: any, res: Response, next: NextFunction) => {
     // ✅ Check cookie first, then Authorization header
     if (req.cookies && req.cookies.token) {
       token = req.cookies.token;
-      console.log("🍪 Token from cookie:", token.substring(0, 20) + "...");
+      logger.info("🍪 Token from cookie:", token.substring(0, 20) + "...");
     } else if (req.headers.authorization?.startsWith("Bearer")) {
       token = req.headers.authorization.split(" ")[1];
-      console.log("🔑 Token from header:", token.substring(0, 20) + "...");
+      logger.info("🔑 Token from header:", token.substring(0, 20) + "...");
     }
 
     if (!token) {
-      console.log("❌ No token found");
+      logger.info("❌ No token found");
       return res.status(401).json({ message: "Not authorized, no token" });
     }
 
@@ -25,15 +26,15 @@ export const protect = async (req: any, res: Response, next: NextFunction) => {
     const user = await User.findById(decoded.id).select("-password");
 
     if (!user) {
-      console.log("❌ User not found for token");
+      logger.info("❌ User not found for token");
       return res.status(401).json({ message: "User not found" });
     }
 
     req.user = user;
-    console.log("✅ User authenticated:", user.email);
+    logger.info("✅ User authenticated:", user.email);
     next();
   } catch (error: any) {
-    console.error("❌ Auth middleware error:", error.message);
+    logger.error("❌ Auth middleware error:", error.message);
     return res.status(401).json({ message: "Not authorized, token failed" });
   }
 };

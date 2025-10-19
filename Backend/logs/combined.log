@@ -1,0 +1,804 @@
+{"level":"info","message":"✅ MongoDB connected successfully: ","timestamp":"2025-10-17T14:07:28.252Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-10-17T14:07:28.262Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:07:54.782Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:07:55.157Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:07:55.233Z","timestamp":"2025-10-17T14:07:55.233Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:07:55.248Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:07:55.289Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:07:55.328Z","timestamp":"2025-10-17T14:07:55.328Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:08:03.347Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:08:03.427Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:08:03.478Z","timestamp":"2025-10-17T14:08:03.478Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:08:03.483Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:08:03.512Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:08:03.544Z","timestamp":"2025-10-17T14:08:03.544Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:08:40.471Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:08:40.536Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:08:40.571Z","timestamp":"2025-10-17T14:08:40.571Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:08:40.586Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:08:40.639Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:08:40.707Z","timestamp":"2025-10-17T14:08:40.707Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:08:46.652Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:08:46.688Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:08:46.736Z","timestamp":"2025-10-17T14:08:46.736Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:08:46.738Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:08:46.777Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:08:46.811Z","timestamp":"2025-10-17T14:08:46.811Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:12:06.749Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:12:06.814Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:12:06.848Z","timestamp":"2025-10-17T14:12:06.848Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T14:12:06.909Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T14:12:06.918Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"QxV-kDCHEnyT3OuxAAAG","timestamp":"2025-10-17T14:12:32.632Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"IIdk0gI0h5hH22VTAAAH","timestamp":"2025-10-17T14:12:32.633Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:12:33.109Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:12:33.158Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:12:33.202Z","timestamp":"2025-10-17T14:12:33.202Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:12:33.204Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:12:33.247Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T14:12:33.294Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T14:12:33.297Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:12:33.302Z","timestamp":"2025-10-17T14:12:33.302Z"}
+{"level":"info","message":"User disconnected","socketId":"90b5Xv-e5h5e6OxwAAAK","timestamp":"2025-10-17T14:14:14.592Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"ssstBc17XFSe_GeRAAAL","timestamp":"2025-10-17T14:14:14.604Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:14:14.948Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:14:15.022Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:14:15.164Z","timestamp":"2025-10-17T14:14:15.165Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:14:15.168Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:14:15.241Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:14:15.308Z","timestamp":"2025-10-17T14:14:15.308Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:19:43.559Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:19:43.621Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:19:43.651Z","timestamp":"2025-10-17T14:19:43.651Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:19:43.655Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:19:43.697Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:19:43.747Z","timestamp":"2025-10-17T14:19:43.747Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:38:42.501Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:38:42.542Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:38:42.590Z","timestamp":"2025-10-17T14:38:42.590Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:38:42.593Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:38:42.661Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:38:42.900Z","timestamp":"2025-10-17T14:38:42.900Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:38:58.253Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:38:58.317Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:38:58.362Z","timestamp":"2025-10-17T14:38:58.362Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:38:58.365Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:38:58.397Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:38:58.443Z","timestamp":"2025-10-17T14:38:58.443Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T14:38:58.508Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T14:38:58.513Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"TLzt_Q_EoOQRmQdHAAAO","timestamp":"2025-10-17T14:40:18.227Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"n4GnfVJ4MS5H8I2RAAAP","timestamp":"2025-10-17T14:40:18.228Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:40:18.647Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:40:18.685Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:40:18.738Z","timestamp":"2025-10-17T14:40:18.738Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:40:18.740Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:40:18.798Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:40:18.835Z","timestamp":"2025-10-17T14:40:18.835Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T14:40:18.878Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T14:40:18.885Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"PLSFG7hID8dTeNHaAAAS","timestamp":"2025-10-17T14:47:23.203Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"TribPTebGx6Wj_3bAAAT","timestamp":"2025-10-17T14:47:23.207Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:47:23.756Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:47:23.813Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:47:23.863Z","timestamp":"2025-10-17T14:47:23.863Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:47:23.867Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:47:23.927Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:47:23.956Z","timestamp":"2025-10-17T14:47:23.956Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:48:09.508Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:48:09.575Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:48:09.639Z","timestamp":"2025-10-17T14:48:09.639Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:48:09.641Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:48:09.708Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:48:09.767Z","timestamp":"2025-10-17T14:48:09.767Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:48:13.307Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:48:13.351Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:48:13.389Z","timestamp":"2025-10-17T14:48:13.389Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T14:48:13.395Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T14:48:13.452Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T14:48:13.504Z","timestamp":"2025-10-17T14:48:13.504Z"}
+{"level":"info","message":"✅ MongoDB connected successfully: ","timestamp":"2025-10-17T15:07:14.363Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-10-17T15:07:14.378Z"}
+{"level":"info","message":"✅ MongoDB connected successfully: ","timestamp":"2025-10-17T15:10:25.069Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-10-17T15:10:25.076Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T15:10:55.739Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"gxfSeZ5BrNN_GreIAAAB","timestamp":"2025-10-17T15:11:02.547Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T15:11:03.169Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T15:11:03.288Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T15:11:03.351Z","timestamp":"2025-10-17T15:11:03.351Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T15:11:03.358Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T15:11:03.426Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T15:11:03.433Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T15:11:03.443Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T15:11:03.504Z","timestamp":"2025-10-17T15:11:03.504Z"}
+{"level":"info","message":"User disconnected","socketId":"kM1NJfs1gB4SDjRRAAAE","timestamp":"2025-10-17T15:13:09.899Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"x9TgL1R3gxNM6hVLAAAF","timestamp":"2025-10-17T15:13:09.900Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T15:13:10.512Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T15:13:10.586Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T15:13:10.668Z","timestamp":"2025-10-17T15:13:10.668Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T15:13:10.671Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T15:13:10.761Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T15:13:10.770Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T15:13:10.773Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T15:13:10.908Z","timestamp":"2025-10-17T15:13:10.908Z"}
+{"level":"info","message":"User disconnected","socketId":"vrq709CGYbf8Hb5UAAAI","timestamp":"2025-10-17T15:18:29.657Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"EqNMHcOE_mu_79buAAAJ","timestamp":"2025-10-17T15:18:29.659Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T15:18:30.177Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T15:18:30.287Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T15:18:30.437Z","timestamp":"2025-10-17T15:18:30.437Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T15:18:30.441Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T15:18:30.478Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T15:18:30.486Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T15:18:30.502Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T15:18:30.595Z","timestamp":"2025-10-17T15:18:30.595Z"}
+{"level":"info","message":"User disconnected","socketId":"zYYxK_h2zLcgvw84AAAM","timestamp":"2025-10-17T15:31:16.326Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"dmDN3GiBTCo4PSrCAAAN","timestamp":"2025-10-17T15:31:16.332Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T15:31:16.856Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T15:31:16.913Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T15:31:16.985Z","timestamp":"2025-10-17T15:31:16.986Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T15:31:16.991Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T15:31:17.053Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T15:31:17.093Z","timestamp":"2025-10-17T15:31:17.093Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T15:31:22.220Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T15:31:22.227Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"eQ3J_sE0GvjvaMQEAAAQ","timestamp":"2025-10-17T15:31:47.729Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"WbtbSy9geDb0H37ZAAAR","timestamp":"2025-10-17T15:31:47.732Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T15:36:05.417Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T15:36:05.497Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T15:36:05.567Z","timestamp":"2025-10-17T15:36:05.567Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T15:36:05.571Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T15:36:05.617Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T15:36:05.685Z","timestamp":"2025-10-17T15:36:05.685Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T15:36:05.940Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"hyNv5L9cUGgottsrAAAU","timestamp":"2025-10-17T15:39:08.554Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T15:39:09.441Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T15:39:09.533Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T15:39:09.573Z","timestamp":"2025-10-17T15:39:09.573Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T15:39:09.580Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T15:39:09.663Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T15:39:09.696Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T15:39:09.810Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T15:39:10.092Z","timestamp":"2025-10-17T15:39:10.093Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T15:39:10.159Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"xC7IdiLdkJPJ80KbAAAa","timestamp":"2025-10-17T15:39:10.180Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T15:39:10.185Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"Lz3VkY7YTXtwmgMMAAAY","timestamp":"2025-10-17T16:06:01.273Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"7Bg8bHABwYQSOUa8AAAc","timestamp":"2025-10-17T16:06:01.276Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"bGo9RGmpnhzYvJEGAAAZ","timestamp":"2025-10-17T16:06:01.278Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T16:06:02.133Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T16:06:02.225Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T16:06:02.299Z","timestamp":"2025-10-17T16:06:02.299Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T16:06:02.304Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T16:06:02.395Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:06:02.450Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T16:06:02.453Z","timestamp":"2025-10-17T16:06:02.453Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:06:02.459Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:06:02.463Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"J_nbUTuLK2DFQ-U4AAAi","timestamp":"2025-10-17T16:06:02.488Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:06:02.499Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ MongoDB connected successfully: ","timestamp":"2025-10-17T16:29:07.051Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-10-17T16:29:07.055Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T16:29:22.955Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T16:29:23.111Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T16:29:23.192Z","timestamp":"2025-10-17T16:29:23.192Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T16:29:23.197Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:29:23.238Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T16:29:23.264Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T16:29:23.398Z","timestamp":"2025-10-17T16:29:23.398Z"}
+{"level":"info","message":"User disconnected","socketId":"ZeFsO5kM0KpYcgf6AAAB","timestamp":"2025-10-17T16:29:23.407Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:29:23.426Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"D2bQGN5ZrPwsw0ifAAAD","timestamp":"2025-10-17T16:29:34.730Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T16:29:35.582Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T16:29:35.969Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T16:29:36.051Z","timestamp":"2025-10-17T16:29:36.051Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T16:29:36.075Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:29:36.110Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T16:29:36.163Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T16:29:36.235Z","timestamp":"2025-10-17T16:29:36.235Z"}
+{"level":"info","message":"User disconnected","socketId":"gUD29FT29HMUGFrhAAAF","timestamp":"2025-10-17T16:29:36.297Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:29:36.345Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"HbR1c5kgY1PVEqOuAAAH","timestamp":"2025-10-17T16:29:41.849Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T16:29:42.244Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T16:29:42.385Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T16:29:42.468Z","timestamp":"2025-10-17T16:29:42.468Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T16:29:42.472Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:29:42.506Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:29:42.513Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:29:42.517Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T16:29:42.541Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T16:29:42.603Z","timestamp":"2025-10-17T16:29:42.603Z"}
+{"level":"info","message":"User disconnected","socketId":"yhMX854Q1fuv4gLOAAAN","timestamp":"2025-10-17T16:29:42.644Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:29:42.660Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"Xy3B-TLBKYyldYmSAAAL","timestamp":"2025-10-17T16:31:44.597Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"0ZH8mnxyBh_OwCagAAAP","timestamp":"2025-10-17T16:31:44.599Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"isJUKylqR2egQoEfAAAM","timestamp":"2025-10-17T16:31:44.600Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T16:31:47.020Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T16:31:47.318Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T16:31:47.477Z","timestamp":"2025-10-17T16:31:47.477Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T16:31:47.480Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:31:47.515Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T16:31:47.922Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T16:31:48.230Z","timestamp":"2025-10-17T16:31:48.230Z"}
+{"level":"info","message":"User disconnected","socketId":"zei-YkPusxE1ONYfAAAR","timestamp":"2025-10-17T16:31:48.268Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:31:48.322Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"uURUXysOtqpvqABzAAAT","timestamp":"2025-10-17T16:37:42.228Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T16:37:42.718Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T16:37:43.303Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T16:37:43.637Z","timestamp":"2025-10-17T16:37:43.637Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T16:37:43.643Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:37:43.691Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:37:43.711Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:37:43.770Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T16:37:43.893Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T16:37:44.099Z","timestamp":"2025-10-17T16:37:44.099Z"}
+{"level":"info","message":"User disconnected","socketId":"RDbhEVlsSxJIvFRiAAAZ","timestamp":"2025-10-17T16:37:44.115Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:37:44.127Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"7-ZBxTmaipCtmjHJAAAX","timestamp":"2025-10-17T16:57:01.284Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"YznL4rUyf4ds-6liAAAb","timestamp":"2025-10-17T16:57:01.285Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"lhGTrAWUL0xFAvKQAAAY","timestamp":"2025-10-17T16:57:01.286Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T16:57:01.883Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T16:57:01.949Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T16:57:02.178Z","timestamp":"2025-10-17T16:57:02.178Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-17T16:57:02.181Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:57:02.218Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-17T16:57:02.359Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-17T16:57:02.475Z","timestamp":"2025-10-17T16:57:02.475Z"}
+{"level":"info","message":"User disconnected","socketId":"by1cftqlbiO7WOXeAAAd","timestamp":"2025-10-17T16:57:02.495Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-17T16:57:02.515Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ MongoDB connected successfully: ","timestamp":"2025-10-18T05:46:57.664Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-10-18T05:46:57.670Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T05:47:09.333Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T05:47:09.475Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T05:47:09.540Z","timestamp":"2025-10-18T05:47:09.540Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T05:47:09.553Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T05:47:09.628Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T05:47:09.634Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T05:47:09.690Z","timestamp":"2025-10-18T05:47:09.690Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T05:47:09.743Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"I1j0ZI8xv01eep6zAAAB","timestamp":"2025-10-18T05:47:09.764Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"LB22wv6d3EwH2cTPAAAD","timestamp":"2025-10-18T05:47:15.660Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T05:47:18.721Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ Login: Cookie set successfully","timestamp":"2025-10-18T05:47:28.473Z"}
+{"level":"info","message":"User disconnected","socketId":"KV8pMuZq5r7Nh3PSAAAG","timestamp":"2025-10-18T05:47:28.552Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T05:47:28.605Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"M3rvfP4aF_ByM2ayAAAI","timestamp":"2025-10-18T06:00:41.557Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:00:42.335Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:00:42.428Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:00:42.508Z","timestamp":"2025-10-18T06:00:42.508Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:00:42.512Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:00:42.572Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:00:42.620Z","timestamp":"2025-10-18T06:00:42.620Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T06:00:42.657Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T06:00:42.661Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T06:00:42.666Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"WTScjwMwzV0DTV6xAAAN","timestamp":"2025-10-18T06:00:42.674Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T06:00:42.700Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"G-KCV3a17hwa-u_hAAAM","timestamp":"2025-10-18T06:03:49.431Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"fE6jgxj3d0jBrUgDAAAQ","timestamp":"2025-10-18T06:03:49.433Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"IvllgiFsLXSBgRUPAAAO","timestamp":"2025-10-18T06:03:49.435Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:03:50.115Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:03:50.169Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:03:50.214Z","timestamp":"2025-10-18T06:03:50.214Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:03:50.218Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:03:50.256Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T06:03:50.277Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T06:03:50.297Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T06:03:50.312Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:03:50.333Z","timestamp":"2025-10-18T06:03:50.333Z"}
+{"level":"info","message":"User disconnected","socketId":"wXAHjRjz-1yymWxgAAAV","timestamp":"2025-10-18T06:03:50.380Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T06:03:50.401Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"Ww6VWBsknoVJjt4sAAAU","timestamp":"2025-10-18T06:04:22.746Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"7b1l0G3TejRbbqsvAAAY","timestamp":"2025-10-18T06:04:22.775Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"k8FZ5Ekh-xIEpqdvAAAW","timestamp":"2025-10-18T06:04:22.828Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:04:23.280Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:04:23.368Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:04:23.424Z","timestamp":"2025-10-18T06:04:23.424Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:04:23.426Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:04:23.489Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T06:04:23.514Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:04:23.530Z","timestamp":"2025-10-18T06:04:23.530Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T06:04:23.536Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T06:04:23.543Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"hcM012hixli11pMmAAAe","timestamp":"2025-10-18T06:04:23.565Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T06:04:23.575Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ MongoDB connected successfully: ","timestamp":"2025-10-18T06:19:11.216Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-10-18T06:19:11.222Z"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T06:19:11.287Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T06:19:11.309Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User connected to socket","timestamp":"2025-10-18T06:19:11.343Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"r3x-h1ceRk8rA4xpAAAD","timestamp":"2025-10-18T06:21:17.685Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"-lyGsbKIXwMC5-UYAAAF","timestamp":"2025-10-18T06:21:17.689Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"User disconnected","socketId":"nd014Kokft0M0TSDAAAE","timestamp":"2025-10-18T06:21:17.690Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:21:19.655Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:21:19.758Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:21:19.826Z","timestamp":"2025-10-18T06:21:19.826Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:21:19.834Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:21:19.892Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:21:19.940Z","timestamp":"2025-10-18T06:21:19.940Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:30:09.821Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:30:09.933Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:30:10.016Z","timestamp":"2025-10-18T06:30:10.016Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:30:10.021Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:30:10.222Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:30:10.426Z","timestamp":"2025-10-18T06:30:10.426Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:30:17.354Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:30:17.441Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:30:17.502Z","timestamp":"2025-10-18T06:30:17.502Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:30:17.505Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:30:17.587Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:30:17.655Z","timestamp":"2025-10-18T06:30:17.655Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:31:50.245Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:31:50.337Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:31:50.377Z","timestamp":"2025-10-18T06:31:50.377Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:31:50.381Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:31:50.412Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:31:50.457Z","timestamp":"2025-10-18T06:31:50.457Z"}
+{"level":"info","message":"✅ MongoDB connected successfully: ","timestamp":"2025-10-18T06:32:14.518Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-10-18T06:32:14.526Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:32:36.058Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:32:36.145Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:32:36.215Z","timestamp":"2025-10-18T06:32:36.216Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:32:36.223Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:32:36.295Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:32:36.329Z","timestamp":"2025-10-18T06:32:36.329Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:32:51.504Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:32:51.573Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:32:51.613Z","timestamp":"2025-10-18T06:32:51.613Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:32:51.621Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:32:51.705Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:32:51.781Z","timestamp":"2025-10-18T06:32:51.781Z"}
+{"level":"info","message":"✅ MongoDB connected successfully: ","timestamp":"2025-10-18T06:35:34.456Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-10-18T06:35:34.464Z"}
+{"level":"info","message":"✅ MongoDB connected successfully: ","timestamp":"2025-10-18T06:35:49.332Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-10-18T06:35:49.338Z"}
+{"level":"info","message":"Socket.IO server ready on http://localhost:5000","timestamp":"2025-10-18T06:35:49.338Z"}
+{"level":"info","message":"Socket.IO server initialized with default namespace '/'","timestamp":"2025-10-18T06:36:05.245Z"}
+{"level":"info","message":"✅ MongoDB connected successfully: ","timestamp":"2025-10-18T06:36:05.897Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-10-18T06:36:05.904Z"}
+{"level":"info","message":"Socket.IO server ready on http://localhost:5000","timestamp":"2025-10-18T06:36:05.904Z"}
+{"level":"info","message":"Socket.IO server initialized with default namespace '/'","timestamp":"2025-10-18T06:36:26.293Z"}
+{"level":"info","message":"✅ MongoDB connected successfully: ","timestamp":"2025-10-18T06:36:26.990Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-10-18T06:36:26.996Z"}
+{"level":"info","message":"Socket.IO server ready on http://localhost:5000","timestamp":"2025-10-18T06:36:26.997Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:37:08.210Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:37:08.313Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:37:08.407Z","timestamp":"2025-10-18T06:37:08.407Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:37:08.412Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:37:08.468Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:37:08.509Z","timestamp":"2025-10-18T06:37:08.509Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:37:21.534Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:37:21.617Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:37:21.655Z","timestamp":"2025-10-18T06:37:21.655Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:37:21.660Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:37:21.694Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:37:21.738Z","timestamp":"2025-10-18T06:37:21.738Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:37:38.321Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:37:38.378Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:37:38.437Z","timestamp":"2025-10-18T06:37:38.437Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:37:38.442Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:37:38.508Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:37:38.572Z","timestamp":"2025-10-18T06:37:38.572Z"}
+{"level":"info","message":"Socket authenticated","socketId":"11A3GSyx_mZOL0e1AAAG","timestamp":"2025-10-18T06:37:38.776Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"11A3GSyx_mZOL0e1AAAG","timestamp":"2025-10-18T06:37:38.777Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"transport close","socketId":"11A3GSyx_mZOL0e1AAAG","timestamp":"2025-10-18T06:39:12.707Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:39:14.221Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:39:14.254Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:39:14.293Z","timestamp":"2025-10-18T06:39:14.293Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:39:14.298Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:39:14.333Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:39:14.366Z","timestamp":"2025-10-18T06:39:14.366Z"}
+{"level":"info","message":"Socket authenticated","socketId":"wSPsVL6qdPG6YjA0AAAJ","timestamp":"2025-10-18T06:39:14.506Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"wSPsVL6qdPG6YjA0AAAJ","timestamp":"2025-10-18T06:39:14.507Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"transport close","socketId":"wSPsVL6qdPG6YjA0AAAJ","timestamp":"2025-10-18T06:39:37.490Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:39:38.098Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:39:38.174Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:39:38.215Z","timestamp":"2025-10-18T06:39:38.215Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:39:38.241Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:39:38.340Z"}
+{"level":"info","message":"Socket authenticated","socketId":"y1yd-4Zv1L4kfbSGAAAL","timestamp":"2025-10-18T06:39:38.361Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"y1yd-4Zv1L4kfbSGAAAL","timestamp":"2025-10-18T06:39:38.402Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:39:38.414Z","timestamp":"2025-10-18T06:39:38.414Z"}
+{"level":"info","message":"❌ Socket disconnected","reason":"client namespace disconnect","socketId":"y1yd-4Zv1L4kfbSGAAAL","timestamp":"2025-10-18T06:39:38.494Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket authenticated","socketId":"6mqh0Tgx5d1OyPTpAAAN","timestamp":"2025-10-18T06:39:38.645Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"6mqh0Tgx5d1OyPTpAAAN","timestamp":"2025-10-18T06:39:38.647Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"transport close","socketId":"6mqh0Tgx5d1OyPTpAAAN","timestamp":"2025-10-18T06:40:39.365Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:40:39.977Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:40:40.097Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:40:40.133Z","timestamp":"2025-10-18T06:40:40.133Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T06:40:40.143Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T06:40:40.269Z"}
+{"level":"info","message":"Socket authenticated","socketId":"YC-7ALfFSJtzHPuIAAAP","timestamp":"2025-10-18T06:40:40.280Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"YC-7ALfFSJtzHPuIAAAP","timestamp":"2025-10-18T06:40:40.281Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T06:40:40.347Z","timestamp":"2025-10-18T06:40:40.347Z"}
+{"level":"info","message":"❌ Socket disconnected","reason":"client namespace disconnect","socketId":"YC-7ALfFSJtzHPuIAAAP","timestamp":"2025-10-18T06:40:40.458Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket authenticated","socketId":"5_-QfyKep67e0XyRAAAR","timestamp":"2025-10-18T06:40:40.500Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"5_-QfyKep67e0XyRAAAR","timestamp":"2025-10-18T06:40:40.501Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"transport close","socketId":"5_-QfyKep67e0XyRAAAR","timestamp":"2025-10-18T06:56:06.409Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T07:01:20.198Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T07:01:20.696Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T07:01:20.730Z","timestamp":"2025-10-18T07:01:20.730Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T07:01:20.734Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-18T07:01:20.778Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-18T07:01:20.814Z","timestamp":"2025-10-18T07:01:20.814Z"}
+{"level":"info","message":"Socket authenticated","socketId":"4NEqa4p3XGes-ajuAAAT","timestamp":"2025-10-18T07:01:20.825Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"4NEqa4p3XGes-ajuAAAT","timestamp":"2025-10-18T07:01:20.826Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"transport close","socketId":"4NEqa4p3XGes-ajuAAAT","timestamp":"2025-10-18T07:01:21.130Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket authenticated","socketId":"L3Yste_izWh6JgP2AAAV","timestamp":"2025-10-18T07:01:21.158Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"L3Yste_izWh6JgP2AAAV","timestamp":"2025-10-18T07:01:21.159Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"transport close","socketId":"L3Yste_izWh6JgP2AAAV","timestamp":"2025-10-18T07:02:46.362Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T08:40:21.785Z"}
+{"level":"error","message":"❌ Auth middleware error:","timestamp":"2025-10-18T09:01:45.138Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-18T09:01:48.882Z"}
+{"level":"error","message":"❌ Auth middleware error:","timestamp":"2025-10-18T12:48:21.400Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T05:13:25.236Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T05:13:28.512Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T05:13:28.538Z","timestamp":"2025-10-19T05:13:28.538Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T05:13:28.550Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T05:13:28.586Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T05:13:28.618Z","timestamp":"2025-10-19T05:13:28.618Z"}
+{"level":"info","message":"Socket authenticated","socketId":"LDCGBotjYoCGekTuAAAY","timestamp":"2025-10-19T05:13:28.736Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"LDCGBotjYoCGekTuAAAY","timestamp":"2025-10-19T05:13:28.738Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket.IO server initialized with default namespace '/'","timestamp":"2025-10-19T06:08:56.575Z"}
+{"level":"info","message":"✅ MongoDB connected successfully: ","timestamp":"2025-10-19T06:09:00.358Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-10-19T06:09:00.363Z"}
+{"level":"info","message":"Socket.IO server ready on http://localhost:5000","timestamp":"2025-10-19T06:09:00.363Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T06:09:22.409Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T06:09:22.537Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T06:09:22.657Z","timestamp":"2025-10-19T06:09:22.657Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T06:09:22.667Z"}
+{"level":"info","message":"Socket authenticated","socketId":"T7Zvz5Wm-sSespUWAAAB","timestamp":"2025-10-19T06:09:22.721Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"T7Zvz5Wm-sSespUWAAAB","timestamp":"2025-10-19T06:09:22.731Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T06:09:22.791Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T06:09:22.893Z","timestamp":"2025-10-19T06:09:22.893Z"}
+{"level":"info","message":"❌ Socket disconnected","reason":"client namespace disconnect","socketId":"T7Zvz5Wm-sSespUWAAAB","timestamp":"2025-10-19T06:09:22.920Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket authenticated","socketId":"xvtpPinyWcpA7jtvAAAD","timestamp":"2025-10-19T06:09:22.940Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"xvtpPinyWcpA7jtvAAAD","timestamp":"2025-10-19T06:09:22.944Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ Login: Cookie set successfully","timestamp":"2025-10-19T06:09:47.997Z"}
+{"level":"info","message":"❌ Socket disconnected","reason":"client namespace disconnect","socketId":"xvtpPinyWcpA7jtvAAAD","timestamp":"2025-10-19T06:09:48.022Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket authenticated","socketId":"Ya8lCqtDZel8t7WEAAAF","timestamp":"2025-10-19T06:09:48.332Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"Ya8lCqtDZel8t7WEAAAF","timestamp":"2025-10-19T06:09:48.335Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"transport close","socketId":"Ya8lCqtDZel8t7WEAAAF","timestamp":"2025-10-19T06:10:16.460Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T06:10:17.250Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T06:10:17.356Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T06:10:17.427Z","timestamp":"2025-10-19T06:10:17.427Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T06:10:17.433Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T06:10:17.567Z"}
+{"level":"info","message":"Socket authenticated","socketId":"8FF3G61KLAJXqIOQAAAH","timestamp":"2025-10-19T06:10:17.574Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"8FF3G61KLAJXqIOQAAAH","timestamp":"2025-10-19T06:10:17.575Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T06:10:17.669Z","timestamp":"2025-10-19T06:10:17.669Z"}
+{"level":"info","message":"❌ Socket disconnected","reason":"client namespace disconnect","socketId":"8FF3G61KLAJXqIOQAAAH","timestamp":"2025-10-19T06:10:17.704Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket authenticated","socketId":"DgDUPiIOz5h-IBQdAAAJ","timestamp":"2025-10-19T06:10:17.731Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"DgDUPiIOz5h-IBQdAAAJ","timestamp":"2025-10-19T06:10:17.732Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"transport close","socketId":"DgDUPiIOz5h-IBQdAAAJ","timestamp":"2025-10-19T06:10:21.661Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T06:10:22.195Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T06:10:22.271Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T06:10:22.343Z","timestamp":"2025-10-19T06:10:22.343Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T06:10:22.348Z"}
+{"level":"info","message":"Socket authenticated","socketId":"RUdgImO7EO80txb5AAAL","timestamp":"2025-10-19T06:10:22.416Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"RUdgImO7EO80txb5AAAL","timestamp":"2025-10-19T06:10:22.417Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T06:10:22.421Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T06:10:22.501Z","timestamp":"2025-10-19T06:10:22.501Z"}
+{"level":"info","message":"❌ Socket disconnected","reason":"client namespace disconnect","socketId":"RUdgImO7EO80txb5AAAL","timestamp":"2025-10-19T06:10:22.547Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket authenticated","socketId":"noJ5RpiyiBy366GrAAAN","timestamp":"2025-10-19T06:10:22.644Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"noJ5RpiyiBy366GrAAAN","timestamp":"2025-10-19T06:10:22.661Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"transport close","socketId":"noJ5RpiyiBy366GrAAAN","timestamp":"2025-10-19T06:11:23.152Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T06:11:23.813Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T06:11:23.941Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T06:11:24.040Z","timestamp":"2025-10-19T06:11:24.040Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T06:11:24.046Z"}
+{"level":"info","message":"Socket authenticated","socketId":"v2ubzqCR0qKYCdCCAAAP","timestamp":"2025-10-19T06:11:24.107Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"v2ubzqCR0qKYCdCCAAAP","timestamp":"2025-10-19T06:11:24.108Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T06:11:24.115Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T06:11:24.147Z","timestamp":"2025-10-19T06:11:24.147Z"}
+{"level":"info","message":"❌ Socket disconnected","reason":"client namespace disconnect","socketId":"v2ubzqCR0qKYCdCCAAAP","timestamp":"2025-10-19T06:11:24.242Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket authenticated","socketId":"Qto5Y8XssSBngEk9AAAR","timestamp":"2025-10-19T06:11:24.248Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"Qto5Y8XssSBngEk9AAAR","timestamp":"2025-10-19T06:11:24.252Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket.IO server initialized with default namespace '/'","timestamp":"2025-10-19T06:22:03.535Z"}
+{"level":"info","message":"✅ MongoDB connected successfully: ","timestamp":"2025-10-19T06:22:04.898Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-10-19T06:22:04.901Z"}
+{"level":"info","message":"Socket.IO server ready on http://localhost:5000","timestamp":"2025-10-19T06:22:04.902Z"}
+{"level":"info","message":"Socket authenticated","socketId":"fMRFZukX0dOT9bPmAAAB","timestamp":"2025-10-19T06:22:04.980Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"fMRFZukX0dOT9bPmAAAB","timestamp":"2025-10-19T06:22:04.982Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket.IO server initialized with default namespace '/'","timestamp":"2025-10-19T06:24:02.650Z"}
+{"level":"info","message":"✅ MongoDB connected successfully: ","timestamp":"2025-10-19T06:24:03.952Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-10-19T06:24:03.956Z"}
+{"level":"info","message":"Socket.IO server ready on http://localhost:5000","timestamp":"2025-10-19T06:24:03.957Z"}
+{"level":"info","message":"Socket authenticated","socketId":"pmk7Ant_xFj5bnHyAAAB","timestamp":"2025-10-19T06:24:04.001Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"pmk7Ant_xFj5bnHyAAAB","timestamp":"2025-10-19T06:24:04.004Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket authenticated","socketId":"x2TJYE0E3-QM0rbjAAAD","timestamp":"2025-10-19T06:24:11.134Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"x2TJYE0E3-QM0rbjAAAD","timestamp":"2025-10-19T06:24:11.137Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Processing chat message hello","timestamp":"2025-10-19T06:24:13.811Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Created new chat","timestamp":"2025-10-19T06:24:13.986Z"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T06:24:14.282Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T06:24:14.294Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Chat history sent","messageCount":1,"timestamp":"2025-10-19T06:24:14.393Z"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Chat history sent","messageCount":1,"timestamp":"2025-10-19T06:24:14.395Z"}
+{"chatId":"68f4840d780a71e19c16e48f","isNewChat":true,"level":"info","message":"Chat message processed successfully","messageCount":2,"timestamp":"2025-10-19T06:24:16.226Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T06:24:22.842Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T06:24:22.859Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":4,"level":"info","message":"All chats sent","timestamp":"2025-10-19T06:24:22.943Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":4,"level":"info","message":"All chats sent","timestamp":"2025-10-19T06:24:22.945Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T06:28:21.923Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":4,"level":"info","message":"All chats sent","timestamp":"2025-10-19T06:28:22.075Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T06:30:19.679Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T06:30:19.686Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T06:30:19.689Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T06:30:19.738Z"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T06:30:19.742Z"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T06:30:19.744Z"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Processing chat message what are you ?","timestamp":"2025-10-19T06:30:30.049Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f4840d780a71e19c16e48f","isNewChat":false,"level":"info","message":"Chat message processed successfully","messageCount":4,"timestamp":"2025-10-19T06:30:31.667Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T06:30:39.086Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T06:30:39.089Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":4,"level":"info","message":"All chats sent","timestamp":"2025-10-19T06:30:39.234Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":4,"level":"info","message":"All chats sent","timestamp":"2025-10-19T06:30:39.236Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"transport close","socketId":"x2TJYE0E3-QM0rbjAAAD","timestamp":"2025-10-19T07:00:42.989Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"transport close","socketId":"pmk7Ant_xFj5bnHyAAAB","timestamp":"2025-10-19T07:00:43.169Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket authenticated","socketId":"It-g_VS0WBkEEBPfAAAF","timestamp":"2025-10-19T07:06:46.973Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"It-g_VS0WBkEEBPfAAAF","timestamp":"2025-10-19T07:06:46.990Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"transport close","socketId":"It-g_VS0WBkEEBPfAAAF","timestamp":"2025-10-19T07:06:47.140Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T07:06:50.900Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T07:06:51.060Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T07:06:51.169Z","timestamp":"2025-10-19T07:06:51.170Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T07:06:51.186Z"}
+{"level":"info","message":"Socket authenticated","socketId":"v7VJBkLVV29eg09-AAAH","timestamp":"2025-10-19T07:06:51.225Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"v7VJBkLVV29eg09-AAAH","timestamp":"2025-10-19T07:06:51.230Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:06:51.247Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T07:06:51.314Z"}
+{"count":4,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:06:51.318Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:06:51.326Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T07:06:51.387Z","timestamp":"2025-10-19T07:06:51.387Z"}
+{"count":4,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:06:51.408Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"client namespace disconnect","socketId":"v7VJBkLVV29eg09-AAAH","timestamp":"2025-10-19T07:06:51.423Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket authenticated","socketId":"J2OsQ0amc67mRCgnAAAJ","timestamp":"2025-10-19T07:06:51.442Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"J2OsQ0amc67mRCgnAAAJ","timestamp":"2025-10-19T07:06:51.454Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"transport close","socketId":"J2OsQ0amc67mRCgnAAAJ","timestamp":"2025-10-19T07:06:53.655Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T07:06:54.238Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T07:06:54.329Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T07:06:54.471Z","timestamp":"2025-10-19T07:06:54.471Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T07:06:54.475Z"}
+{"level":"info","message":"Socket authenticated","socketId":"ktitk3u0HrRFyxQVAAAL","timestamp":"2025-10-19T07:06:54.522Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"ktitk3u0HrRFyxQVAAAL","timestamp":"2025-10-19T07:06:54.523Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:06:54.529Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:06:54.534Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T07:06:54.572Z"}
+{"count":4,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:06:54.647Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":4,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:06:54.649Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T07:06:54.651Z","timestamp":"2025-10-19T07:06:54.651Z"}
+{"level":"info","message":"❌ Socket disconnected","reason":"client namespace disconnect","socketId":"ktitk3u0HrRFyxQVAAAL","timestamp":"2025-10-19T07:06:54.691Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket authenticated","socketId":"1RKlK_8ugEnxQNlfAAAN","timestamp":"2025-10-19T07:06:54.710Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"1RKlK_8ugEnxQNlfAAAN","timestamp":"2025-10-19T07:06:54.712Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:07:00.344Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:07:00.348Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:07:00.351Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Chat history sent","messageCount":4,"timestamp":"2025-10-19T07:07:00.449Z"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Chat history sent","messageCount":4,"timestamp":"2025-10-19T07:07:00.453Z"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Chat history sent","messageCount":4,"timestamp":"2025-10-19T07:07:00.457Z"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Processing chat message give me some mental health advice","timestamp":"2025-10-19T07:07:16.969Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f4840d780a71e19c16e48f","isNewChat":false,"level":"info","message":"Chat message processed successfully","messageCount":6,"timestamp":"2025-10-19T07:07:19.933Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:07:22.702Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:07:22.704Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":4,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:07:22.874Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":4,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:07:22.875Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"transport close","socketId":"1RKlK_8ugEnxQNlfAAAN","timestamp":"2025-10-19T07:07:25.808Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T07:07:26.343Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T07:07:26.425Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T07:07:26.564Z","timestamp":"2025-10-19T07:07:26.565Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T07:07:26.567Z"}
+{"level":"info","message":"Socket authenticated","socketId":"AGoeoRUoQhwYiFnKAAAP","timestamp":"2025-10-19T07:07:26.626Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"AGoeoRUoQhwYiFnKAAAP","timestamp":"2025-10-19T07:07:26.626Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:07:26.642Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T07:07:26.668Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T07:07:26.742Z","timestamp":"2025-10-19T07:07:26.742Z"}
+{"count":4,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:07:26.745Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:07:26.747Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"client namespace disconnect","socketId":"AGoeoRUoQhwYiFnKAAAP","timestamp":"2025-10-19T07:07:26.759Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":4,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:07:26.815Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket authenticated","socketId":"sRrHKhvTdl2CEfXXAAAR","timestamp":"2025-10-19T07:07:26.835Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"sRrHKhvTdl2CEfXXAAAR","timestamp":"2025-10-19T07:07:26.836Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"transport close","socketId":"sRrHKhvTdl2CEfXXAAAR","timestamp":"2025-10-19T07:07:41.442Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T07:07:41.876Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T07:07:41.959Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T07:07:42.020Z","timestamp":"2025-10-19T07:07:42.020Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T07:07:42.054Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T07:07:42.162Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T07:07:42.246Z","timestamp":"2025-10-19T07:07:42.246Z"}
+{"level":"info","message":"Socket authenticated","socketId":"O4Xg9TPi7_7LXaOPAAAT","timestamp":"2025-10-19T07:07:42.263Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"O4Xg9TPi7_7LXaOPAAAT","timestamp":"2025-10-19T07:07:42.263Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"transport close","socketId":"O4Xg9TPi7_7LXaOPAAAT","timestamp":"2025-10-19T07:07:42.340Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket authenticated","socketId":"vZKCyIfqI0z_CN85AAAV","timestamp":"2025-10-19T07:07:42.355Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"vZKCyIfqI0z_CN85AAAV","timestamp":"2025-10-19T07:07:42.362Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:07:45.054Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:07:45.058Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":4,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:07:45.122Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":4,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:07:45.125Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:07:49.739Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:07:49.742Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:07:49.745Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Chat history sent","messageCount":6,"timestamp":"2025-10-19T07:07:49.916Z"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Chat history sent","messageCount":6,"timestamp":"2025-10-19T07:07:49.931Z"}
+{"chatId":"68f4840d780a71e19c16e48f","level":"info","message":"Chat history sent","messageCount":6,"timestamp":"2025-10-19T07:07:49.943Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:07:53.091Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:07:53.095Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":4,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:07:53.156Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":4,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:07:53.160Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Processing chat message Hello, are you gemini or chat gpt ?","timestamp":"2025-10-19T07:08:26.775Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Created new chat","timestamp":"2025-10-19T07:08:26.845Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:08:26.957Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:08:26.960Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":1,"timestamp":"2025-10-19T07:08:27.058Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":1,"timestamp":"2025-10-19T07:08:27.060Z"}
+{"chatId":"68f48e6a780a71e19c16e517","isNewChat":true,"level":"info","message":"Chat message processed successfully","messageCount":2,"timestamp":"2025-10-19T07:08:28.152Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:08:32.147Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:08:32.151Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:08:32.213Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:08:32.217Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:31.119Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:31.123Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:31.124Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:31.233Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:31.235Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:31.241Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:33.005Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:33.009Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:33.096Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:33.100Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:33.846Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:33.851Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:33.854Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:33.913Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:33.923Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:33.939Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:34.695Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:34.697Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:34.815Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:34.817Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:35.300Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:35.304Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:35.304Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:35.366Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:35.369Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:35.370Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:35.482Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:35.484Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:35.599Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:35.601Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:35.649Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:35.652Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:35.653Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:35.749Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:35.750Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:35.751Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:35.829Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:35.831Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:35.899Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:35.900Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:35.991Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:35.997Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:36.000Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:36.049Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:36.051Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:36.062Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:36.178Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:36.180Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:36.281Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:36.290Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:36.373Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:36.380Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:36.384Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:36.444Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:36.445Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:36.449Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:36.548Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:36.551Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:36.595Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:36.628Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:36.725Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:36.734Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:36.738Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:36.818Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:36.820Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:36.822Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:36.912Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:36.916Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:37.062Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:37.065Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:37.114Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:37.122Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:37.127Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:37.211Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:37.213Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:37.215Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:37.269Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:37.273Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:37.371Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:37.375Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:37.518Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:37.527Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:37.532Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:37.653Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:37.656Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:37.659Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:37.762Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:37.766Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:37.828Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:37.830Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:37.905Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:37.925Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:37.932Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:37.973Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:38.042Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:38.049Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:38.083Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:38.087Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:38.148Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:38.151Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:38.261Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:38.265Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:38.267Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:38.405Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:38.411Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:38.434Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:38.473Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:38.485Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:38.589Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:38.591Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:38.625Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:38.628Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:38.629Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:38.734Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:38.735Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:38.737Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:38.790Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:38.792Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:38.887Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:38.889Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:39.008Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:39.012Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:11:39.015Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:39.066Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:39.067Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:11:39.070Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:39.812Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:11:39.813Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:39.875Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:11:39.881Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"transport close","socketId":"vZKCyIfqI0z_CN85AAAV","timestamp":"2025-10-19T07:12:30.744Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T07:12:31.299Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T07:12:31.374Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T07:12:31.461Z","timestamp":"2025-10-19T07:12:31.461Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T07:12:31.465Z"}
+{"level":"info","message":"Socket authenticated","socketId":"OI8fGkJ9Z8CKRtN8AAAX","timestamp":"2025-10-19T07:12:31.514Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"OI8fGkJ9Z8CKRtN8AAAX","timestamp":"2025-10-19T07:12:31.514Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T07:12:31.527Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:12:31.530Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T07:12:31.599Z","timestamp":"2025-10-19T07:12:31.599Z"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:12:31.610Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"client namespace disconnect","socketId":"OI8fGkJ9Z8CKRtN8AAAX","timestamp":"2025-10-19T07:12:31.617Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket authenticated","socketId":"Anr0rYYV2Zi-NgIVAAAZ","timestamp":"2025-10-19T07:12:31.629Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"Anr0rYYV2Zi-NgIVAAAZ","timestamp":"2025-10-19T07:12:31.630Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:14:06.935Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:14:06.995Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"❌ Socket disconnected","reason":"transport close","socketId":"Anr0rYYV2Zi-NgIVAAAZ","timestamp":"2025-10-19T07:14:09.179Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T07:14:09.696Z"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T07:14:09.771Z"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T07:14:09.859Z","timestamp":"2025-10-19T07:14:09.859Z"}
+{"level":"info","message":"🍪 Token from cookie:","timestamp":"2025-10-19T07:14:09.862Z"}
+{"level":"info","message":"Socket authenticated","socketId":"MMUrcEuSfYoAKRHtAAAb","timestamp":"2025-10-19T07:14:09.901Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"MMUrcEuSfYoAKRHtAAAb","timestamp":"2025-10-19T07:14:09.901Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:14:09.910Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"✅ User authenticated:","timestamp":"2025-10-19T07:14:09.922Z"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:14:10.035Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"👤 getMe: ujjwal arote at 2025-10-19T07:14:10.036Z","timestamp":"2025-10-19T07:14:10.036Z"}
+{"level":"info","message":"❌ Socket disconnected","reason":"client namespace disconnect","socketId":"MMUrcEuSfYoAKRHtAAAb","timestamp":"2025-10-19T07:14:10.078Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket authenticated","socketId":"K0vOCUCQ80-Dq7_NAAAd","timestamp":"2025-10-19T07:14:10.093Z","userId":"68eb8ea00d65e0592f88becf"}
+{"authenticated":true,"level":"info","message":"✅ Socket connected","socketId":"K0vOCUCQ80-Dq7_NAAAd","timestamp":"2025-10-19T07:14:10.095Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:14:16.229Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:14:16.232Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Fetching chat history","timestamp":"2025-10-19T07:14:16.232Z","userId":"68eb8ea00d65e0592f88becf"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:14:16.319Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:14:16.320Z"}
+{"chatId":"68f48e6a780a71e19c16e517","level":"info","message":"Chat history sent","messageCount":2,"timestamp":"2025-10-19T07:14:16.322Z"}
+{"level":"info","message":"Fetching all chats","timestamp":"2025-10-19T07:14:18.056Z","userId":"68eb8ea00d65e0592f88becf"}
+{"count":5,"level":"info","message":"All chats sent","timestamp":"2025-10-19T07:14:18.166Z","userId":"68eb8ea00d65e0592f88becf"}
+{"level":"info","message":"Socket.IO server initialized with default namespace '/'","timestamp":"2025-10-19T07:19:27.451Z"}
