@@ -8,7 +8,7 @@ class SocketService {
   private getServerURL(): string {
     // For production, use environment variable
     if (import.meta.env.PROD) {
-      return import.meta.env.VITE_API_URL || 'https://your-backend.onrender.com';
+      return import.meta.env.VITE_API_URL || 'https://mindmates-l2ba.onrender.com';
     }
     // For development
     return import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
