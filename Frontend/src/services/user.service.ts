@@ -34,14 +34,15 @@ export const getMe = async () => {
     });
     console.log("✅ User data received:", res.data);
     return { data: res.data || null };
-  } catch (error: any) {
-    console.error(
-      "❌ getMe error:",
-      error.response?.status,
-      error.response?.data
-    );
-    return { data: null };
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ getMe error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in getMe", error);
+    }
   }
+
 };
 
 export const onboardingData = async (data: {
@@ -61,13 +62,15 @@ export const onboardingData = async (data: {
     });
     console.log("✅ Onboarding response:", res.data);
     return res.data;
-  } catch (error: any) {
-    console.error(
-      "❌ Onboarding error:",
-      error.response?.data || error.message
-    );
-    throw error;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ onboardingData error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in onboardingData", error);
+    }
   }
+
 };
 
 export const saveDailyLog = async (data: DailyLogData) => {
@@ -77,9 +80,13 @@ export const saveDailyLog = async (data: DailyLogData) => {
       withCredentials: true,
     });
     return res.data;
-  } catch (error) {
-    console.error("User service : saveDailyLog ", error);
-    throw error;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ saveDailyLog error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in onboardingData", error);
+    }
   }
 };
 
@@ -90,9 +97,13 @@ export const getTodayStatus = async () => {
       withCredentials: true,
     });
     return res.data;
-  } catch (error) {
-    console.error("User service : getTodayStatus ", error);
-    throw error;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ getTodayStatus error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in onboardingData", error);
+    }
   }
 };
 
@@ -112,24 +123,33 @@ export const logoutUser = async () => {
     document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
 
     return { data: res.data || null };
-  } catch (error) {
-    console.error("User service : logoutUser ", error);
-    throw error;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ logoutUser error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in onboardingData", error);
+    }
   }
 };
 
 export const deleteUser = async () => {
   try {
-    const res = await axios.delete(`${API}/users/me`, {
-      headers: getAuthHeaders(),
-      withCredentials: true,
-    });
+    const res = await axios.delete(
+      `${API}/users/me`,
+      { headers: getAuthHeaders(), withCredentials: true }
+    );
     return res.data;
-  } catch (error) {
-    console.error("User service : deleteUser ", error);
-    throw error;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ deleteUser error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in onboardingData", error);
+    }
   }
 };
+
 
 export const updateUser = async (data: {
   updatedName?: string;
@@ -145,9 +165,13 @@ export const updateUser = async (data: {
       withCredentials: true,
     });
     return res.data;
-  } catch (error) {
-    console.error("User service : updateUser ", error);
-    throw error;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ updateUser error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in onboardingData", error);
+    }
   }
 };
 
@@ -161,10 +185,15 @@ export const submitFeedback = async (data: {
       withCredentials: true,
     });
     return res.data;
-  } catch (error: any) {
-    console.error("User service : submitFeedback", error);
-    throw error.response?.data || error;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ submitFeedback error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in getMe", error);
+    }
   }
+
 };
 
 export const updateTodayMood = async (mood: string) => {
@@ -176,10 +205,15 @@ export const updateTodayMood = async (mood: string) => {
     });
     console.log("✅ Mood updated:", res.data);
     return res.data;
-  } catch (error: any) {
-    console.error("❌ updateTodayMood error:", error.response?.data || error);
-    throw error;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ updateTodayMood error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in getMe", error);
+    }
   }
+
 };
 
 export const updateTodayStress = async (stressLevel: number) => {
@@ -191,8 +225,13 @@ export const updateTodayStress = async (stressLevel: number) => {
     });
     console.log("✅ Stress updated:", res.data);
     return res.data;
-  } catch (error: any) {
-    console.error("❌ updateTodayStress error:", error.response?.data || error);
-    throw error;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ updateTodayStress error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in getMe", error);
+    }
   }
+
 };

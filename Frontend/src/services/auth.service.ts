@@ -15,9 +15,13 @@ export const registerUserService = async (data: {
       withCredentials: true,
     });
     return res.data;
-  } catch (error) {
-    console.error("❌ REGISTER ERROR:", error);
-    throw error;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ registerUserService error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in onboardingData", error);
+    }
   }
 };
 
@@ -31,8 +35,12 @@ export const loginUserService = async (data: { email: string; password: string }
     });
     console.log("✅ RES.DATA from login():", res.data); // 👈 LOG THIS
     return res.data;
-  } catch (error: any) {
-    console.error("❌ LOGIN ERROR:", error.response?.data || error.message);
-    throw error;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ loginUserService error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in onboardingData", error);
+    }
   }
 };

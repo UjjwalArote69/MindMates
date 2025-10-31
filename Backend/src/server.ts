@@ -20,8 +20,11 @@ setupChatHandlers(io);
 // Start server
 const startServer = async () => {
   try {
-    logger.divider('SERVER STARTUP');
+    // 🎯 SERVER STARTUP BANNER
+    logger.banner('MindMates API', '1.0.0', Number(PORT));
     
+    // 🎯 DATABASE CONNECTION SECTION
+    logger.section('Database Connection');
     await connectDB();
     
     server.listen(PORT, () => {
@@ -31,7 +34,9 @@ const startServer = async () => {
       logger.divider();
     });
   } catch (error) {
-    logger.error("Failed to start server", error);
+    // 🎯 ERROR WITH BOX
+    logger.box('CRITICAL: Failed to start server!', );
+    logger.error("Server startup failed", error);
     process.exit(1);
   }
 };

@@ -1,3 +1,4 @@
+// src/config/socket.ts
 import { Server as HTTPServer } from "http";
 import { Server, Socket } from "socket.io";
 import jwt from "jsonwebtoken";
@@ -15,11 +16,9 @@ export const initializeSocket = (server: HTTPServer) => {
       credentials: true,
     },
     path: "/socket.io",
-    allowEIO3: false,
     connectTimeout: 45000,
     pingTimeout: 20000,
     pingInterval: 25000,
-    maxHttpBufferSize: 1e6,
   });
 
   // Middleware for authentication
@@ -36,18 +35,14 @@ export const initializeSocket = (server: HTTPServer) => {
     }
 
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
-        id: string;
-      };
+      const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
       socket.data.userId = decoded.id;
       socket.data.authenticated = true;
-      logger.socket(`User authenticated: ${decoded.id}`);
+      
+      logger.auth("Socket authenticated", decoded.id);
       next();
     } catch (error) {
-      logger.error("Socket authentication failed", { 
-        error,
-        socketId: socket.id 
-      });
+      logger.error("Socket authentication failed", { socketId: socket.id, error });
       socket.data.userId = null;
       socket.data.authenticated = false;
       next();
@@ -57,17 +52,19 @@ export const initializeSocket = (server: HTTPServer) => {
   io.on("connection", (socket: Socket) => {
     const userId = socket.data.userId;
     
-    logger.socket(`Client connected`, { 
+    // 🎯 GROUPED SOCKET LOGS
+    logger.group('Socket Events');
+    logger.socket("Client connected", { 
       userId, 
       socketId: socket.id,
       authenticated: socket.data.authenticated
     });
+    logger.groupEnd();
 
     if (userId) {
       socket.join(`user:${userId}`);
     }
 
-    // Send welcome message
     socket.emit("connection-success", {
       socketId: socket.id,
       authenticated: socket.data.authenticated,
@@ -75,22 +72,15 @@ export const initializeSocket = (server: HTTPServer) => {
     });
 
     socket.on("disconnect", (reason) => {
-      logger.socket(`Client disconnected: ${reason}`, { 
-        userId, 
-        socketId: socket.id
-      });
+      logger.socket("Client disconnected", { userId, socketId: socket.id, reason });
     });
 
     socket.on("error", (error) => {
-      logger.error("Socket error", { 
-        userId, 
-        socketId: socket.id, 
-        error 
-      });
+      logger.error("Socket error", { userId, socketId: socket.id, error });
     });
   });
 
-  logger.success("Socket.IO server initialized with default namespace '/'");
+  logger.success("Socket.IO server initialized");
 
   return io;
 };

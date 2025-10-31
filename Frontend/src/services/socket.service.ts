@@ -11,7 +11,7 @@ class SocketService {
       return import.meta.env.VITE_API_URL || 'https://mindmates-l2ba.onrender.com';
     }
     // For development
-    return import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+    return import.meta.env.VITE_API_URL || 'http://localhost:5000';
   }
 
   async connect(token?: string): Promise<Socket> {
@@ -103,16 +103,17 @@ class SocketService {
     this.connectionPromise = null;
   }
 
-  emit(event: string, data: any) {
-    if (this.socket?.connected) {
-      console.log('📤 Emitting:', event);
-      this.socket.emit(event, data);
-    } else {
-      console.error('❌ Socket not connected, cannot emit:', event);
-    }
+  emit<T = unknown>(event: string, data: T): void {
+  if (this.socket?.connected) {
+    console.log('📤 Emitting:', event);
+    this.socket.emit(event, data);
+  } else {
+    console.error('❌ Socket not connected, cannot emit:', event);
   }
+}
 
-  on(event: string, callback: (...args: any[]) => void) {
+
+  on(event: string, callback: (...args: unknown[]) => void) {
     if (this.socket) {
       this.socket.on(event, callback);
     } else {
@@ -120,7 +121,7 @@ class SocketService {
     }
   }
 
-  off(event: string, callback?: (...args: any[]) => void) {
+  off(event: string, callback?: (...args: unknown[]) => void) {
     if (this.socket) {
       this.socket.off(event, callback);
     }

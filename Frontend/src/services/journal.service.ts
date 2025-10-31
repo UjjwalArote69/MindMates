@@ -44,9 +44,13 @@ export const createJournalEntry = async (data: {
     });
     console.log("✅ Journal entry created:", res.data);
     return res.data;
-  } catch (error: any) {
-    console.error("❌ Error creating journal entry:", error.response?.data || error);
-    throw error;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ createJournalEntry error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in onboardingData", error);
+    }
   }
 };
 
@@ -66,9 +70,13 @@ export const getJournalEntries = async (params?: {
     });
     console.log("✅ Journal entries fetched:", res.data);
     return res.data;
-  } catch (error: any) {
-    console.error("❌ Error fetching journal entries:", error.response?.data || error);
-    throw error;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ getJournalEntries error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in onboardingData", error);
+    }
   }
 };
 
@@ -82,9 +90,13 @@ export const getJournalEntryById = async (id: string) => {
     });
     console.log("✅ Journal entry fetched:", res.data);
     return res.data;
-  } catch (error: any) {
-    console.error("❌ Error fetching journal entry:", error.response?.data || error);
-    throw error;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ getJournalEntryById error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in onboardingData", error);
+    }
   }
 };
 
@@ -107,9 +119,13 @@ export const updateJournalEntry = async (
     });
     console.log("✅ Journal entry updated:", res.data);
     return res.data;
-  } catch (error: any) {
-    console.error("❌ Error updating journal entry:", error.response?.data || error);
-    throw error;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ updateJournalEntry error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in onboardingData", error);
+    }
   }
 };
 
@@ -123,9 +139,13 @@ export const deleteJournalEntry = async (id: string) => {
     });
     console.log("✅ Journal entry deleted:", res.data);
     return res.data;
-  } catch (error: any) {
-    console.error("❌ Error deleting journal entry:", error.response?.data || error);
-    throw error;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ deleteJournalEntry error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in onboardingData", error);
+    }
   }
 };
 
@@ -139,8 +159,12 @@ export const getJournalStats = async () => {
     });
     console.log("✅ Journal stats fetched:", res.data);
     return res.data;
-  } catch (error: any) {
-    console.error("❌ Error fetching journal stats:", error.response?.data || error);
-    throw error;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ getJournalStats error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in onboardingData", error);
+    }
   }
 };

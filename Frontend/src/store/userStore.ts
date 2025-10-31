@@ -139,9 +139,15 @@ export const useUserStore = create<UserState>((set, get) => ({
       } else {
         set({ user: res.data, loading: false, initialized: true });
       }
-    } catch (error) {
-      set({ user: null, loading: false, initialized: true });
-    }
+    } catch (err: unknown) {
+  let message = "An error occurred";
+  if (err && typeof err === "object" && "message" in err) {
+    message = (err as { message: string }).message;
+  }
+  set({ error: message, loading: false });
+  throw err;
+}
+
   },
 
   login: async (email, password) => {
@@ -157,10 +163,15 @@ export const useUserStore = create<UserState>((set, get) => ({
 
       set({ user: data.user, loading: false });
       return data.user;
-    } catch (err: any) {
-      set({ error: err.message, loading: false });
-      throw err;
-    }
+    } catch (err: unknown) {
+  let message = "An error occurred";
+  if (err && typeof err === "object" && "message" in err) {
+    message = (err as { message: string }).message;
+  }
+  set({ error: message, loading: false });
+  throw err;
+}
+
   },
 
   register: async (name, email, password) => {
@@ -176,10 +187,15 @@ export const useUserStore = create<UserState>((set, get) => ({
 
       set({ user: data.user, loading: false });
       return data;
-    } catch (err: any) {
-      set({ error: err.message, loading: false });
-      throw err;
-    }
+    } catch (err: unknown) {
+  let message = "An error occurred";
+  if (err && typeof err === "object" && "message" in err) {
+    message = (err as { message: string }).message;
+  }
+  set({ error: message, loading: false });
+  throw err;
+}
+
   },
 
   logout: async () => {
@@ -191,11 +207,16 @@ export const useUserStore = create<UserState>((set, get) => ({
       console.log("🗑️ Token removed from localStorage");
 
       set({ user: null });
-    } catch (err: any) {
-      // Still clear local data even if server logout fails
+    } catch (err: unknown) {
+      let message = "An error occurred";
       localStorage.removeItem("token");
-      set({ error: err.message, user: null });
-    }
+      if (err && typeof err === "object" && "message" in err) {
+    message = (err as { message: string }).message;
+  }
+  set({ error: message, loading: false });
+  throw err;
+}
+
   },
 
   updateUserProfile: async (data) => {
@@ -203,11 +224,15 @@ export const useUserStore = create<UserState>((set, get) => ({
       set({ loading: true, error: null });
       const res = await updateUser(data);
       set({ user: res.user, loading: false });
-    } catch (err: any) {
-      console.error("updateUserProfile failed:", err);
-      set({ error: err.message, loading: false });
-      throw err;
-    }
+    } catch (err: unknown) {
+  let message = "An error occurred";
+  if (err && typeof err === "object" && "message" in err) {
+    message = (err as { message: string }).message;
+  }
+  set({ error: message, loading: false });
+  throw err;
+}
+
   },
 
   deleteUserAccount: async () => {
@@ -218,11 +243,15 @@ export const useUserStore = create<UserState>((set, get) => ({
       document.cookie =
         "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
       set({ user: null, loading: false });
-    } catch (err: any) {
-      console.error("deleteUserAccount failed:", err);
-      set({ error: err.message, loading: false });
-      throw err;
-    }
+    } catch (err: unknown) {
+  let message = "An error occurred";
+  if (err && typeof err === "object" && "message" in err) {
+    message = (err as { message: string }).message;
+  }
+  set({ error: message, loading: false });
+  throw err;
+}
+
   },
 
   submitFeedback: async (data) => {
@@ -230,11 +259,15 @@ export const useUserStore = create<UserState>((set, get) => ({
       set({ loading: true, error: null });
       await submitFeedback(data);
       set({ loading: false });
-    } catch (err: any) {
-      console.error("submitFeedback failed:", err);
-      set({ error: err.message, loading: false });
-      throw err;
-    }
+    } catch (err: unknown) {
+  let message = "An error occurred";
+  if (err && typeof err === "object" && "message" in err) {
+    message = (err as { message: string }).message;
+  }
+  set({ error: message, loading: false });
+  throw err;
+}
+
   },
 
   submitOnboarding: async () => {
@@ -278,10 +311,15 @@ export const useUserStore = create<UserState>((set, get) => ({
         "✅ User data refreshed, isOnboarded:",
         get().user?.isOnboarded
       );
-    } catch (err: any) {
-      console.error("❌ Error in onboarding submit:", err);
-      throw err;
-    }
+    } catch (err: unknown) {
+  let message = "An error occurred";
+  if (err && typeof err === "object" && "message" in err) {
+    message = (err as { message: string }).message;
+  }
+  set({ error: message, loading: false });
+  throw err;
+}
+
   },
 
   updateTodayMood: async (mood: string) => {
@@ -293,11 +331,15 @@ export const useUserStore = create<UserState>((set, get) => ({
       await get().fetchUser();
 
       set({ loading: false });
-    } catch (err: any) {
-      console.error("updateTodayMood failed:", err);
-      set({ error: err.message, loading: false });
-      throw err;
-    }
+    } catch (err: unknown) {
+  let message = "An error occurred";
+  if (err && typeof err === "object" && "message" in err) {
+    message = (err as { message: string }).message;
+  }
+  set({ error: message, loading: false });
+  throw err;
+}
+
   },
 
   updateTodayStress: async (stressLevel: number) => {
@@ -309,11 +351,15 @@ export const useUserStore = create<UserState>((set, get) => ({
       await get().fetchUser();
 
       set({ loading: false });
-    } catch (err: any) {
-      console.error("updateTodayStress failed:", err);
-      set({ error: err.message, loading: false });
-      throw err;
-    }
+    } catch (err: unknown) {
+  let message = "An error occurred";
+  if (err && typeof err === "object" && "message" in err) {
+    message = (err as { message: string }).message;
+  }
+  set({ error: message, loading: false });
+  throw err;
+}
+
   },
 
   setGender: (g) => set({ gender: g }),
