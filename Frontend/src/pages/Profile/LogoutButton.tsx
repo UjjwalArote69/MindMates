@@ -1,25 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LogOut, X } from "lucide-react";
+import { useUserStore } from "../../store/userStore";
 
 const LogoutButton = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const navigate = useNavigate();
+ const {logout} = useUserStore();
 
-  const confirmLogout = () => {
+  const confirmLogout = async () => {
+    // Clear token from localStorage and cookies
+    await logout();
     localStorage.removeItem("token");
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=mindmates-beta.vercel.com;";
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; ";
     navigate("/auth/login");
   };
 
-  useEffect(() => {
-    if (showConfirm) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => { document.body.style.overflow = "";}
-  }, [showConfirm])
+  
 
   return (
     <div>
