@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LogOut, X } from "lucide-react";
 
@@ -8,9 +8,18 @@ const LogoutButton = () => {
 
   const confirmLogout = () => {
     localStorage.removeItem("token");
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=mindmates-beta.vercel.com;";
     navigate("/auth/login");
   };
+
+  useEffect(() => {
+    if (showConfirm) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = "";}
+  }, [showConfirm])
 
   return (
     <div>
@@ -30,8 +39,8 @@ const LogoutButton = () => {
 
       {/* Enhanced Confirmation Modal */}
       {showConfirm && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 px-4 animate-fade-in">
-          <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden animate-slide-up">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[9999] px-4 animate-fade-in">
+    <div className="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden animate-slide-up pb-10">
             {/* Header */}
             <div className="bg-gradient-to-r from-red-500 to-red-600 p-6 text-center relative">
               <button

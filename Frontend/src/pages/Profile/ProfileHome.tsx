@@ -47,14 +47,14 @@ const ProfileHome = () => {
   const getProfileImage = () => user?.avatar || DefaultAvatar;
 
   return (
-    <div className="relative w-full min-h-screen bg-gradient-to-br from-[#fdfcfb] to-[#f8f5f2] text-[#4B2E2B] flex flex-col items-center md:pl-[100px] overflow-hidden">
+    <div className="relative w-full min-h-screen bg-gradient-to-br from-[#fdfcfb] to-[#f8f5f2] text-[#4B2E2B] flex flex-col items-center md:pl-[100px] ">
       {/* Decorative Background Blobs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#A3B763]/10 rounded-full blur-3xl animate-blob" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#8676E2]/10 rounded-full blur-3xl animate-blob-slow animation-delay-2s" />
       </div>
 
-      <div className="relative z-10 w-full max-w-4xl pb-24">
+      <div className="relative z-10 w-full max-w-4xl pb-[140px]">
         {/* Enhanced Header Section */}
         <div className="relative w-full h-56 md:h-64">
           <div className="absolute inset-0 bg-gradient-to-br from-[#A3B763] to-[#8fa054] rounded-b-[60px] overflow-hidden">

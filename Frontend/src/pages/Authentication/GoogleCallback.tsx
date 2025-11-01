@@ -1,26 +1,31 @@
-// pages/Authentication/GoogleCallback.tsx
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUserStore } from "../../store/userStore";
+import {useUserStore} from "../../store/userStore";
 
 const GoogleCallback = () => {
   const navigate = useNavigate();
-  const { fetchUser } = useUserStore();
+  const fetchUser = useUserStore((state) => state.fetchUser);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get("token");
 
     if (token) {
-      // ✅ Save token both places
+      // Save token locally and as cookie for persistence
       localStorage.setItem("token", token);
       document.cookie = `token=${token}; path=/; SameSite=None; Secure`;
-    }
 
-    // Fetch latest user with token
-    fetchUser().then(() => {
-      navigate("/home");
-    });
+      // Fetch latest user details based on token
+      fetchUser().then(() => {
+        navigate("/home");
+      }).catch(() => {
+        // Handle fetch failure (redirect to login or error)
+        navigate("/login");
+      });
+    } else {
+      // If no token, redirect to login
+      navigate("/login");
+    }
   }, [navigate, fetchUser]);
 
   return (

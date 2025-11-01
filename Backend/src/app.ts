@@ -15,6 +15,7 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 app.use(passport.initialize());
+// app.use(passport.session())
 app.use(express.urlencoded({ extended: true }));
 app.set("trust proxy", 1);
 

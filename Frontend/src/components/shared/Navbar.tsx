@@ -49,6 +49,7 @@ const Navbar = () => {
     <>
       {/* ========== MOBILE BOTTOM NAVBAR (Hidden on Desktop) ========== */}
       <div className="md:hidden fixed bottom-3 w-full flex justify-center items-center z-50 px-4">
+
         <div className="bg-white flex items-center justify-around px-6 py-3 rounded-full shadow-lg w-full max-w-[400px] relative">
           {/* First 2 Icons */}
           {navItems.slice(0, 2).map((item) => (

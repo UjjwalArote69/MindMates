@@ -37,6 +37,7 @@ const Login = () => {
 
       // If we reach here, login succeeded (didn't throw)
       navigate("/home", { replace: true });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       // Only reaches here if login fails
       _setFormError(
@@ -46,7 +47,7 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/google`;
+    window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/google/`;
   };
 
   return (
