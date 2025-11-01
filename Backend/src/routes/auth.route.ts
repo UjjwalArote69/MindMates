@@ -7,13 +7,11 @@ import jwt from "jsonwebtoken";
 const router = Router();
 
 // ✅ Start Google OAuth flow
-router.get(
-  "/google",
-  passport.authenticate("google", {
-    scope: ["profile", "email"],
-    prompt: "select_account",
-    session: false, // 🚀 important: no session
-  })
+router.get("/google", passport.authenticate("google", {
+  scope: ["profile", "email"],
+  prompt: "select_account",
+  session: false, // 🚀 important: no session
+}),
 );
 
 // ✅ Google OAuth callback
@@ -37,11 +35,14 @@ router.get(
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
+
     if (user.isNewUser) {
-      res.redirect(`${process.env.CLIENT_URL}/onboarding`);
+      res.redirect(`${process.env.CLIENT_URL}/auth/google/callback?token=${token}`);
     } else {
-      res.redirect(`${process.env.CLIENT_URL}/home`);
+      res.redirect(`${process.env.CLIENT_URL}/auth/google/callback?token=${token}`);
     }
+
+    return res.status(200).json({ message: "Google login successful", token });
   }
 );
 

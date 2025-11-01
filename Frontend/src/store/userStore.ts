@@ -93,7 +93,9 @@ interface UserState {
     updatedGender?: string;
     updatedBirthDate?: Date;
   }) => Promise<void>;
-  deleteUserAccount: () => Promise<void>;
+  deleteUserAccount: (data: {
+    password?: string;
+  }) => Promise<void>;
   submitFeedback: (data: {
     selectedAreas: string[];
     feedback: string;
@@ -140,13 +142,13 @@ export const useUserStore = create<UserState>((set, get) => ({
         set({ user: res.data, loading: false, initialized: true });
       }
     } catch (err: unknown) {
-  let message = "An error occurred";
-  if (err && typeof err === "object" && "message" in err) {
-    message = (err as { message: string }).message;
-  }
-  set({ error: message, loading: false });
-  throw err;
-}
+      let message = "An error occurred";
+      if (err && typeof err === "object" && "message" in err) {
+        message = (err as { message: string }).message;
+      }
+      set({ error: message, loading: false });
+      throw err;
+    }
 
   },
 
@@ -164,13 +166,13 @@ export const useUserStore = create<UserState>((set, get) => ({
       set({ user: data.user, loading: false });
       return data.user;
     } catch (err: unknown) {
-  let message = "An error occurred";
-  if (err && typeof err === "object" && "message" in err) {
-    message = (err as { message: string }).message;
-  }
-  set({ error: message, loading: false });
-  throw err;
-}
+      let message = "An error occurred";
+      if (err && typeof err === "object" && "message" in err) {
+        message = (err as { message: string }).message;
+      }
+      set({ error: message, loading: false });
+      throw err;
+    }
 
   },
 
@@ -188,13 +190,13 @@ export const useUserStore = create<UserState>((set, get) => ({
       set({ user: data.user, loading: false });
       return data;
     } catch (err: unknown) {
-  let message = "An error occurred";
-  if (err && typeof err === "object" && "message" in err) {
-    message = (err as { message: string }).message;
-  }
-  set({ error: message, loading: false });
-  throw err;
-}
+      let message = "An error occurred";
+      if (err && typeof err === "object" && "message" in err) {
+        message = (err as { message: string }).message;
+      }
+      set({ error: message, loading: false });
+      throw err;
+    }
 
   },
 
@@ -211,11 +213,11 @@ export const useUserStore = create<UserState>((set, get) => ({
       let message = "An error occurred";
       localStorage.removeItem("token");
       if (err && typeof err === "object" && "message" in err) {
-    message = (err as { message: string }).message;
-  }
-  set({ error: message, loading: false });
-  throw err;
-}
+        message = (err as { message: string }).message;
+      }
+      set({ error: message, loading: false });
+      throw err;
+    }
 
   },
 
@@ -225,32 +227,32 @@ export const useUserStore = create<UserState>((set, get) => ({
       const res = await updateUser(data);
       set({ user: res.user, loading: false });
     } catch (err: unknown) {
-  let message = "An error occurred";
-  if (err && typeof err === "object" && "message" in err) {
-    message = (err as { message: string }).message;
-  }
-  set({ error: message, loading: false });
-  throw err;
-}
+      let message = "An error occurred";
+      if (err && typeof err === "object" && "message" in err) {
+        message = (err as { message: string }).message;
+      }
+      set({ error: message, loading: false });
+      throw err;
+    }
 
   },
 
-  deleteUserAccount: async () => {
+  deleteUserAccount: async (data) => {
     try {
       set({ loading: true, error: null });
-      await deleteUser();
+      await deleteUser(data.password || '');
       localStorage.removeItem("token");
       document.cookie =
         "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
       set({ user: null, loading: false });
     } catch (err: unknown) {
-  let message = "An error occurred";
-  if (err && typeof err === "object" && "message" in err) {
-    message = (err as { message: string }).message;
-  }
-  set({ error: message, loading: false });
-  throw err;
-}
+      let message = "An error occurred";
+      if (err && typeof err === "object" && "message" in err) {
+        message = (err as { message: string }).message;
+      }
+      set({ error: message, loading: false });
+      throw err;
+    }
 
   },
 
@@ -260,13 +262,13 @@ export const useUserStore = create<UserState>((set, get) => ({
       await submitFeedback(data);
       set({ loading: false });
     } catch (err: unknown) {
-  let message = "An error occurred";
-  if (err && typeof err === "object" && "message" in err) {
-    message = (err as { message: string }).message;
-  }
-  set({ error: message, loading: false });
-  throw err;
-}
+      let message = "An error occurred";
+      if (err && typeof err === "object" && "message" in err) {
+        message = (err as { message: string }).message;
+      }
+      set({ error: message, loading: false });
+      throw err;
+    }
 
   },
 
@@ -312,13 +314,13 @@ export const useUserStore = create<UserState>((set, get) => ({
         get().user?.isOnboarded
       );
     } catch (err: unknown) {
-  let message = "An error occurred";
-  if (err && typeof err === "object" && "message" in err) {
-    message = (err as { message: string }).message;
-  }
-  set({ error: message, loading: false });
-  throw err;
-}
+      let message = "An error occurred";
+      if (err && typeof err === "object" && "message" in err) {
+        message = (err as { message: string }).message;
+      }
+      set({ error: message, loading: false });
+      throw err;
+    }
 
   },
 
@@ -332,13 +334,13 @@ export const useUserStore = create<UserState>((set, get) => ({
 
       set({ loading: false });
     } catch (err: unknown) {
-  let message = "An error occurred";
-  if (err && typeof err === "object" && "message" in err) {
-    message = (err as { message: string }).message;
-  }
-  set({ error: message, loading: false });
-  throw err;
-}
+      let message = "An error occurred";
+      if (err && typeof err === "object" && "message" in err) {
+        message = (err as { message: string }).message;
+      }
+      set({ error: message, loading: false });
+      throw err;
+    }
 
   },
 
@@ -352,13 +354,13 @@ export const useUserStore = create<UserState>((set, get) => ({
 
       set({ loading: false });
     } catch (err: unknown) {
-  let message = "An error occurred";
-  if (err && typeof err === "object" && "message" in err) {
-    message = (err as { message: string }).message;
-  }
-  set({ error: message, loading: false });
-  throw err;
-}
+      let message = "An error occurred";
+      if (err && typeof err === "object" && "message" in err) {
+        message = (err as { message: string }).message;
+      }
+      set({ error: message, loading: false });
+      throw err;
+    }
 
   },
 

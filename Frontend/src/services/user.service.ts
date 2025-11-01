@@ -133,11 +133,12 @@ export const logoutUser = async () => {
   }
 };
 
-export const deleteUser = async () => {
+export const deleteUser = async (password: string) => {
   try {
     const res = await axios.delete(
       `${API}/users/me`,
-      { headers: getAuthHeaders(), withCredentials: true }
+      { headers: getAuthHeaders(), withCredentials: true, data: {password} },
+      
     );
     return res.data;
   } catch (error: unknown) {

@@ -1,21 +1,31 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
-import { AlertTriangle, Shield, Trash2, ArrowLeft, X } from "lucide-react";
+import {
+  AlertTriangle,
+  Shield,
+  Trash2,
+  ArrowLeft,
+  X,
+} from "lucide-react";
 
 const CloseAccount = () => {
   const [loading, setLoading] = useState(false);
   const [isGoogleUser, setIsGoogleUser] = useState<boolean | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [confirmText, setConfirmText] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const user = useUserStore((state) => state.user);
   const deleteUserAccount = useUserStore((state) => state.deleteUserAccount);
 
   useEffect(() => {
-    if (user) setIsGoogleUser(!!user.googleId);
-    else setIsGoogleUser(null);
+    if (user) {
+      setIsGoogleUser(!!user.googleId);
+    } else {
+      setIsGoogleUser(null);
+    }
   }, [user]);
 
   const handleDeleteRequest = () => {
@@ -28,9 +38,14 @@ const CloseAccount = () => {
       return;
     }
 
+    if (!isGoogleUser && password.trim() === "") {
+      alert("Please enter your password");
+      return;
+    }
+
     try {
       setLoading(true);
-      await deleteUserAccount();
+      await deleteUserAccount({password});
       alert("Account deleted successfully. We're sad to see you go! 💔");
       navigate("/auth/login");
     } catch (err) {
@@ -41,6 +56,7 @@ const CloseAccount = () => {
     }
   };
 
+  // Show loading spinner if user info not yet loaded
   if (isGoogleUser === null) {
     return (
       <div className="flex justify-center items-center h-screen bg-gradient-to-br from-[#fdfcfb] to-[#f8f5f2]">
@@ -75,9 +91,7 @@ const CloseAccount = () => {
           <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <AlertTriangle size={40} className="text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">
-            Close Your Account
-          </h1>
+          <h1 className="text-3xl font-bold text-white mb-2">Close Your Account</h1>
           <p className="text-white/90 text-sm">
             This action is permanent and cannot be undone
           </p>
@@ -115,6 +129,21 @@ const CloseAccount = () => {
                 </li>
               )}
             </ul>
+            {/* Show password input only if NOT Google user */}
+            {!isGoogleUser && (
+              <div className="mt-6">
+                <label className="block mb-1 font-semibold text-gray-800">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password to confirm"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-red-500 focus:outline-none transition"
+                />
+              </div>
+            )}
           </div>
 
           {/* Alternative Options */}
@@ -168,9 +197,7 @@ const CloseAccount = () => {
                 <h2 className="text-2xl font-bold text-red-600 mb-1">
                   Final Confirmation
                 </h2>
-                <p className="text-sm text-gray-600">
-                  This action is irreversible
-                </p>
+                <p className="text-sm text-gray-600">This action is irreversible</p>
               </div>
               <button
                 onClick={() => {
@@ -192,7 +219,8 @@ const CloseAccount = () => {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">
-                  Type <span className="text-red-600">DELETE</span> to confirm
+                  Type{" "}
+                  <span className="text-red-600">DELETE</span> to confirm
                 </label>
                 <input
                   type="text"
