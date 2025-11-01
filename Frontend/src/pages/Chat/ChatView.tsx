@@ -99,7 +99,8 @@ export default function ChatView() {
       setError("Connection lost, reconnecting...");
     };
 
-    const onChatHistory = (data: { chat: Chat }) => {
+    const onChatHistory = (...args: unknown[]) => {
+      const data = args[0] as { chat: Chat | null };
       console.log("📥 Received chat history:", data.chat);
       if (data.chat) {
         setChat(data.chat);
@@ -108,7 +109,11 @@ export default function ChatView() {
       }
     };
 
-    const onMessageReceived = (data: { chatId: string; message: Message }) => {
+    const onMessageReceived = (...args: unknown[]) => {
+
+      const data = args[0] as { chatId: string; message: Message } | undefined;
+      if (!data) return;
+
       console.log("📨 Message received:", data);
 
       setChat((prev) => {
@@ -133,36 +138,45 @@ export default function ChatView() {
       });
     };
 
-    const onAITyping = (data: { chatId: string }) => {
+    const onAITyping = (...args: unknown[]) => {
+    const data = args[0] as { chatId: string } | undefined;
       console.log("⌨️ AI is typing...", data);
       setIsTyping(true);
       setStreamingMessage("");
       setError(null);
     };
 
-    const onAIChunk = (data: { chatId: string; chunk: string }) => {
+    const onAIChunk = (...args: unknown[]) => {
+    const data = args[0] as { chatId: string; chunk: string } | undefined;
+    if (data) {
       setStreamingMessage((prev) => prev + data.chunk);
-    };
+    }
+  };
 
-    const onAIComplete = (data: { chatId: string; message: Message }) => {
-      console.log("✅ AI response complete");
-      setIsTyping(false);
-      setStreamingMessage("");
+    const onAIComplete = (...args: unknown[]) => {
+    const data = args[0] as { chatId: string; message: Message } | undefined;
+    console.log("✅ AI response complete");
+    setIsTyping(false);
+    setStreamingMessage("");
 
-      setChat((prev) => {
-        if (prev && prev._id === data.chatId) {
-          return { ...prev, messages: [...prev.messages, data.message] };
-        }
-        return prev;
-      });
-    };
+    if (!data) return;
+    setChat((prev) => {
+      if (prev && prev._id === data.chatId) {
+        return { ...prev, messages: [...prev.messages, data.message] };
+      }
+      return prev;
+    });
+  };
 
-    const onError = (data: { message: string }) => {
+    const onError = (...args: unknown[]) => {
+    const data = args[0] as { message: string } | undefined;
+    if (data) {
       console.error("❌ Chat error:", data.message);
       setError(data.message);
       setIsTyping(false);
       setStreamingMessage("");
-    };
+    }
+  };
 
     // Attach all listeners
     socketService.on("connect", onConnect);

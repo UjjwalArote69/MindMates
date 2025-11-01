@@ -85,7 +85,7 @@ export const saveDailyLog = async (data: DailyLogData) => {
       const axiosError = error as { response?: { status?: number, data?: unknown } };
       console.error("❌ saveDailyLog error:", axiosError.response?.status, axiosError.response?.data);
     } else {
-      console.error("Unknown error in onboardingData", error);
+      console.error("Unknown error in saveDailyLog", error);
     }
   }
 };
@@ -102,7 +102,7 @@ export const getTodayStatus = async () => {
       const axiosError = error as { response?: { status?: number, data?: unknown } };
       console.error("❌ getTodayStatus error:", axiosError.response?.status, axiosError.response?.data);
     } else {
-      console.error("Unknown error in onboardingData", error);
+      console.error("Unknown error in getTodayStatus", error);
     }
   }
 };
@@ -128,7 +128,7 @@ export const logoutUser = async () => {
       const axiosError = error as { response?: { status?: number, data?: unknown } };
       console.error("❌ logoutUser error:", axiosError.response?.status, axiosError.response?.data);
     } else {
-      console.error("Unknown error in onboardingData", error);
+      console.error("Unknown error in logoutUser", error);
     }
   }
 };
@@ -145,7 +145,7 @@ export const deleteUser = async () => {
       const axiosError = error as { response?: { status?: number, data?: unknown } };
       console.error("❌ deleteUser error:", axiosError.response?.status, axiosError.response?.data);
     } else {
-      console.error("Unknown error in onboardingData", error);
+      console.error("Unknown error in deleteUser", error);
     }
   }
 };
@@ -170,7 +170,7 @@ export const updateUser = async (data: {
       const axiosError = error as { response?: { status?: number, data?: unknown } };
       console.error("❌ updateUser error:", axiosError.response?.status, axiosError.response?.data);
     } else {
-      console.error("Unknown error in onboardingData", error);
+      console.error("Unknown error in updateUser", error);
     }
   }
 };
@@ -190,7 +190,7 @@ export const submitFeedback = async (data: {
       const axiosError = error as { response?: { status?: number, data?: unknown } };
       console.error("❌ submitFeedback error:", axiosError.response?.status, axiosError.response?.data);
     } else {
-      console.error("Unknown error in getMe", error);
+      console.error("Unknown error in submitFeedback", error);
     }
   }
 
@@ -210,7 +210,7 @@ export const updateTodayMood = async (mood: string) => {
       const axiosError = error as { response?: { status?: number, data?: unknown } };
       console.error("❌ updateTodayMood error:", axiosError.response?.status, axiosError.response?.data);
     } else {
-      console.error("Unknown error in getMe", error);
+      console.error("Unknown error in updateTodayMood", error);
     }
   }
 
@@ -230,7 +230,7 @@ export const updateTodayStress = async (stressLevel: number) => {
       const axiosError = error as { response?: { status?: number, data?: unknown } };
       console.error("❌ updateTodayStress error:", axiosError.response?.status, axiosError.response?.data);
     } else {
-      console.error("Unknown error in getMe", error);
+      console.error("Unknown error in updateTodayStress", error);
     }
   }
 

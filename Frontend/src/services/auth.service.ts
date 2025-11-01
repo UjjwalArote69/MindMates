@@ -20,7 +20,7 @@ export const registerUserService = async (data: {
       const axiosError = error as { response?: { status?: number, data?: unknown } };
       console.error("❌ registerUserService error:", axiosError.response?.status, axiosError.response?.data);
     } else {
-      console.error("Unknown error in onboardingData", error);
+      console.error("Unknown error in registerUserService", error);
     }
   }
 };
@@ -33,14 +33,14 @@ export const loginUserService = async (data: { email: string; password: string }
       },
       withCredentials: true,
     });
-    console.log("✅ RES.DATA from login():", res.data); // 👈 LOG THIS
+    console.log("✅ RES.DATA from login():", res.data); 
     return res.data;
   } catch (error: unknown) {
     if (error && typeof error === 'object' && 'response' in error) {
       const axiosError = error as { response?: { status?: number, data?: unknown } };
       console.error("❌ loginUserService error:", axiosError.response?.status, axiosError.response?.data);
     } else {
-      console.error("Unknown error in onboardingData", error);
+      console.error("Unknown error in loginUserService", error);
     }
   }
 };

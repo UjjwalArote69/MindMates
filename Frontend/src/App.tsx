@@ -52,7 +52,7 @@ function App() {
     if (!initialized) {
       fetchUser();
     }
-  }, [initialized]);
+  }, [initialized, fetchUser]);
 
   useEffect(() => {
     if (user && token) {

@@ -49,7 +49,7 @@ export const createJournalEntry = async (data: {
       const axiosError = error as { response?: { status?: number, data?: unknown } };
       console.error("❌ createJournalEntry error:", axiosError.response?.status, axiosError.response?.data);
     } else {
-      console.error("Unknown error in onboardingData", error);
+      console.error("Unknown error in createJournalEntry", error);
     }
   }
 };
@@ -75,7 +75,7 @@ export const getJournalEntries = async (params?: {
       const axiosError = error as { response?: { status?: number, data?: unknown } };
       console.error("❌ getJournalEntries error:", axiosError.response?.status, axiosError.response?.data);
     } else {
-      console.error("Unknown error in onboardingData", error);
+      console.error("Unknown error in getJournalEntries", error);
     }
   }
 };
@@ -95,7 +95,7 @@ export const getJournalEntryById = async (id: string) => {
       const axiosError = error as { response?: { status?: number, data?: unknown } };
       console.error("❌ getJournalEntryById error:", axiosError.response?.status, axiosError.response?.data);
     } else {
-      console.error("Unknown error in onboardingData", error);
+      console.error("Unknown error in getJournalEntryById", error);
     }
   }
 };
@@ -124,7 +124,7 @@ export const updateJournalEntry = async (
       const axiosError = error as { response?: { status?: number, data?: unknown } };
       console.error("❌ updateJournalEntry error:", axiosError.response?.status, axiosError.response?.data);
     } else {
-      console.error("Unknown error in onboardingData", error);
+      console.error("Unknown error in updateJournalEntry", error);
     }
   }
 };
@@ -144,7 +144,7 @@ export const deleteJournalEntry = async (id: string) => {
       const axiosError = error as { response?: { status?: number, data?: unknown } };
       console.error("❌ deleteJournalEntry error:", axiosError.response?.status, axiosError.response?.data);
     } else {
-      console.error("Unknown error in onboardingData", error);
+      console.error("Unknown error in deleteJournalEntry", error);
     }
   }
 };
@@ -164,7 +164,7 @@ export const getJournalStats = async () => {
       const axiosError = error as { response?: { status?: number, data?: unknown } };
       console.error("❌ getJournalStats error:", axiosError.response?.status, axiosError.response?.data);
     } else {
-      console.error("Unknown error in onboardingData", error);
+      console.error("Unknown error in getJournalStats", error);
     }
   }
 };
