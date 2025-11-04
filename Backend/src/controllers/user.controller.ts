@@ -123,7 +123,7 @@ export const logoutUser = async (req: Request, res: Response) => {
 export const updateOnboardingData = async (req: any, res: Response) => {
   try {
     const { gender, age, currentMood, sleepQuality, currentStress, height, weight } = req.body;
-    
+
     const userId = req.user?._id;
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized" });
@@ -201,13 +201,13 @@ export const saveDailyLog = async (req: Request, res: Response) => {
     const lastLogged = user.lastLoggedDate
       ? new Date(user.lastLoggedDate)
       : null;
-    
+
     if (lastLogged) {
       lastLogged.setHours(0, 0, 0, 0);
       if (lastLogged.getTime() === today.getTime()) {
-        return res.status(400).json({ 
+        return res.status(400).json({
           message: "You've already logged your data today!",
-          alreadyLogged: true 
+          alreadyLogged: true
         });
       }
     }
@@ -336,7 +336,7 @@ export const submitFeedback = async (req: Request, res: Response) => {
     // Save feedback with username
     const newFeedback = await Feedback.create({
       user: userId,
-      name: user.name ?? "", 
+      name: user.name ?? "",
       selectedAreas,
       feedback,
     });
@@ -483,4 +483,72 @@ export const updateTodayStress = async (req: Request, res: Response) => {
     logger.error("Error updating stress:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
+
 };
+
+export const updateTodaySleep = async (req: Request, res: Response) => {
+  try {
+    const userId = (req as any).user?.id;
+    if (!userId)
+      return res.status(401).json({ message: "Unauthorized" });
+
+    const { hours, quality } = req.body;
+
+    if (typeof hours !== "number" || hours < 0 || hours > 24) {
+      return res.status(400).json({
+        message: "Hours must be a number between 0 and 24.",
+      });
+    }
+    if (
+      quality !== undefined &&
+      (typeof quality !== "number" || quality < 1 || quality > 10)
+    ) {
+      return res.status(400).json({
+        message: "Quality must be a number between 1 and 10.",
+      });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (!user.sleepLogs) user.sleepLogs = [];
+    const sleepLogs = user.sleepLogs;
+
+    const todayLogIndex = sleepLogs.findIndex((log) => {
+      const logDate = new Date(log.date);
+      logDate.setHours(0, 0, 0, 0);
+      return logDate.getTime() === today.getTime();
+    });
+
+    if (todayLogIndex >= 0) {
+      const todayLog = sleepLogs[todayLogIndex];
+      if (todayLog) {
+        todayLog.hours = hours;
+        if (quality !== undefined) todayLog.quality = quality;
+      }
+    } else {
+      sleepLogs.push({
+        date: today,
+        hours,
+        quality,
+      });
+    }
+
+    user.sleepQuality = quality !== undefined ? quality.toString() : user.sleepQuality;
+
+    await user.save();
+
+    res.status(200).json({
+      message: "Sleep data updated successfully",
+      sleepLogs: user.sleepLogs,
+      sleepQuality: user.sleepQuality,
+    });
+  } catch (error) {
+    console.error("Error updating today sleep:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+

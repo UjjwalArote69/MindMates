@@ -27,13 +27,7 @@ router.get(
 
     const token = generateToken({ id: user._id.toString() });
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "none",
-      path: "/",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    
 
 
     if (user.isNewUser) {
@@ -42,7 +36,14 @@ router.get(
       res.redirect(`${process.env.CLIENT_URL}/auth/google/callback?token=${token}`);
     }
 
-    return res.status(200).json({ message: "Google login successful", token });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
   }
 );
 

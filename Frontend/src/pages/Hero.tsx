@@ -9,21 +9,30 @@ import Therapist from "../assets/Icons/Therapist icon.svg";
 // import AnimatedBlurTestimonialsDemo from "../components/ui/animated-blur-testimonials.tsx/demo";
 import LastMockup from "../assets/Images/Hero/Last Mockup.svg";
 import { useState } from "react";
-import { FiX, FiMenu } from "react-icons/fi";
+import {
+  FiX,
+  FiMenu,
+} from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import AnimatedBlurTestimonialsDemo from "../components/ui/animated-blur-testimonials/demo";
 import MindMatesLogo from "../assets/Icons/MindMates Logo.svg";
+// import InstallPWAButton from "../components/shared/InstallPWAButton";
 
 const Hero = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] =
+    useState(false);
+
   const navigate = useNavigate();
 
   return (
-    <div className="hero min-w-screen overflow-hidden bg-[#F7F3EF]">
+    <div className="hero min-w-screen  bg-[#F7F3EF]">
       {/* NAVBAR */}
       <nav className="h-20 w-full md:px-24 md:pt-4 flex items-center justify-between relative z-50">
         {/* Logo */}
-        <a href="#" className="pl-2 md:pl-0 flex flex-row items-center">
+        <a
+          href="#"
+          className="pl-2 md:pl-0 flex flex-row items-center"
+        >
           <img
             src={MindMatesLogo}
             className="h-10 w-10 md:h-16 md:w-16"
@@ -37,13 +46,17 @@ const Hero = () => {
         {/* Desktop Menu */}
         <div className="hidden md:flex flex-row items-center gap-4">
           <button
-            onClick={() => navigate("/auth/register")}
+            onClick={() =>
+              navigate("/auth/register")
+            }
             className="py-2 px-4 border-2 border-[#926247] text-xl text-[#926247] rounded-full hover:bg-[#92624710] transition-all"
           >
             Sign up
           </button>
           <button
-            onClick={() => navigate("/auth/login")}
+            onClick={() =>
+              navigate("/auth/login")
+            }
             className="py-2 px-4 border-2 bg-[#926247] text-xl text-white rounded-full hover:bg-[#7d5339] transition-all"
           >
             Sign in
@@ -53,9 +66,15 @@ const Hero = () => {
         {/* Mobile Menu Button */}
         <button
           className="pr-7 -mt-4 md:hidden text-3xl text-[#926247] z-[60]"
-          onClick={() => setMenuOpen(!menuOpen)}
+          onClick={() =>
+            setMenuOpen(!menuOpen)
+          }
         >
-          {menuOpen ? <FiX /> : <FiMenu />}
+          {menuOpen ? (
+            <FiX />
+          ) : (
+            <FiMenu />
+          )}
         </button>
 
         {/* Mobile Dropdown Menu - FIXED */}
@@ -63,7 +82,9 @@ const Hero = () => {
           <div className="fixed top-20 right-4 bg-white shadow-2xl rounded-lg p-4 flex flex-col gap-3 md:hidden z-[60] w-40">
             <button
               onClick={() => {
-                navigate("/auth/register");
+                navigate(
+                  "/auth/register"
+                );
                 setMenuOpen(false);
               }}
               className="py-2 px-4 border-2 border-[#926247] text-sm text-[#926247] rounded-full hover:bg-[#92624710] active:scale-95 transition-all"
@@ -79,6 +100,7 @@ const Hero = () => {
             >
               Sign in
             </button>
+
           </div>
         )}
       </nav>
@@ -97,14 +119,21 @@ const Hero = () => {
             Our Mission
           </p>
           <h1 className="pt-5 pb-5 font-bold text-4xl md:text-7xl text-[#533630] leading-tight">
-            Understand Your <br className="hidden md:block" />
-            Mind. Anytime, <br className="hidden md:block" /> Anywhere
+            Understand Your{" "}
+            <br className="hidden md:block" />
+            Mind. Anytime,{" "}
+            <br className="hidden md:block" />{" "}
+            Anywhere
           </h1>
           <p className=" text-base md:text-xl md:text-balance text-[#533630]">
-            Mental health deserves daily care, not just crisis care. Mindmates{" "}
-            is your private AI listener, coach, and mood tracker designed to
-            help you understand, manage, and improve your emotional well-being
-            24/7.
+            Mental health deserves daily
+            care, not just crisis care.
+            Mindmates is your private AI
+            listener, coach, and mood
+            tracker designed to help you
+            understand, manage, and
+            improve your emotional
+            well-being 24/7.
           </p>
         </div>
       </div>
@@ -122,19 +151,26 @@ const Hero = () => {
             Reviews
           </p>
           <h2 className="text-[#e0cdc9] text-2xl text-balance md:text-3xl font-extrabold">
-            Real people. Real support. Real growth.
+            Real people. Real support.
+            Real growth.
           </h2>
           <p className="text-[#e0cdc9] px-3 text-base md:text-xl max-w-xl">
-            Every day, thousands of people choose MindMates to feel heard,
-            reflect, and build healthier mental habits. Here's what they have to
-            say.
+            Every day, thousands of
+            people choose MindMates to
+            feel heard, reflect, and
+            build healthier mental
+            habits. Here's what they
+            have to say.
           </p>
         </div>
         <AnimatedBlurTestimonialsDemo />
       </div>
 
       {/* BENEFITS SECTION */}
-      <div id="benefits" className="bg-white pt-16 md:pt-24 px-4 md:px-0">
+      <div
+        id="benefits"
+        className="bg-white pt-16 md:pt-24 px-4 md:px-0"
+      >
         <div
           id="header"
           className="flex flex-col items-center gap-4 md:gap-7 font-Lato text-center"
@@ -143,11 +179,16 @@ const Hero = () => {
             Benefits
           </p>
           <h2 className="text-[#533630] text-balance text-2xl md:text-3xl font-extrabold">
-            Discover the real-life Benefits our users love most.
+            Discover the real-life
+            Benefits our users love
+            most.
           </h2>
           <p className="px-4 text-base md:text-xl max-w-xl">
-            Mindmates gives you easy tools to slow down racing thoughts, manage
-            anxiety, and calm in just a few minutes a day.
+            Mindmates gives you easy
+            tools to slow down racing
+            thoughts, manage anxiety,
+            and calm in just a few
+            minutes a day.
           </p>
         </div>
 
@@ -178,25 +219,33 @@ const Hero = () => {
                   Mindfull AI Companion
                 </h1>
                 <p className="font-light  text-base md:text-balance md:text-xl">
-                  Talk openly. Mindmate listens without judgement and helps you
-                  reflect on thoughts and feelings
+                  Talk openly. Mindmate
+                  listens without
+                  judgement and helps
+                  you reflect on
+                  thoughts and feelings
                 </p>
               </div>
               <div className="flex flex-col gap-2   md:items-start">
-                {["Judgement-Free", "Reflective", "Private & Secure"].map(
-                  (item, i) => (
-                    <div key={i} className="flex gap-2 ">
-                      <img
-                        src={TickMark}
-                        className="bg-[#9BB167] p-2 rounded-full"
-                        alt=""
-                      />
-                      <h3 className="font-light text-base md:text-xl">
-                        {item}
-                      </h3>
-                    </div>
-                  )
-                )}
+                {[
+                  "Judgement-Free",
+                  "Reflective",
+                  "Private & Secure",
+                ].map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex gap-2 "
+                  >
+                    <img
+                      src={TickMark}
+                      className="bg-[#9BB167] p-2 rounded-full"
+                      alt=""
+                    />
+                    <h3 className="font-light text-base md:text-xl">
+                      {item}
+                    </h3>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -217,25 +266,33 @@ const Hero = () => {
                   Mental Health Metrics
                 </h1>
                 <p className="font-light text-base md:text-balance md:text-xl">
-                  Get gentle actionable advice tailored to your needs from
-                  stress management to sleep support
+                  Get gentle actionable
+                  advice tailored to
+                  your needs from stress
+                  management to sleep
+                  support
                 </p>
               </div>
               <div className="flex flex-col gap-2 bg-amber-90 md:items-start">
-                {["Stress-Free", "Very Safe", "Quick Response"].map(
-                  (item, i) => (
-                    <div key={i} className="flex gap-2 items-center">
-                      <img
-                        src={TickMark}
-                        className="bg-[#9BB167] p-2 rounded-full"
-                        alt=""
-                      />
-                      <h3 className="font-light text-base md:text-xl">
-                        {item}
-                      </h3>
-                    </div>
-                  )
-                )}
+                {[
+                  "Stress-Free",
+                  "Very Safe",
+                  "Quick Response",
+                ].map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex gap-2 items-center"
+                  >
+                    <img
+                      src={TickMark}
+                      className="bg-[#9BB167] p-2 rounded-full"
+                      alt=""
+                    />
+                    <h3 className="font-light text-base md:text-xl">
+                      {item}
+                    </h3>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -271,26 +328,36 @@ const Hero = () => {
                   Therapist Appointment
                 </h1>
                 <p className="font-light  text-base md:text-balance md:text-xl">
-                  Spot patterns and triggers with simple, science-backed mood
-                  tracking. Your conversations stay confidential. We use strong
-                  encryption and never share your data.
+                  Spot patterns and
+                  triggers with simple,
+                  science-backed mood
+                  tracking. Your
+                  conversations stay
+                  confidential. We use
+                  strong encryption and
+                  never share your data.
                 </p>
               </div>
               <div className="flex flex-col gap-2   md:items-start">
-                {["Quick Search", "99.9% Match", "Talk Freely"].map(
-                  (item, i) => (
-                    <div key={i} className="flex gap-2 ">
-                      <img
-                        src={TickMark}
-                        className="bg-[#9BB167] p-2 rounded-full"
-                        alt=""
-                      />
-                      <h3 className="font-light text-base md:text-xl">
-                        {item}
-                      </h3>
-                    </div>
-                  )
-                )}
+                {[
+                  "Quick Search",
+                  "99.9% Match",
+                  "Talk Freely",
+                ].map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex gap-2 "
+                  >
+                    <img
+                      src={TickMark}
+                      className="bg-[#9BB167] p-2 rounded-full"
+                      alt=""
+                    />
+                    <h3 className="font-light text-base md:text-xl">
+                      {item}
+                    </h3>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -301,16 +368,25 @@ const Hero = () => {
       <div className="w-full pt-10 flex flex-col bg-[#533630] md:flex-row ">
         <div className="pt-10 p-4 flex flex-col gap-6 md:justify-center font-Lato text-white md:order-2 bg-amber-30 md:w-1/2">
           <h1 className="text-3xl md:text-4xl font-bold text-[]">
-            Take Care of Your Mind <br /> - Start Today
+            Take Care of Your Mind{" "}
+            <br /> - Start Today
           </h1>
           <p className="font-light md:text-balance md:text-xl">
-            Don’t wait for stress to take over. MindMates makes daily mental
-            wellness simple, private, and always available — so you can feel
-            more understood and in control every day.
+            Don’t wait for stress to
+            take over. MindMates makes
+            daily mental wellness
+            simple, private, and always
+            available — so you can feel
+            more understood and in
+            control every day.
           </p>
         </div>
         <div className="md:order-1 bg-amber-20 md:w-1/2 ">
-          <img src={LastMockup} className="md:h-[80vh] md:pl-50" alt="" />
+          <img
+            src={LastMockup}
+            className="md:h-[80vh] md:pl-50"
+            alt=""
+          />
         </div>
       </div>
 
@@ -318,14 +394,21 @@ const Hero = () => {
       <div className="w-full p-4 font-Lato flex flex-col md:p-20">
         <div className="flex flex-col gap-3 border-b-2 bg-amber-00  border-[#5336305e] ">
           <div className="pt-7 flex ">
-            <img src={MindMatesLogo} className="md:h-10" alt="" />
+            <img
+              src={MindMatesLogo}
+              className="md:h-10"
+              alt=""
+            />
             <h2 className="text-2xl font-bold md:text-xl  text-[#]">
               MindMates
             </h2>
           </div>
           <p className="pl-5 font-light pb-10 md:text-2xl md:pr-100 md:text-balance bg-amber-0 ">
-            Building a mindfulness habit starts with one gentle breath — and
-            Freud is here to walk with you every step of the way.
+            Building a mindfulness habit
+            starts with one gentle
+            breath — and Freud is here
+            to walk with you every step
+            of the way.
           </p>
         </div>
       </div>

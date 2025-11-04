@@ -8,6 +8,7 @@ import {
   submitFeedback,
   updateTodayMood,
   updateTodayStress,
+  updateTodaySleep,
 } from "../services/user.service";
 import {
   loginUserService,
@@ -37,6 +38,7 @@ interface User {
   currentMood?: string;
   stressQuality?: string;
   currentStress?: number;
+  currentSleepHours?: number;
   isPro?: boolean;
   mentalHealthScore?: number;
   moodTracker?: Mood[];
@@ -46,6 +48,7 @@ interface User {
   birthDate?: string;
   createdAt?: string;
   isOnboarded?: boolean;
+
 
   // ✅ ADD THESE MISSING FIELDS
   todayLogged?: boolean;
@@ -103,7 +106,7 @@ interface UserState {
   submitOnboarding: () => Promise<void>;
   updateTodayMood: (mood: string) => Promise<void>;
   updateTodayStress: (stressLevel: number) => Promise<void>;
-
+  updateTodaySleep: (hours: number) => Promise<void>;
   // onboarding setters
   setGender: (g: "male" | "female") => void;
   setAge: (a: number) => void;
@@ -363,6 +366,23 @@ export const useUserStore = create<UserState>((set, get) => ({
     }
 
   },
+
+  updateTodaySleep: async (hours: number, quality?: number) => {
+  try {
+    set({ loading: true, error: null });
+    await updateTodaySleep(hours, quality);
+    await get().fetchUser();
+    set({ loading: false });
+  } catch (error) {
+    let message = "An error occurred";
+    if (error && typeof error === "object" && "message" in error) {
+      message = (error as { message: string }).message;
+    }
+    set({ error: message, loading: false });
+    throw error;
+  }
+},
+
 
   setGender: (g) => set({ gender: g }),
   setAge: (a) => set({ age: a }),

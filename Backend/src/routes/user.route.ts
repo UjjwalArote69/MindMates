@@ -9,6 +9,7 @@ import {
   submitFeedback,
   updateOnboardingData,
   updateTodayMood,
+  updateTodaySleep,
   updateTodayStress,
   updateUser,
 } from "../controllers/user.controller";
@@ -29,5 +30,6 @@ router.post("/daily-log", saveDailyLog);
 router.get("/daily-status", getTodayStatus);
 router.put("/mood", updateTodayMood);
 router.put("/stress", updateTodayStress);
+router.put("/sleep", updateTodaySleep);
 
 export default router;

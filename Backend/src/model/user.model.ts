@@ -26,6 +26,7 @@ export interface UserDocument extends Document {
   currentMood?: string | "happy" | "neutral" | "sad" | "very sad";
   sleepQuality?: string | "excellent" | "good" | "neutral" | "bad" | "very bad";
   currentStress?: number;
+  currentSleepHours?: number;
   moodTracker?: { date: Date; mood: string }[];
   sleepLogs?: { date: Date; quality: number; hours: number }[];
   stressLogs?: { date: Date; level: number }[];
@@ -85,6 +86,8 @@ const userSchema = new mongoose.Schema<UserDocument>(
     currentMood: { type: String, default: "happy" },
     sleepQuality: { type: String, default: "good" },
     currentStress: { type: Number, default: 7 },
+    currentSleepHours: { type: Number, min: 0, max: 24, default: 0 },
+
     moodTracker: [
       {
         date: { type: Date, default: Date.now },

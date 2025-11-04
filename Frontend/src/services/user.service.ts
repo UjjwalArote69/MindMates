@@ -236,3 +236,22 @@ export const updateTodayStress = async (stressLevel: number) => {
   }
 
 };
+
+export const updateTodaySleep = async (hours: number, quality?: number) => {
+  try {
+    const data: { hours: number; quality?: number } = { hours };
+    if (quality !== undefined) data.quality = quality;
+    const res = await axios.put(`${API}/users/sleep`, data, {
+      headers: getAuthHeaders(),
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (error: unknown) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response?: { status?: number, data?: unknown } };
+      console.error("❌ updateTodaySleep error:", axiosError.response?.status, axiosError.response?.data);
+    } else {
+      console.error("Unknown error in updateTodaySleep", error);
+    }
+  }
+};
