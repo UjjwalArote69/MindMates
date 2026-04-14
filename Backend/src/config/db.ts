@@ -7,7 +7,7 @@ const connetDB = async () => {
     logger.db("Connecting to MongoDB...", {
       uri: process.env.MONGODB_URI?.replace(/\/\/.*@/, "//*****@"), // Hide password
     });
-    const db = await mongoose.connect(process.env.MONGO_URI!);
+    const db = await mongoose.connect(process.env.MONGODB_URI!);
     logger.success(`MongoDB Connected: ${db.connection.host}`);
     logger.db("Database ready", { 
       name: db.connection.name,

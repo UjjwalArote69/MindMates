@@ -30,12 +30,23 @@ export default function ChatInput({ onSendMessage, disabled, placeholder }: Prop
       onSubmit={handleSubmit}
       className="flex-shrink-0 px-4 py-4 bg-white border-t border-gray-200"
     >
+      {/* Character counter - shows when near limit */}
+      {isNearLimit && (
+        <div className="flex justify-end px-4 mb-1">
+          <span className={`text-xs ${
+            charCount >= maxLength ? 'text-red-500' : 'text-gray-400'
+          }`}>
+            {charCount}/{maxLength}
+          </span>
+        </div>
+      )}
+
       <div className={`relative flex items-center bg-white border-2 rounded-3xl shadow-sm transition-all duration-200 ${
-        isFocused 
-          ? 'border-[#4A7C59] shadow-md' 
+        isFocused
+          ? 'border-[#4A7C59] shadow-md'
           : 'border-gray-200 hover:border-gray-300'
       } ${disabled ? 'opacity-60' : ''}`}>
-        
+
         {/* Input field */}
         <input
           ref={inputRef}
@@ -50,15 +61,6 @@ export default function ChatInput({ onSendMessage, disabled, placeholder }: Prop
           className="flex-1 px-5 py-3.5 text-sm bg-transparent border-none outline-none rounded-full placeholder:text-gray-400"
           aria-label="Message input"
         />
-
-        {/* Character counter - shows when near limit */}
-        {isNearLimit && (
-          <span className={`text-xs px-2 ${
-            charCount >= maxLength ? 'text-red-500' : 'text-gray-400'
-          }`}>
-            {charCount}/{maxLength}
-          </span>
-        )}
 
         {/* Send button with improved animation */}
         <button
@@ -83,12 +85,6 @@ export default function ChatInput({ onSendMessage, disabled, placeholder }: Prop
         </button>
       </div>
 
-      {/* Helpful hint text */}
-      {isFocused && !message && (
-        <p className="text-xs text-gray-400 mt-2 px-2 animate-fade-in">
-          💬 Take your time. This is a safe space to share your thoughts.
-        </p>
-      )}
     </form>
   );
 }

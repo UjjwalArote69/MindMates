@@ -9,7 +9,7 @@ import ErrorBanner from "./components/ErrorBanner";
 import MindMatesRobot from "../../assets/Images/Chat/MindMates AI Robot.svg";
 
 interface Message {
-  id: string;
+  _id?: string;
   role: "user" | "assistant";
   content: string;
   timestamp: string | Date;
@@ -36,6 +36,7 @@ export default function ChatView() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const hasLoadedHistory = useRef(false);
+  const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const scrollToBottom = useCallback(() => {
     if (isUserAtBottom && messagesEndRef.current) {
@@ -97,6 +98,7 @@ export default function ChatView() {
       console.log("📡 Disconnected from chat server");
       setIsConnected(false);
       setError("Connection lost, reconnecting...");
+      hasLoadedHistory.current = false;
     };
 
     const onChatHistory = (...args: unknown[]) => {
@@ -115,12 +117,14 @@ export default function ChatView() {
       if (!data) return;
 
       console.log("📨 Message received:", data);
+      setError(null);
 
       setChat((prev) => {
         // If this is a new chat, update the chatId
         if (!prev && data.chatId) {
-          // Navigate to the new chat URL
-          navigate(`/chat/${data.chatId}`, { replace: true });
+          // Schedule navigation outside of the state updater to avoid
+          // updating BrowserRouter while rendering ChatView
+          setTimeout(() => navigate(`/chat/${data.chatId}`, { replace: true }), 0);
           return {
             _id: data.chatId,
             title: data.message.content.substring(0, 50),
@@ -144,6 +148,14 @@ export default function ChatView() {
       setIsTyping(true);
       setStreamingMessage("");
       setError(null);
+
+      // Auto-clear typing state after 30s if ai-complete never arrives
+      if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+      typingTimeoutRef.current = setTimeout(() => {
+        setIsTyping(false);
+        setStreamingMessage("");
+        setError("Response timed out. Please try again.");
+      }, 30000);
     };
 
     const onAIChunk = (...args: unknown[]) => {
@@ -156,6 +168,7 @@ export default function ChatView() {
     const onAIComplete = (...args: unknown[]) => {
     const data = args[0] as { chatId: string; message: Message } | undefined;
     console.log("✅ AI response complete");
+    if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
     setIsTyping(false);
     setStreamingMessage("");
 
@@ -169,14 +182,28 @@ export default function ChatView() {
   };
 
     const onError = (...args: unknown[]) => {
-    const data = args[0] as { message: string } | undefined;
+    const data = args[0] as { message: string; type?: string; retryAfter?: string } | undefined;
     if (data) {
       console.error("❌ Chat error:", data.message);
-      setError(data.message);
+      if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+
+      if (data.type === "rate_limit" && data.retryAfter) {
+        setError(`Rate limited — please wait ${data.retryAfter} and try again.`);
+      } else {
+        setError(data.message);
+      }
+
       setIsTyping(false);
       setStreamingMessage("");
     }
   };
+
+    const onChatDeleted = (...args: unknown[]) => {
+      const data = args[0] as { chatId: string } | undefined;
+      if (data?.chatId === chatId || data?.chatId === chat?._id) {
+        navigate("/chat", { replace: true });
+      }
+    };
 
     // Attach all listeners
     socketService.on("connect", onConnect);
@@ -187,6 +214,7 @@ export default function ChatView() {
     socketService.on("chat:ai-chunk", onAIChunk);
     socketService.on("chat:ai-complete", onAIComplete);
     socketService.on("chat:error", onError);
+    socketService.on("chat:deleted", onChatDeleted);
 
     // If socket is already connected, trigger onConnect
     if (socketService.isConnected()) {
@@ -203,6 +231,7 @@ export default function ChatView() {
       socketService.off("chat:ai-chunk", onAIChunk);
       socketService.off("chat:ai-complete", onAIComplete);
       socketService.off("chat:error", onError);
+      socketService.off("chat:deleted", onChatDeleted);
     };
   }, [chatId, navigate]);
 
@@ -240,13 +269,24 @@ export default function ChatView() {
 
       console.log("📤 Sending message:", message);
 
-      socketService.emit("chat:send-message", {
+      const sent = socketService.emit("chat:send-message", {
         chatId: chatId === "new" || !chatId ? undefined : chatId,
         message: message.trim(),
       });
+
+      if (!sent) {
+        setError("Message failed to send. Check your connection.");
+      }
     },
     [chatId, isConnected, isTyping]
   );
+
+  const handleDeleteChat = useCallback(() => {
+    const id = chat?._id || (chatId !== "new" ? chatId : undefined);
+    if (id && confirm("Delete this conversation?")) {
+      socketService.emit("chat:delete", { chatId: id });
+    }
+  }, [chat?._id, chatId]);
 
   if (isLoading && chatId !== "new") {
     return (
@@ -266,6 +306,8 @@ export default function ChatView() {
         title={chat?.title || "New Conversation"}
         onBack={() => navigate("/chat")}
         isConnected={isConnected}
+        onDeleteChat={handleDeleteChat}
+        isNewChat={chatId === "new" || !chat}
       />
 
       {/* Error Banner */}
@@ -274,10 +316,11 @@ export default function ChatView() {
       )}
 
       {/* Messages Container */}
+      <div className="relative flex-1 overflow-hidden">
       <div
         ref={messagesContainerRef}
         onScroll={handleScroll}
-        className="flex-1 overflow-y-auto px-4 py-6 space-y-4"
+        className="h-full overflow-y-auto px-4 py-6 space-y-4"
       >
         {/* Enhanced Empty State */}
         {!chat?.messages.length && !isTyping ? (
@@ -304,45 +347,28 @@ export default function ChatView() {
 
             {/* Quick action buttons */}
             <div className="grid grid-cols-2 gap-3 w-full max-w-sm mb-6">
-              <button
-                onClick={() => sendMessage("I'm feeling anxious today")}
-                className="flex flex-col items-center gap-2 p-4 bg-blue-50 hover:bg-blue-100 rounded-2xl transition-all hover:shadow-md active:scale-95"
-              >
-                <span className="text-2xl">😟</span>
-                <span className="text-xs text-gray-700 font-medium">
-                  Feeling Anxious
-                </span>
-              </button>
-
-              <button
-                onClick={() => sendMessage("I need stress relief tips")}
-                className="flex flex-col items-center gap-2 p-4 bg-green-50 hover:bg-green-100 rounded-2xl transition-all hover:shadow-md active:scale-95"
-              >
-                <span className="text-2xl">🧘</span>
-                <span className="text-xs text-gray-700 font-medium">
-                  Stress Relief
-                </span>
-              </button>
-
-              <button
-                onClick={() => sendMessage("I want to talk about my day")}
-                className="flex flex-col items-center gap-2 p-4 bg-purple-50 hover:bg-purple-100 rounded-2xl transition-all hover:shadow-md active:scale-95"
-              >
-                <span className="text-2xl">💭</span>
-                <span className="text-xs text-gray-700 font-medium">
-                  Talk It Out
-                </span>
-              </button>
-
-              <button
-                onClick={() => sendMessage("Give me motivation")}
-                className="flex flex-col items-center gap-2 p-4 bg-orange-50 hover:bg-orange-100 rounded-2xl transition-all hover:shadow-md active:scale-95"
-              >
-                <span className="text-2xl">✨</span>
-                <span className="text-xs text-gray-700 font-medium">
-                  Need Motivation
-                </span>
-              </button>
+              {[
+                { emoji: "😟", label: "Feeling Anxious", msg: "I'm feeling anxious today", bg: "bg-blue-50 hover:bg-blue-100" },
+                { emoji: "🧘", label: "Stress Relief", msg: "I need stress relief tips", bg: "bg-green-50 hover:bg-green-100" },
+                { emoji: "💭", label: "Talk It Out", msg: "I want to talk about my day", bg: "bg-purple-50 hover:bg-purple-100" },
+                { emoji: "✨", label: "Need Motivation", msg: "Give me motivation", bg: "bg-orange-50 hover:bg-orange-100" },
+              ].map((item) => (
+                <button
+                  key={item.label}
+                  onClick={() => sendMessage(item.msg)}
+                  disabled={!isConnected || isTyping}
+                  className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all active:scale-95 ${
+                    !isConnected || isTyping
+                      ? "bg-gray-100 opacity-50 cursor-not-allowed"
+                      : `${item.bg} hover:shadow-md`
+                  }`}
+                >
+                  <span className="text-2xl">{item.emoji}</span>
+                  <span className="text-xs text-gray-700 font-medium">
+                    {item.label}
+                  </span>
+                </button>
+              ))}
             </div>
 
             {/* Gentle reminder */}
@@ -367,7 +393,7 @@ export default function ChatView() {
               };
               return (
                 <MessageBubble
-                  key={msg.id || i}
+                  key={msg._id || `msg-${i}`}
                   message={message}
                   showTimestamp={true}
                 />
@@ -377,10 +403,13 @@ export default function ChatView() {
             {/* Streaming message */}
             {isTyping && streamingMessage && (
               <div className="flex items-start gap-3 animate-fade-in">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white text-sm flex-shrink-0 shadow-md">
-                  AI
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#5BA3D0] to-[#4A90C6] flex items-center justify-center text-white text-xs font-semibold flex-shrink-0 shadow-md">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
+                    <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
+                  </svg>
                 </div>
-                <div className="flex-1 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[75%] shadow-sm border border-gray-200">
+                <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[75%] shadow-sm border border-gray-200">
                   <p className="text-sm text-gray-800 whitespace-pre-wrap break-words">
                     {streamingMessage}
                     <span className="inline-block w-1 h-4 bg-blue-500 ml-1 animate-pulse">
@@ -405,7 +434,7 @@ export default function ChatView() {
             setIsUserAtBottom(true);
             scrollToBottom();
           }}
-          className="absolute bottom-24 right-6 bg-white border border-gray-300 rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-105 z-10"
+          className="absolute bottom-4 right-4 bg-white border border-gray-300 rounded-full p-3 shadow-lg hover:shadow-xl transition-all hover:scale-105 z-10"
           aria-label="Scroll to bottom"
         >
           <svg
@@ -423,6 +452,7 @@ export default function ChatView() {
           </svg>
         </button>
       )}
+      </div>
 
       {/* Input Area */}
       <ChatInput

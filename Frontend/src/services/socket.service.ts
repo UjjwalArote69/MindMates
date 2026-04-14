@@ -103,12 +103,14 @@ class SocketService {
     this.connectionPromise = null;
   }
 
-  emit<T = unknown>(event: string, data: T): void {
+  emit<T = unknown>(event: string, data: T): boolean {
   if (this.socket?.connected) {
     console.log('📤 Emitting:', event);
     this.socket.emit(event, data);
+    return true;
   } else {
     console.error('❌ Socket not connected, cannot emit:', event);
+    return false;
   }
 }
 

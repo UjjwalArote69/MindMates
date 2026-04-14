@@ -4,7 +4,7 @@ interface Message {
   role: "user" | "assistant";
   content: string;
   timestamp: Date;
-  id?: string;
+  _id?: string;
 }
 
 interface Props {
@@ -13,14 +13,15 @@ interface Props {
   showTimestamp?: boolean;
 }
 
-export default function MessageBubble({ 
-  message, 
-  isStreaming = false, 
-  showTimestamp = true 
+export default function MessageBubble({
+  message,
+  isStreaming = false,
+  showTimestamp = true
 }: Props) {
   const isUser = message.role === "user";
   const bubbleRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
+  const [showActions, setShowActions] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (bubbleRef.current) {
@@ -28,12 +29,19 @@ export default function MessageBubble({
     }
   }, []);
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(message.content);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <div
       ref={bubbleRef}
       className={`flex items-start gap-3 ${isUser ? "flex-row-reverse" : ""} group`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => setShowActions(true)}
+      onMouseLeave={() => setShowActions(false)}
+      onClick={() => !isUser && setShowActions((prev) => !prev)}
     >
       {/* Enhanced Avatar with glow effect */}
       <div
@@ -77,10 +85,10 @@ export default function MessageBubble({
           )}
         </div>
 
-        {/* Timestamp with fade-in on hover */}
+        {/* Timestamp and actions */}
         {showTimestamp && (
           <div className={`flex items-center gap-2 mt-1 px-2 transition-opacity duration-200 ${
-            isHovered ? "opacity-100" : "opacity-60"
+            showActions ? "opacity-100" : "opacity-60"
           }`}>
             <span className="text-xs text-gray-400">
               {new Date(message.timestamp).toLocaleTimeString([], {
@@ -88,20 +96,27 @@ export default function MessageBubble({
                 minute: "2-digit",
               })}
             </span>
-            
-            {/* Message actions on hover */}
-            {isHovered && !isUser && (
-              <div className="flex gap-1">
-                <button 
-                  className="p-1 rounded hover:bg-gray-100 transition-colors"
-                  aria-label="Copy message"
-                  onClick={() => navigator.clipboard.writeText(message.content)}
-                >
-                  <svg className="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+            {/* Copy button — visible on hover (desktop) or tap (mobile) */}
+            {showActions && !isUser && (
+              <button
+                className="p-1.5 rounded-md hover:bg-gray-100 transition-colors"
+                aria-label="Copy message"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleCopy();
+                }}
+              >
+                {copied ? (
+                  <svg className="w-3.5 h-3.5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                ) : (
+                  <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                   </svg>
-                </button>
-              </div>
+                )}
+              </button>
             )}
           </div>
         )}

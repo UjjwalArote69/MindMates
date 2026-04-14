@@ -22,6 +22,7 @@ export default function ChatHome() {
   const [error, setError] = useState<
     string | null
   >(null);
+  const [deletingChatId, setDeletingChatId] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,6 +64,22 @@ export default function ChatHome() {
             }
           };
 
+          const handleDeleted = (
+            ...args: unknown[]
+          ) => {
+            const data = args[0] as
+              | { chatId: string }
+              | undefined;
+            if (mounted && data?.chatId) {
+              setChats((prev) =>
+                prev.filter(
+                  (c) => c._id !== data.chatId
+                )
+              );
+              setDeletingChatId(null);
+            }
+          };
+
           socketService.on(
             "chat:all-chats",
             handleAllChats
@@ -70,6 +87,10 @@ export default function ChatHome() {
           socketService.on(
             "chat:error",
             handleError
+          );
+          socketService.on(
+            "chat:deleted",
+            handleDeleted
           );
 
           socketService.emit(
@@ -86,6 +107,10 @@ export default function ChatHome() {
               "chat:error",
               handleError
             );
+            socketService.off(
+              "chat:deleted",
+              handleDeleted
+            );
           };
         } catch (error) {
           console.error(
@@ -101,10 +126,14 @@ export default function ChatHome() {
         }
       };
 
-    initializeAndLoadChats();
+    let cleanup: (() => void) | undefined;
+    initializeAndLoadChats().then(
+      (fn) => { cleanup = fn; }
+    );
 
     return () => {
       mounted = false;
+      cleanup?.();
     };
   }, []);
 
@@ -186,7 +215,9 @@ export default function ChatHome() {
                     );
                   return (
                     chatDate.getMonth() ===
-                    today.getMonth()
+                      today.getMonth() &&
+                    chatDate.getFullYear() ===
+                      today.getFullYear()
                   );
                 }).length
               }{" "}
@@ -197,42 +228,64 @@ export default function ChatHome() {
       </div>
 
       {/* CHAT LIST */}
-      <div className="px-4 py-4 space-y-3">
+      <div className="px-4 py-4 pb-24 space-y-3">
         {chats.length > 0 ? (
           chats.map((chat) => (
             <div
               key={chat._id}
-              onClick={() =>
-                navigate(
-                  `/chat/${chat._id}`
-                )
-              }
-              className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-all cursor-pointer border border-gray-100 hover:border-[#4A7C59]/30 active:scale-[0.98]"
+              className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-all border border-gray-100 hover:border-[#4A7C59]/30"
             >
               <div className="flex items-start gap-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-300 to-teal-400 flex-shrink-0 shadow-sm" />
+                <div
+                  className="flex items-start gap-3 flex-1 min-w-0 cursor-pointer active:scale-[0.98] transition-transform"
+                  onClick={() =>
+                    navigate(
+                      `/chat/${chat._id}`
+                    )
+                  }
+                >
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-300 to-teal-400 flex-shrink-0 shadow-sm" />
 
-                <div className="flex-1 min-w-0">
-                  <h4 className="font-semibold text-gray-800 truncate mb-1">
-                    {chat.title}
-                  </h4>
-                  <p className="text-xs text-gray-400 flex items-center gap-1">
-                    <span>🕒</span>
-                    {new Date(
-                      chat.updatedAt
-                    ).toLocaleString()}
-                  </p>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-semibold text-gray-800 truncate mb-1">
+                      {chat.title}
+                    </h4>
+                    <p className="text-xs text-gray-400 flex items-center gap-1">
+                      <span>🕒</span>
+                      {new Date(
+                        chat.updatedAt
+                      ).toLocaleString()}
+                    </p>
+                  </div>
                 </div>
 
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    // Handle delete/menu
-                  }}
-                  className="text-gray-400 hover:text-gray-600 text-lg p-1 hover:bg-gray-100 rounded-full transition-all"
-                >
-                  ⋮
-                </button>
+                {deletingChatId === chat._id ? (
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() =>
+                        socketService.emit("chat:delete", { chatId: chat._id })
+                      }
+                      className="text-sm px-4 py-2 min-h-[44px] bg-red-500 text-white rounded-xl hover:bg-red-600 transition-colors font-medium"
+                    >
+                      Delete
+                    </button>
+                    <button
+                      onClick={() => setDeletingChatId(null)}
+                      className="text-sm px-4 py-2 min-h-[44px] bg-gray-200 text-gray-600 rounded-xl hover:bg-gray-300 transition-colors font-medium"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setDeletingChatId(chat._id)}
+                    className="text-gray-400 hover:text-red-500 p-2 hover:bg-gray-100 rounded-full transition-all"
+                  >
+                    <svg className="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  </button>
+                )}
               </div>
             </div>
           ))

@@ -15,6 +15,12 @@ export const setupChatHandlers = (
     (socket: Socket) => {
       const userId = socket.data.userId;
 
+      if (!userId) {
+        socket.emit("chat:error", { message: "Authentication required" });
+        socket.disconnect(true);
+        return;
+      }
+
       socket.on(
         "chat:send-message",
         async (data: {
@@ -41,9 +47,10 @@ export const setupChatHandlers = (
             );
 
             let chat = chatId
-              ? await Chat.findById(
-                chatId
-              )
+              ? await Chat.findOne({
+                _id: chatId,
+                userId,
+              })
               : null;
             let isNewChat = false;
 
@@ -70,15 +77,12 @@ export const setupChatHandlers = (
             });
             await chat.save();
 
+            const userMessage = chat.messages[chat.messages.length - 1];
             socket.emit(
               "chat:message-received",
               {
                 chatId: chat._id,
-                message: {
-                  role: "user",
-                  content: message,
-                  timestamp: new Date(),
-                },
+                message: userMessage,
               }
             );
 
@@ -95,7 +99,7 @@ export const setupChatHandlers = (
               Date.now();
             let aiResponse = "";
 
-            await aiService.generateStreamResponse(
+            await aiService.generateWithRetry(
               message,
               chat.messages
                 .slice(-10)
@@ -127,15 +131,12 @@ export const setupChatHandlers = (
             });
             await chat.save();
 
+            const aiMessage = chat.messages[chat.messages.length - 1];
             socket.emit(
               "chat:ai-complete",
               {
                 chatId: chat._id,
-                message: {
-                  role: "assistant",
-                  content: aiResponse,
-                  timestamp: new Date(),
-                },
+                message: aiMessage,
               }
             );
 
@@ -150,14 +151,26 @@ export const setupChatHandlers = (
               },
               duration
             );
-          } catch (error) {
-            logger.error(
-              "Chat message processing failed",
-              { error, userId }
-            );
+          } catch (error: any) {
+            logger.error("Chat message processing failed", { error, userId });
+
+            if (error.message && error.message.startsWith("RATE_LIMIT")) {
+              const retryAfter = error.message.split(":")[1] || "30s";
+              socket.emit("chat:error", {
+                message: `Too many requests. Please wait ${retryAfter} before trying again.`,
+                type: "rate_limit",
+                retryAfter,
+              });
+              return;
+            }
+            if (error.message === "AI_ERROR") {
+              socket.emit("chat:error", {
+                message: "I'm experiencing technical difficulties. Please try again soon.",
+              });
+              return;
+            }
             socket.emit("chat:error", {
-              message:
-                "Failed to process message",
+              message: "Failed to process message",
             });
           }
         }
@@ -212,6 +225,35 @@ export const setupChatHandlers = (
             socket.emit("chat:error", {
               message:
                 "Failed to load chat history",
+            });
+          }
+        }
+      );
+
+      socket.on(
+        "chat:delete",
+        async (data: { chatId: string }) => {
+          try {
+            const result = await Chat.findOneAndDelete({
+              _id: data.chatId,
+              userId,
+            });
+
+            if (!result) {
+              socket.emit("chat:error", {
+                message: "Chat not found",
+              });
+              return;
+            }
+
+            socket.emit("chat:deleted", {
+              chatId: data.chatId,
+            });
+            logger.success(`Chat deleted: ${data.chatId}`);
+          } catch (error) {
+            logger.error("Delete chat error", { error, userId });
+            socket.emit("chat:error", {
+              message: "Failed to delete chat",
             });
           }
         }

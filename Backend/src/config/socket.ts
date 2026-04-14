@@ -26,26 +26,22 @@ export const initializeSocket = (server: HTTPServer) => {
     const token = socket.handshake.auth.token;
 
     if (!token) {
-      logger.warn("Socket connection attempt without token", { 
-        socketId: socket.id 
+      logger.warn("Socket connection attempt without token", {
+        socketId: socket.id
       });
-      socket.data.userId = null;
-      socket.data.authenticated = false;
-      return next();
+      return next(new Error("Authentication required"));
     }
 
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
       socket.data.userId = decoded.id;
       socket.data.authenticated = true;
-      
+
       logger.auth("Socket authenticated", decoded.id);
       next();
     } catch (error) {
       logger.error("Socket authentication failed", { socketId: socket.id, error });
-      socket.data.userId = null;
-      socket.data.authenticated = false;
-      next();
+      next(new Error("Invalid or expired token"));
     }
   });
 

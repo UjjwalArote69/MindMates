@@ -19,9 +19,9 @@ export class AIService {
   - Be warm, understanding, and non-judgmental
   - Keep responses concise and actionable`;
 
-  async generateResponse(userMessage: string, conversationHistory: ChatMessage[] = [] ): Promise<string> {
+  async generateResponse(userMessage: string, conversationHistory: ChatMessage[] = []): Promise<string> {
     try {
-      const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+      const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' });
 
       // Build conversation context
       const context = conversationHistory
@@ -45,11 +45,10 @@ export class AIService {
     userMessage: string,
     conversationHistory: ChatMessage[] = [],
     onChunk: (chunk: string) => void
-  ): Promise<void> {
+  ): Promise<string> {
     try {
-      const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+      const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' });
 
-      // Build conversation context
       const context = conversationHistory
         .map(msg => `${msg.role}: ${msg.content}`)
         .join('\n');
@@ -58,18 +57,52 @@ export class AIService {
 
       const result = await model.generateContentStream(prompt);
 
-      // Stream the response
+      let fullResponse = '';
       for await (const chunk of result.stream) {
         const chunkText = chunk.text();
         if (chunkText) {
+          fullResponse += chunkText;
           onChunk(chunkText);
         }
       }
-    } catch (error) {
+      return fullResponse;
+    } catch (error: any) {
       logger.error('Gemini streaming error', { error });
-      onChunk("I apologize, but I'm experiencing technical difficulties.");
+      // Properly detect and propagate rate limit/AI errors!
+      if (error?.status === 429 || error?.errorDetails) {
+        const retryInfo = error?.errorDetails?.find(
+          (detail: any) => detail["@type"] === "type.googleapis.com/google.rpc.RetryInfo"
+        );
+        const retryDelay = retryInfo?.retryDelay || "30s";
+        throw new Error(`RATE_LIMIT:${retryDelay}`);
+      }
+      throw new Error("AI_ERROR");
     }
   }
+
+  async generateWithRetry(
+    userMessage: string,
+    conversationHistory: ChatMessage[] = [],
+    onChunk: (chunk: string) => void,
+    maxRetries = 3
+  ): Promise<string> {
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+      try {
+        return await this.generateStreamResponse(userMessage, conversationHistory, onChunk);
+      } catch (error: any) {
+        if (error.message?.startsWith('RATE_LIMIT') && attempt < maxRetries - 1) {
+          const waitTime = Math.pow(2, attempt) * 1000; // 1s, 2s, 4s
+          logger.warn(`Rate limit hit, waiting ${waitTime}ms before retry ${attempt + 1}/${maxRetries}`);
+          await new Promise(resolve => setTimeout(resolve, waitTime));
+        } else {
+          throw error; // Re-throw if not rate limit or last attempt
+        }
+      }
+    }
+    throw new Error('Max retries exceeded');
+  }
+
+
 }
 
 export const aiService = new AIService();
